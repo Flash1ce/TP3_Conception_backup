@@ -14,11 +14,11 @@ namespace MonCineTests
         {
             List<Realisateur> realisateurs = new List<Realisateur>()
                 {
-                    new(new ObjectId(), "James Cameron"),
-                    new(new ObjectId(), "Steven Spielberg"),
-                    new(new ObjectId(), "Tim Burton"),
-                    new(new ObjectId(), "Gary Ross"),
-                    new(new ObjectId(), "Michael Bay")
+                    new Realisateur(new ObjectId(), "James Cameron"),
+                    new Realisateur(new ObjectId(), "Steven Spielberg"),
+                    new Realisateur(new ObjectId(), "Tim Burton"),
+                    new Realisateur(new ObjectId(), "Gary Ross"),
+                    new Realisateur(new ObjectId(), "Michael Bay")
                 };
             List<ObjectId> realisateursId = new List<ObjectId>();
             realisateurs

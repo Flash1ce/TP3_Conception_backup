@@ -14,9 +14,9 @@ namespace MonCineTests
         {
             List<Administrateur> administrateurs = new List<Administrateur>
             {
-                    new(new ObjectId(), "Zendaya","Zendaya@hotmail.com","Uganda123"),
-                    new(new ObjectId(), "Keanu Reeves","Keanu@hotmail.com", "YESSERMILLER1"),
-                    new(new ObjectId(), "Ahmed Toumi", "Ahmed@hotmail.com", "Hallah"),
+                    new Administrateur(new ObjectId(), "Zendaya","Zendaya@hotmail.com","Uganda123"),
+                    new Administrateur(new ObjectId(), "Keanu Reeves","Keanu@hotmail.com", "YESSERMILLER1"),
+                    new Administrateur(new ObjectId(), "Ahmed Toumi", "Ahmed@hotmail.com", "Hallah"),
             };
 
             List<ObjectId> administrateursId = new List<ObjectId>();

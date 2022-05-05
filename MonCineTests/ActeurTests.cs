@@ -14,15 +14,15 @@ namespace MonCineTests
         {
             List<Acteur> acteurs = new List<Acteur>
             {
-                    new(new ObjectId(), "Zendaya"),
-                    new(new ObjectId(), "Keanu Reeves"),
-                    new(new ObjectId(), "Ahmed Toumi"),
-                    new(new ObjectId(), "Marvin Laeib"),
-                    new(new ObjectId(), "Le Grand Gwenaël"),
-                    new(new ObjectId(), "Antoine Le Merveilleux"),
-                    new(new ObjectId(), "Timoté"),
-                    new(new ObjectId(), "Ptite petate"),
-                    new(new ObjectId(), "Mélina Chaud")
+                    new Acteur(new ObjectId(), "Zendaya"),
+                    new Acteur(new ObjectId(), "Keanu Reeves"),
+                    new Acteur(new ObjectId(), "Ahmed Toumi"),
+                    new Acteur(new ObjectId(), "Marvin Laeib"),
+                    new Acteur(new ObjectId(), "Le Grand Gwenaël"),
+                    new Acteur(new ObjectId(), "Antoine Le Merveilleux"),
+                    new Acteur(new ObjectId(), "Timoté"),
+                    new Acteur(new ObjectId(), "Ptite petate"),
+                    new Acteur(new ObjectId(), "Mélina Chaud")
             };
 
             List<ObjectId> acteursId = new List<ObjectId>();

@@ -15,33 +15,33 @@ namespace MonCineTests
 
             List<Categorie> categories = new List<Categorie>
                 {
-                    new(new ObjectId(), "Horreur"),
-                    new(new ObjectId(), "Fantastique"),
-                    new(new ObjectId(), "Comédie"),
-                    new(new ObjectId(), "Action"),
-                    new(new ObjectId(), "Romance")
+                    new Categorie(new ObjectId(), "Horreur"),
+                    new Categorie(new ObjectId(), "Fantastique"),
+                    new Categorie(new ObjectId(), "Comédie"),
+                    new Categorie(new ObjectId(), "Action"),
+                    new Categorie(new ObjectId(), "Romance")
                 };
 
             List<Acteur> acteurs = new List<Acteur>
                 {
-                    new(new ObjectId(), "Zendaya"),
-                    new(new ObjectId(), "Keanu Reeves"),
-                    new(new ObjectId(), "Ahmed Toumi"),
-                    new(new ObjectId(), "Marvin Laeib"),
-                    new(new ObjectId(), "Le Grand Gwenaël"),
-                    new(new ObjectId(), "Antoine Le Merveilleux"),
-                    new(new ObjectId(), "Timoté"),
-                    new(new ObjectId(), "Ptite petate"),
-                    new(new ObjectId(), "Mélina Chaud")
+                    new Acteur(new ObjectId(), "Zendaya"),
+                    new Acteur(new ObjectId(), "Keanu Reeves"),
+                    new Acteur(new ObjectId(), "Ahmed Toumi"),
+                    new Acteur(new ObjectId(), "Marvin Laeib"),
+                    new Acteur(new ObjectId(), "Le Grand Gwenaël"),
+                    new Acteur(new ObjectId(), "Antoine Le Merveilleux"),
+                    new Acteur(new ObjectId(), "Timoté"),
+                    new Acteur(new ObjectId(), "Ptite petate"),
+                    new Acteur(new ObjectId(), "Mélina Chaud")
                 };
 
             List<Realisateur> realisateurs = new List<Realisateur>()
                 {
-                    new(new ObjectId(), "James Cameron"),
-                    new(new ObjectId(), "Steven Spielberg"),
-                    new(new ObjectId(), "Tim Burton"),
-                    new(new ObjectId(), "Gary Ross"),
-                    new(new ObjectId(), "Michael Bay")
+                    new Realisateur(new ObjectId(), "James Cameron"),
+                    new Realisateur(new ObjectId(), "Steven Spielberg"),
+                    new Realisateur(new ObjectId(), "Tim Burton"),
+                    new Realisateur(new ObjectId(), "Gary Ross"),
+                    new Realisateur(new ObjectId(), "Michael Bay")
                 };
 
             List<ObjectId> categoriesId = new List<ObjectId>();

@@ -39,7 +39,8 @@ namespace MonCine.Data.Classes.BD
         /// <typeparam name="TDocument">Type du document</typeparam>
         /// <returns>La liste de tous les documents contenus dans la collection pour le type du document spécifié.</returns>
         public static List<TDocument> ObtenirCollectionListe<TDocument>(IMongoDatabase pBd) =>
-            MongoDbContext.ObtenirCollection<TDocument>(pBd).Aggregate().ToList();
+            MongoDbContext.ObtenirCollection<TDocument>(pBd)
+                .FindSync<TDocument>(Builders<TDocument>.Filter.Empty).ToList();
 
         /// <summary>
         /// Permet d'obtenir une liste de documents provenant de la base de données de la
@@ -51,12 +52,14 @@ namespace MonCine.Data.Classes.BD
         /// <param name="pObjects">Liste des objets à filtrer</param>
         /// <returns>La liste de tous les documents contenue dans la collection pour le type du document spécifié.</returns>
         /// <exception cref="ExceptionBD">Lancée lorsqu'une erreur liée à la base de données de la cinémathèque se produit.</exception>
-        public static List<TDocument> ObtenirDocumentsFiltres<TDocument, TField>(IMongoDatabase pBd, Expression<Func<TDocument, TField>> pField,
+        public static List<TDocument> ObtenirDocumentsFiltres<TDocument, TField>(IMongoDatabase pBd,
+            Expression<Func<TDocument, TField>> pField,
             List<TField> pObjects)
         {
             try
             {
-                return MongoDbContext.ObtenirCollection<TDocument>(pBd).Find(Builders<TDocument>.Filter.In(pField, pObjects)).ToList();
+                return MongoDbContext.ObtenirCollection<TDocument>(pBd)
+                    .Find(Builders<TDocument>.Filter.In(pField, pObjects)).ToList();
             }
             catch (Exception e)
             {
@@ -126,7 +129,8 @@ namespace MonCine.Data.Classes.BD
                         : majDefinition.Set(field, value);
                 }
 
-                return MongoDbContext.ObtenirCollection<TDocument>(pBd).UpdateOne(pFiltre, majDefinition).IsAcknowledged;
+                return MongoDbContext.ObtenirCollection<TDocument>(pBd).UpdateOne(pFiltre, majDefinition)
+                    .IsAcknowledged;
             }
             catch (Exception e)
             {

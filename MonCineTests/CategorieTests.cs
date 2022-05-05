@@ -14,11 +14,11 @@ namespace MonCineTests
         {
             List<Categorie> categories = new List<Categorie>
                 {
-                    new(new ObjectId(), "Horreur"),
-                    new(new ObjectId(), "Fantastique"),
-                    new(new ObjectId(), "Comédie"),
-                    new(new ObjectId(), "Action"),
-                    new(new ObjectId(), "Romance")
+                    new Categorie(new ObjectId(), "Horreur"),
+                    new Categorie(new ObjectId(), "Fantastique"),
+                    new Categorie(new ObjectId(), "Comédie"),
+                    new Categorie(new ObjectId(), "Action"),
+                    new Categorie(new ObjectId(), "Romance")
                 };
 
             List<ObjectId> categoriesId = new List<ObjectId>();
