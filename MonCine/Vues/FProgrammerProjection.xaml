@@ -1,0 +1,41 @@
+﻿<Page x:Class="MonCine.Vues.FProgrammerProjection"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MonCine.Vues"
+        mc:Ignorable="d"
+        Title="GererFilm" Height="450" Width="800">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Left" Margin="20,10,0,0" TextWrapping="Wrap" Text="Programmer une projection" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="36" Grid.Row="0"/>
+        <Grid Grid.Row="1" Margin="20, 0" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="5*" />
+            </Grid.RowDefinitions>
+            <Label x:Name="LblDateDebut" Content="Date de début :" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0"/>
+            <DatePicker x:Name="DpDateDebut" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="LblDateFin" Content="Date de fin :" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1"/>
+            <DatePicker x:Name="DpDateFin" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1"/>
+            <Label x:Name="LblSalle" Content="Salle :" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Grid.Column="2"/>
+            <ComboBox x:Name="CboSalles" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Grid.Row="1" Grid.Column="2"/>
+        </Grid>
+
+        <Button x:Name="BtnAnnuler" Content="Annuler" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,160,0" VerticalAlignment="Top" Background="#FF7CB8FF" Width="125" Height="25" Click="BtnAnnuler_Click"/>
+        <Button x:Name="BtnAjouter" Content="Ajouter projection" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Top" Background="#FF7CB8FF" Width="125" Height="25" Click="BtnAjouter_OnClick"/>
+
+    </Grid>
+</Page>

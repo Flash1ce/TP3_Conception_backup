@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonCine", "MonCine\MonCine.csproj", "{CD87F92F-165D-4177-A761-FDF337F1BE15}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonCineTests", "MonCineTests\MonCineTests.csproj", "{E868BE3D-E9C1-4BFE-99DF-430DD136395C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CEDF41AC-9009-4C86-87FB-6110C6B8AE7D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD87F92F-165D-4177-A761-FDF337F1BE15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD87F92F-165D-4177-A761-FDF337F1BE15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD87F92F-165D-4177-A761-FDF337F1BE15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD87F92F-165D-4177-A761-FDF337F1BE15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E868BE3D-E9C1-4BFE-99DF-430DD136395C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E868BE3D-E9C1-4BFE-99DF-430DD136395C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E868BE3D-E9C1-4BFE-99DF-430DD136395C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E868BE3D-E9C1-4BFE-99DF-430DD136395C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A4A7000B-AE88-41FA-ACE4-27B1C16A73D4}
+	EndGlobalSection
+EndGlobal

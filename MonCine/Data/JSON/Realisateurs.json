@@ -1,0 +1,26 @@
+[{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a8439"
+  },
+  "Nom": "James Cameron"
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a843a"
+  },
+  "Nom": "Steven Spielberg"
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a843b"
+  },
+  "Nom": "Tim Burton"
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a843c"
+  },
+  "Nom": "Gary Ross"
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a843d"
+  },
+  "Nom": "Michael Bay"
+}]

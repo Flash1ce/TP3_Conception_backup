@@ -1,0 +1,61 @@
+[{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a843e"
+  },
+  "Nom": "Salle 1",
+  "NbPlacesMax": 29
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a843f"
+  },
+  "Nom": "Salle 2",
+  "NbPlacesMax": 34
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a8440"
+  },
+  "Nom": "Salle 3",
+  "NbPlacesMax": 20
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a8441"
+  },
+  "Nom": "Salle 4",
+  "NbPlacesMax": 28
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a8442"
+  },
+  "Nom": "Salle 5",
+  "NbPlacesMax": 20
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a8443"
+  },
+  "Nom": "Salle 6",
+  "NbPlacesMax": 38
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a8444"
+  },
+  "Nom": "Salle 7",
+  "NbPlacesMax": 28
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a8445"
+  },
+  "Nom": "Salle 8",
+  "NbPlacesMax": 38
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a8446"
+  },
+  "Nom": "Salle 9",
+  "NbPlacesMax": 31
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a8447"
+  },
+  "Nom": "Salle 10",
+  "NbPlacesMax": 34
+}]

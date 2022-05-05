@@ -1,0 +1,104 @@
+﻿<Page x:Class="MonCine.Vues.FFilms"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:MonCine.Vues"
+      mc:Ignorable="d"
+      Title="Films" Height="400" Width="800">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3.5*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="2.5*" />
+                <RowDefinition Height="2.5*" />
+                <RowDefinition Height="2.5*" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="TitreFiltre" Text="Filtre" TextWrapping="Wrap" Grid.Row="0" FontFamily="Arial Black" FontSize="22" TextDecorations="{x:Null}" HorizontalAlignment="Center" />
+            <RadioButton x:Name="RbTousLesFilms" Content="Tous les films" Grid.Row="1" Checked="RbTousLesFilm_Checked" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+            <RadioButton x:Name="RbEstAffiche" Content="Films à l'affiche" Grid.Row="2" Checked="RbEstAffiche_Checked" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+            <Button x:Name="BtnRetourAccueil" Content="Retour à l'accueil" Grid.Row="3"
+                    Background="#FF7CB8FF" Width="130" Height="25" Click="BtnRetourAccueil_Click" />
+            <Button x:Name="BtnRetirerDeAffiche" Content="Retirer de l'affiche" Grid.Row="4"
+                    Background="#FF7CB8FF" Width="125" Height="25" Click="BtnRetirerDeAffiche_OnClick" />
+            <Button x:Name="BtnVoirProjection" Content="Voir les projections" Grid.Row="5"
+                    Background="#FF7CB8FF" Width="130" Height="25" Click="BtnVoirProjections_Click" />
+        </Grid>
+        <Grid Grid.Column="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="9*" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="TitrePage" HorizontalAlignment="Left" Text="Gestion des films"
+                       TextWrapping="Wrap" FontFamily="Arial Black" FontSize="28" Grid.Row="0" />
+
+            <ListView SelectionChanged="LstFilms_OnSelectionChanged" x:Name="LstFilms" Grid.Column="1" Grid.Row="1" Cursor="Hand" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border x:Name="border" BorderBrush="Black" BorderThickness="1">
+                            <Grid HorizontalAlignment="Stretch" MinWidth="{Binding ActualWidth, ElementName=LstFilms}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="4*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="2*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom: " FontWeight="Bold"
+                                               TextAlignment="Left" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Nom}" TextAlignment="Left" TextWrapping="Wrap"
+                                               Margin="0,0,10,5" />
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="À l'affiche: " FontWeight="Bold" Margin="0,0,10,5"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding EstAffiche}" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Nb. Projections:"
+                                               FontWeight="Bold" TextAlignment="Left" Margin="0,0,10,5"  />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Projections.Count}" />
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Note moyenne: " FontWeight="Bold"
+                                               TextAlignment="Left" Margin="0,0,10,5" />
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding NoteMoy}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

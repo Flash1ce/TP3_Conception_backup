@@ -1,0 +1,2030 @@
+[{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a8448"
+  },
+  "Nom": "Il faut sauver le soldat Ryan",
+  "DateSortie": {
+    "$date": {
+      "$numberLong": "1650845226595"
+    }
+  },
+  "Projections": [
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1650866826602"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1650877626602"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8443"
+      },
+      "NbPlacesRestantes": 35,
+      "EstActive": true
+    }
+  ],
+  "DatesFinsAffiche": [],
+  "Notes": [
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8450"
+      },
+      "NoteFilm": 5
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8451"
+      },
+      "NoteFilm": 0
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8452"
+      },
+      "NoteFilm": 4
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8453"
+      },
+      "NoteFilm": 0
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8454"
+      },
+      "NoteFilm": 6
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8455"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8456"
+      },
+      "NoteFilm": 0
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8457"
+      },
+      "NoteFilm": 5
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8458"
+      },
+      "NoteFilm": 7
+    }
+  ],
+  "CategorieId": {
+    "$oid": "6265e62ae67d4b94f99a842b"
+  },
+  "ActeursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8430"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8431"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8432"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8433"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8434"
+    }
+  ],
+  "RealisateursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8439"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a8449"
+  },
+  "Nom": "La Chute du faucon noir",
+  "DateSortie": {
+    "$date": {
+      "$numberLong": "1587773226602"
+    }
+  },
+  "Projections": [
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1650856026604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1650892026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8442"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1650920826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1650935226604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8443"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1650996426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651021626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843e"
+      },
+      "NbPlacesRestantes": 29,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651093626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651147626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843f"
+      },
+      "NbPlacesRestantes": 34,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651201626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651248426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843f"
+      },
+      "NbPlacesRestantes": 34,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651277226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651342026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843e"
+      },
+      "NbPlacesRestantes": 29,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651381626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651439226604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8445"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651460826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651532826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8443"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651601226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651651626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8441"
+      },
+      "NbPlacesRestantes": 28,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651655226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651712826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8443"
+      },
+      "NbPlacesRestantes": 31,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651792026604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651856826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8440"
+      },
+      "NbPlacesRestantes": 17,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651910826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651936026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843e"
+      },
+      "NbPlacesRestantes": 29,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651975626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652026026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8443"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1652076426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652116026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8444"
+      },
+      "NbPlacesRestantes": 28,
+      "EstActive": true
+    }
+  ],
+  "DatesFinsAffiche": [],
+  "Notes": [
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8450"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8451"
+      },
+      "NoteFilm": 4
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8452"
+      },
+      "NoteFilm": 9
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8453"
+      },
+      "NoteFilm": 4
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8454"
+      },
+      "NoteFilm": 0
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8455"
+      },
+      "NoteFilm": 2
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8456"
+      },
+      "NoteFilm": 0
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8457"
+      },
+      "NoteFilm": 5
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8458"
+      },
+      "NoteFilm": 7
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8459"
+      },
+      "NoteFilm": 3
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845a"
+      },
+      "NoteFilm": 2
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845b"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845c"
+      },
+      "NoteFilm": 5
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845d"
+      },
+      "NoteFilm": 7
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845e"
+      },
+      "NoteFilm": 6
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845f"
+      },
+      "NoteFilm": 4
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8460"
+      },
+      "NoteFilm": 1
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8461"
+      },
+      "NoteFilm": 2
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8462"
+      },
+      "NoteFilm": 4
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8463"
+      },
+      "NoteFilm": 0
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8464"
+      },
+      "NoteFilm": 6
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8465"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8466"
+      },
+      "NoteFilm": 5
+    }
+  ],
+  "CategorieId": {
+    "$oid": "6265e62ae67d4b94f99a842b"
+  },
+  "ActeursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8430"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8431"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8432"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8433"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8434"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8435"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8436"
+    }
+  ],
+  "RealisateursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8439"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a844a"
+  },
+  "Nom": "Dunkerque",
+  "DateSortie": {
+    "$date": {
+      "$numberLong": "735696426602"
+    }
+  },
+  "Projections": [
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1650917226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1650960426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8444"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1650974826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1650982026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8444"
+      },
+      "NbPlacesRestantes": 28,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651021626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651028826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843f"
+      },
+      "NbPlacesRestantes": 34,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651057626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651126026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8445"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651172826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651248426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8442"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651295226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651316826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8444"
+      },
+      "NbPlacesRestantes": 28,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651367226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651403226604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8446"
+      },
+      "NbPlacesRestantes": 31,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651475226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651540026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843e"
+      },
+      "NbPlacesRestantes": 27,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651565226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651576026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8445"
+      },
+      "NbPlacesRestantes": 29,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651590426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651619226604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8445"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651637226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651655226604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8446"
+      },
+      "NbPlacesRestantes": 31,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651658826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651716426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8441"
+      },
+      "NbPlacesRestantes": 23,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651784826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651806426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8446"
+      },
+      "NbPlacesRestantes": 18,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651885626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651900026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8446"
+      },
+      "NbPlacesRestantes": 31,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651950426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652029626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8445"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1652062026604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652105226604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8442"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    }
+  ],
+  "DatesFinsAffiche": [],
+  "Notes": [
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8450"
+      },
+      "NoteFilm": 2
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8451"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8452"
+      },
+      "NoteFilm": 7
+    }
+  ],
+  "CategorieId": {
+    "$oid": "6265e62ae67d4b94f99a842e"
+  },
+  "ActeursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8430"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8431"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8432"
+    }
+  ],
+  "RealisateursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8439"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a843a"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a843b"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a844b"
+  },
+  "Nom": "1917",
+  "DateSortie": {
+    "$date": {
+      "$numberLong": "830390826602"
+    }
+  },
+  "Projections": [
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1650877626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1650938826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843e"
+      },
+      "NbPlacesRestantes": 1,
+      "EstActive": true
+    }
+  ],
+  "DatesFinsAffiche": [],
+  "Notes": [
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8450"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8451"
+      },
+      "NoteFilm": 3
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8452"
+      },
+      "NoteFilm": 4
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8453"
+      },
+      "NoteFilm": 0
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8454"
+      },
+      "NoteFilm": 1
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8455"
+      },
+      "NoteFilm": 5
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8456"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8457"
+      },
+      "NoteFilm": 0
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8458"
+      },
+      "NoteFilm": 4
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8459"
+      },
+      "NoteFilm": 3
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845a"
+      },
+      "NoteFilm": 7
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845b"
+      },
+      "NoteFilm": 6
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845c"
+      },
+      "NoteFilm": 1
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845d"
+      },
+      "NoteFilm": 9
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845e"
+      },
+      "NoteFilm": 1
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845f"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8460"
+      },
+      "NoteFilm": 0
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8461"
+      },
+      "NoteFilm": 7
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8462"
+      },
+      "NoteFilm": 4
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8463"
+      },
+      "NoteFilm": 7
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8464"
+      },
+      "NoteFilm": 3
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8465"
+      },
+      "NoteFilm": 2
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8466"
+      },
+      "NoteFilm": 6
+    }
+  ],
+  "CategorieId": {
+    "$oid": "6265e62ae67d4b94f99a842c"
+  },
+  "ActeursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8430"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8431"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8432"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8433"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8434"
+    }
+  ],
+  "RealisateursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8439"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a844c"
+  },
+  "Nom": "Fury",
+  "DateSortie": {
+    "$date": {
+      "$numberLong": "1650845226602"
+    }
+  },
+  "Projections": [],
+  "DatesFinsAffiche": [],
+  "Notes": [
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8450"
+      },
+      "NoteFilm": 1
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8451"
+      },
+      "NoteFilm": 7
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8452"
+      },
+      "NoteFilm": 2
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8453"
+      },
+      "NoteFilm": 9
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8454"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8455"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8456"
+      },
+      "NoteFilm": 2
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8457"
+      },
+      "NoteFilm": 2
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8458"
+      },
+      "NoteFilm": 4
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8459"
+      },
+      "NoteFilm": 1
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845a"
+      },
+      "NoteFilm": 7
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845b"
+      },
+      "NoteFilm": 4
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845c"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845d"
+      },
+      "NoteFilm": 2
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845e"
+      },
+      "NoteFilm": 7
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845f"
+      },
+      "NoteFilm": 9
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8460"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8461"
+      },
+      "NoteFilm": 6
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8462"
+      },
+      "NoteFilm": 0
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8463"
+      },
+      "NoteFilm": 7
+    }
+  ],
+  "CategorieId": {
+    "$oid": "6265e62ae67d4b94f99a842b"
+  },
+  "ActeursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8430"
+    }
+  ],
+  "RealisateursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8439"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a843a"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a843b"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a844d"
+  },
+  "Nom": "American Sniper",
+  "DateSortie": {
+    "$date": {
+      "$numberLong": "1240618026602"
+    }
+  },
+  "Projections": [
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1650848826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1650906426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8444"
+      },
+      "NbPlacesRestantes": 28,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1650978426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651057626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8445"
+      },
+      "NbPlacesRestantes": 31,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651082826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651144026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8440"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651154826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651205226604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8446"
+      },
+      "NbPlacesRestantes": 25,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651248426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651266426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843f"
+      },
+      "NbPlacesRestantes": 25,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651324026604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651327626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8445"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651381626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651406826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843e"
+      },
+      "NbPlacesRestantes": 29,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651428426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651496826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843f"
+      },
+      "NbPlacesRestantes": 28,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651572426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651619226604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8440"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651622826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651644426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8442"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651680426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651694826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843e"
+      },
+      "NbPlacesRestantes": 26,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651702026604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651759626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8443"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651770426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651799226604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8446"
+      },
+      "NbPlacesRestantes": 31,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651810026604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651878426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843f"
+      },
+      "NbPlacesRestantes": 32,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651907226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651975626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8440"
+      },
+      "NbPlacesRestantes": 18,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1652011626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652015226604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8441"
+      },
+      "NbPlacesRestantes": 28,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1652094426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652126826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8441"
+      },
+      "NbPlacesRestantes": 27,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1652206026604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652238426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8442"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    }
+  ],
+  "DatesFinsAffiche": [],
+  "Notes": [
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8450"
+      },
+      "NoteFilm": 7
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8451"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8452"
+      },
+      "NoteFilm": 6
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8453"
+      },
+      "NoteFilm": 7
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8454"
+      },
+      "NoteFilm": 6
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8455"
+      },
+      "NoteFilm": 0
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8456"
+      },
+      "NoteFilm": 5
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8457"
+      },
+      "NoteFilm": 3
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8458"
+      },
+      "NoteFilm": 9
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8459"
+      },
+      "NoteFilm": 5
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845a"
+      },
+      "NoteFilm": 5
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845b"
+      },
+      "NoteFilm": 6
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845c"
+      },
+      "NoteFilm": 7
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845d"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a845e"
+      },
+      "NoteFilm": 4
+    }
+  ],
+  "CategorieId": {
+    "$oid": "6265e62ae67d4b94f99a842b"
+  },
+  "ActeursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8430"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8431"
+    }
+  ],
+  "RealisateursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8439"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a843a"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a844e"
+  },
+  "Nom": "6 Underground",
+  "DateSortie": {
+    "$date": {
+      "$numberLong": "735696426602"
+    }
+  },
+  "Projections": [],
+  "DatesFinsAffiche": [],
+  "Notes": [
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8450"
+      },
+      "NoteFilm": 9
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8451"
+      },
+      "NoteFilm": 1
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8452"
+      },
+      "NoteFilm": 5
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8453"
+      },
+      "NoteFilm": 1
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8454"
+      },
+      "NoteFilm": 4
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8455"
+      },
+      "NoteFilm": 1
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8456"
+      },
+      "NoteFilm": 9
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8457"
+      },
+      "NoteFilm": 2
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8458"
+      },
+      "NoteFilm": 6
+    }
+  ],
+  "CategorieId": {
+    "$oid": "6265e62ae67d4b94f99a842c"
+  },
+  "ActeursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8430"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8431"
+    }
+  ],
+  "RealisateursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8439"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a844f"
+  },
+  "Nom": "Notice rouge",
+  "DateSortie": {
+    "$date": {
+      "$numberLong": "988157226602"
+    }
+  },
+  "Projections": [
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1650917226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1650964026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8446"
+      },
+      "NbPlacesRestantes": 31,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1650996426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651039626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8440"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651079226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651147626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8444"
+      },
+      "NbPlacesRestantes": 28,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651187226604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651255626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8441"
+      },
+      "NbPlacesRestantes": 28,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651298826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651342026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8443"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651396026604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651464426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8443"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651500426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651568826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8446"
+      },
+      "NbPlacesRestantes": 31,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651648026604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651723626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8442"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651770426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651849626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843e"
+      },
+      "NbPlacesRestantes": 29,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651921626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1651932426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8442"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1651993626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652036826604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a843f"
+      },
+      "NbPlacesRestantes": 34,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1652108826604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652170026604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8442"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1652202426604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652245626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8443"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1652296026604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652353626604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8442"
+      },
+      "NbPlacesRestantes": 20,
+      "EstActive": true
+    },
+    {
+      "DateDebut": {
+        "$date": {
+          "$numberLong": "1652371626604"
+        }
+      },
+      "DateFin": {
+        "$date": {
+          "$numberLong": "1652436426604"
+        }
+      },
+      "SalleId": {
+        "$oid": "6265e62ae67d4b94f99a8443"
+      },
+      "NbPlacesRestantes": 38,
+      "EstActive": true
+    }
+  ],
+  "DatesFinsAffiche": [],
+  "Notes": [
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8450"
+      },
+      "NoteFilm": 8
+    },
+    {
+      "AbonneId": {
+        "$oid": "6265e62ae67d4b94f99a8451"
+      },
+      "NoteFilm": 0
+    }
+  ],
+  "CategorieId": {
+    "$oid": "6265e62ae67d4b94f99a842c"
+  },
+  "ActeursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8430"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8431"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a8432"
+    }
+  ],
+  "RealisateursId": [
+    {
+      "$oid": "6265e62ae67d4b94f99a8439"
+    },
+    {
+      "$oid": "6265e62ae67d4b94f99a843a"
+    }
+  ]
+}]

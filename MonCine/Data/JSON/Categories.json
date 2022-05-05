@@ -1,0 +1,26 @@
+[{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a842b"
+  },
+  "Nom": "Horreur"
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a842c"
+  },
+  "Nom": "Fantastique"
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a842d"
+  },
+  "Nom": "Comédie"
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a842e"
+  },
+  "Nom": "Action"
+},{
+  "_id": {
+    "$oid": "6265e62ae67d4b94f99a842f"
+  },
+  "Nom": "Romance"
+}]

@@ -1,0 +1,289 @@
+[{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a846a"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844d"
+  },
+  "IndexProjectionFilm": 4,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8454"
+  },
+  "NbPlaces": 9
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a846b"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844a"
+  },
+  "IndexProjectionFilm": 12,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8453"
+  },
+  "NbPlaces": 5
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a846c"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a8449"
+  },
+  "IndexProjectionFilm": 9,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8465"
+  },
+  "NbPlaces": 7
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a846d"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844b"
+  },
+  "IndexProjectionFilm": 0,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8464"
+  },
+  "NbPlaces": 2
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a846e"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a8448"
+  },
+  "IndexProjectionFilm": 0,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8460"
+  },
+  "NbPlaces": 3
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a846f"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844b"
+  },
+  "IndexProjectionFilm": 0,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8453"
+  },
+  "NbPlaces": 6
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8470"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844b"
+  },
+  "IndexProjectionFilm": 0,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8456"
+  },
+  "NbPlaces": 6
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8471"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844b"
+  },
+  "IndexProjectionFilm": 0,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8464"
+  },
+  "NbPlaces": 1
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8472"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844a"
+  },
+  "IndexProjectionFilm": 11,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a845b"
+  },
+  "NbPlaces": 5
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8473"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844b"
+  },
+  "IndexProjectionFilm": 0,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8465"
+  },
+  "NbPlaces": 8
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8474"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844d"
+  },
+  "IndexProjectionFilm": 7,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8461"
+  },
+  "NbPlaces": 6
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8475"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844a"
+  },
+  "IndexProjectionFilm": 0,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8467"
+  },
+  "NbPlaces": 8
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8476"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a8449"
+  },
+  "IndexProjectionFilm": 10,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8451"
+  },
+  "NbPlaces": 3
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8477"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844d"
+  },
+  "IndexProjectionFilm": 16,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8450"
+  },
+  "NbPlaces": 1
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8478"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844a"
+  },
+  "IndexProjectionFilm": 12,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8451"
+  },
+  "NbPlaces": 8
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8479"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844d"
+  },
+  "IndexProjectionFilm": 14,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a845f"
+  },
+  "NbPlaces": 2
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a847a"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844b"
+  },
+  "IndexProjectionFilm": 0,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8466"
+  },
+  "NbPlaces": 5
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a847b"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844d"
+  },
+  "IndexProjectionFilm": 13,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8453"
+  },
+  "NbPlaces": 2
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a847c"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844d"
+  },
+  "IndexProjectionFilm": 3,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8455"
+  },
+  "NbPlaces": 3
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a847d"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844a"
+  },
+  "IndexProjectionFilm": 7,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8463"
+  },
+  "NbPlaces": 2
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a847e"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844a"
+  },
+  "IndexProjectionFilm": 8,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8468"
+  },
+  "NbPlaces": 9
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a847f"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844d"
+  },
+  "IndexProjectionFilm": 10,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8451"
+  },
+  "NbPlaces": 3
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8480"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844d"
+  },
+  "IndexProjectionFilm": 1,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a845a"
+  },
+  "NbPlaces": 7
+},{
+  "_id": {
+    "$oid": "6265e62be67d4b94f99a8481"
+  },
+  "FilmId": {
+    "$oid": "6265e62ae67d4b94f99a844d"
+  },
+  "IndexProjectionFilm": 3,
+  "AbonneId": {
+    "$oid": "6265e62ae67d4b94f99a8459"
+  },
+  "NbPlaces": 3
+}]
