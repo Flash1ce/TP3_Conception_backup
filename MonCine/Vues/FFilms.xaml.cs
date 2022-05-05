@@ -33,20 +33,33 @@ namespace MonCine.Vues
         private readonly DALFilm _dalFilm;
         private List<Film> _films;
         private Film _filmSelectionne;
+        private Abonne _abonne;
 
         #endregion
 
         #region CONSTRUCTEURS
 
-        public FFilms(IMongoClient pClient, IMongoDatabase pDb)
+        public FFilms(IMongoClient pClient, IMongoDatabase pDb, Abonne pAbonne = null)
         {
             InitializeComponent();
 
             _client = pClient;
             _db = pDb;
             _dalFilm = new DALFilm(_client, _db);
+            _abonne = pAbonne;
 
             Loaded += OnLoaded;
+
+            if (_abonne == null)
+            {
+                BtnRetirerDeAffiche.IsEnabled = true;
+                BtnRetirerDeAffiche.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                BtnRetirerDeAffiche.IsEnabled = false;
+                BtnRetirerDeAffiche.Visibility = Visibility.Hidden;
+            }
         }
 
         #endregion
@@ -76,7 +89,9 @@ namespace MonCine.Vues
 
         private void BtnVoirProjections_Click(object pSender, RoutedEventArgs pE)
         {
-            NavigationService.Navigate(new FProjections(_client, _db, _filmSelectionne.Id));
+            // TODO : Passer en paramètre l'abonné et le DALFilm qui est un attribut déjà existant dans la page
+
+            NavigationService.Navigate(new FProjections(_client, _db, _filmSelectionne.Id, _dalFilm, _abonne));
         }
 
         private void BtnRetirerDeAffiche_OnClick(object pSender, RoutedEventArgs pE)

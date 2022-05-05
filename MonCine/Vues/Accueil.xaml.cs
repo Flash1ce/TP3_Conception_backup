@@ -11,6 +11,8 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using MonCine.Data.Classes;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 #endregion
@@ -26,16 +28,18 @@ namespace MonCine.Vues
 
         private readonly IMongoClient _client;
         private readonly IMongoDatabase _db;
+        private Abonne _abonne;
 
         #endregion
 
         #region CONSTRUCTEURS
 
-        public Accueil(IMongoClient pClient, IMongoDatabase pDb)
+        public Accueil(IMongoClient pClient, IMongoDatabase pDb, Abonne pAbonne = null)
         {
             InitializeComponent();
             _client = pClient;
             _db = pDb;
+            _abonne = pAbonne;
         }
 
         #endregion
@@ -49,7 +53,7 @@ namespace MonCine.Vues
 
         private void BtnConsulterFilms_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new FFilms(_client, _db));
+            NavigationService.Navigate(new FFilms(_client, _db, _abonne));
         }
 
         #endregion

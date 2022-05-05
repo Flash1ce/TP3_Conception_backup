@@ -29,6 +29,8 @@
             <TextBlock x:Name="textBlock" Grid.Column="1" Grid.Row="0" Text="Liste des projections&#xD;&#xA;" FontFamily="Arial Black" FontSize="28" Padding="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" />
             <Button x:Name="BtnAjouter" Content="Ajouter" Grid.Column="2" Grid.Row="0" Click="BtnAjouter_OnClick"
                     Background="#FF7CB8FF" Width="130" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button x:Name="BtnReserver" Content="Réserver" Grid.Column="2" Grid.Row="0"
+                    Background="#FF7CB8FF" Width="130" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnReserver_Click" />
         </Grid>
         <ListView x:Name="LstProjections" Grid.Column="0" Grid.Row="1">
             <ListView.ItemTemplate>
