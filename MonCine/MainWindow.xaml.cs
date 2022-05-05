@@ -8,6 +8,7 @@
 
 #region USING
 
+using System.Collections.Generic;
 using System.Windows;
 using MonCine.Data.Classes;
 using MonCine.Data.Classes.BD;
@@ -25,7 +26,9 @@ namespace MonCine
     {
         #region ATTRIBUTS
 
-        private readonly Utilisateur _utilisateurCourant;
+        private Utilisateur _utilisateurCourant;
+        private DALAdministrateur _dalAdministrateur;
+        private DALAbonne _dalAbonne;
 
         #endregion
 
@@ -36,18 +39,26 @@ namespace MonCine
             InitializeComponent();
 
             DALAdministrateur dalAdministrateur = new DALAdministrateur();
+            _dalAdministrateur = dalAdministrateur;
             SeedData.GenererDonnees(dalAdministrateur.MongoDbClient, dalAdministrateur.Db);
+            DALAbonne dalAbonne = new DALAbonne(dalAdministrateur.MongoDbClient, dalAdministrateur.Db);
+            _dalAbonne = dalAbonne;
+            //_utilisateurCourant = dalAdministrateur.ObtenirUn();
+            //_utilisateurCourant = _dalAbonne.ObtenirTout()[0];
 
-            _utilisateurCourant = dalAdministrateur.ObtenirUn();
-
-            if (_utilisateurCourant is Administrateur)
+            List<Abonne> abonnes = _dalAbonne.ObtenirTout();
+            foreach (var item in abonnes)
             {
-                _NavigationFrame.Navigate(new Accueil(dalAdministrateur.MongoDbClient, dalAdministrateur.Db));
+                lstAbonnes.Items.Add(item.Nom);
             }
-            else
-            {
-                AfficherMsgErreur("Vous n'êtes pas connecté en tant qu'administrateur");
-            }
+            //if (_utilisateurCourant is Abonne)
+            //{
+            //    _NavigationFrame.Navigate(new Accueil(dalAdministrateur.MongoDbClient, dalAdministrateur.Db, (Abonne)_utilisateurCourant));
+            //}
+            //else
+            //{
+            //    AfficherMsgErreur("Vous n'êtes pas connecté en tant qu'administrateur");
+            //}
         }
 
         #endregion
@@ -65,5 +76,28 @@ namespace MonCine
         }
 
         #endregion
+
+        private void BtnConnecterAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            _NavigationFrame.Navigate(new Accueil(_dalAdministrateur.MongoDbClient, _dalAdministrateur.Db));
+        }
+
+        private void BtnConnecterAbonne_Click(object sender, RoutedEventArgs e)
+        {
+            if (_utilisateurCourant != null)
+            {
+                _NavigationFrame.Navigate(new Accueil(_dalAdministrateur.MongoDbClient, _dalAdministrateur.Db, (Abonne)_utilisateurCourant));
+            }
+        }
+
+        private void lstRecompenses_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            string nom = (string)lstAbonnes.SelectedItem;
+            if (!string.IsNullOrEmpty(nom))
+            {
+                List<Abonne> abonnes = _dalAbonne.ObtenirTout();
+                _utilisateurCourant = (Abonne)abonnes.Find(x => x.Nom == nom);
+            }
+        }
     }
 }
