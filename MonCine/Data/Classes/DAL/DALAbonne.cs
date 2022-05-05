@@ -73,6 +73,24 @@ namespace MonCine.Data.Classes.DAL
         /// <param name="pDalFilm">Couche d'accès aux données pour les films</param>
         /// <param name="pClient">L'interface client vers MongoDB</param>
         /// <param name="pDb">Base de données MongoDB utilisée</param>
+        /// <remarks>Remarque : <em>Ce constructeur doit être utilisé lorsqu'il existe déjà une instance pour les couches d'accès aux données des catégories, des acteurs et des réalisateurs.</em></remarks>
+        public DALAbonne(DALCategorie pDalCategorie, DALActeur pDalActeur, DALRealisateur pDalRealisateur, IMongoClient pClient = null, IMongoDatabase pDb = null) : base(pClient, pDb)
+        {
+            _dalCategorie = pDalCategorie;
+            _dalActeur = pDalActeur;
+            _dalRealisateur = pDalRealisateur;
+            _dalReservation = new DALReservation(_dalCategorie, _dalActeur, _dalRealisateur, MongoDbClient, Db);
+        }
+
+        /// <summary>
+        /// Permet la création de la couche d'accès aux données pour les objets de type <see cref="Abonne"/> selon les couches d'accès aux données spécifiés en paramètre.
+        /// </summary>
+        /// <param name="pDalCategorie">Couche d'accès aux données pour les catégories</param>
+        /// <param name="pDalActeur">Couche d'accès aux données pour les acteurs</param>
+        /// <param name="pDalRealisateur">Couche d'accès aux données pour les réalisateurs</param>
+        /// <param name="pDalFilm">Couche d'accès aux données pour les films</param>
+        /// <param name="pClient">L'interface client vers MongoDB</param>
+        /// <param name="pDb">Base de données MongoDB utilisée</param>
         /// <remarks>Remarque : <em>Ce constructeur doit être utilisé lorsqu'il existe déjà une instance pour les couches d'accès aux données des catégories, des acteurs, des réalisateurs et des films.</em></remarks>
         public DALAbonne(DALCategorie pDalCategorie, DALActeur pDalActeur, DALRealisateur pDalRealisateur,
             DALFilm pDalFilm, IMongoClient pClient = null, IMongoDatabase pDb = null) : base(pClient, pDb)
@@ -141,9 +159,9 @@ namespace MonCine.Data.Classes.DAL
             {
                 abonne.Preference.Categories =
                     _dalCategorie.ObtenirPlusieurs(x => x.Id, abonne.Preference.CategoriesId);
-                abonne.Preference.Acteurs = _dalActeur.ObtenirActeursFiltres(x => x.Id, abonne.Preference.ActeursId);
+                abonne.Preference.Acteurs = _dalActeur.ObtenirPlusieurs(x => x.Id, abonne.Preference.ActeursId);
                 abonne.Preference.Realisateurs =
-                    _dalRealisateur.ObtenirRealisateursFiltres(x => x.Id, abonne.Preference.RealisateursId);
+                    _dalRealisateur.ObtenirPlusieurs(x => x.Id, abonne.Preference.RealisateursId);
                 abonne.NbSeances =
                     _dalReservation.ObtenirNbReservations(x => x.AbonneId, new List<ObjectId> { abonne.Id });
             }

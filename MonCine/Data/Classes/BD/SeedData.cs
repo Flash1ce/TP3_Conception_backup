@@ -55,12 +55,12 @@ namespace MonCine.Data.Classes.BD
             // Acteurs
             DALActeur dalActeur = new DALActeur(pClient, pDb);
             SeedData.GenererActeurs(dalActeur);
-            List<Acteur> acteurs = dalActeur.ObtenirActeurs();
+            List<Acteur> acteurs = dalActeur.ObtenirTout();
 
             // Réalisateurs
             DALRealisateur dalRealisateur = new DALRealisateur(pClient, pDb);
             SeedData.GenererRealisateurs(dalRealisateur);
-            List<Realisateur> realisateurs = dalRealisateur.ObtenirRealisateurs();
+            List<Realisateur> realisateurs = dalRealisateur.ObtenirTout();
 
             // Salles
             DALSalle dalSalle = new DALSalle();
@@ -164,11 +164,11 @@ namespace MonCine.Data.Classes.BD
         {
             try
             {
-                List<Acteur> acteurs = pDalActeur.ObtenirActeurs();
+                List<Acteur> acteurs = pDalActeur.ObtenirTout();
 
                 if (acteurs.Count == 0)
                 {
-                    pDalActeur.InsererPlusieursActeurs(
+                    pDalActeur.InsererPlusieurs(
                         new List<Acteur>
                         {
                             new Acteur(new ObjectId(), "Zendaya"),
@@ -203,11 +203,11 @@ namespace MonCine.Data.Classes.BD
         {
             try
             {
-                List<Realisateur> realisateurs = pDalRealisateur.ObtenirRealisateurs();
+                List<Realisateur> realisateurs = pDalRealisateur.ObtenirTout();
 
                 if (realisateurs.Count == 0)
                 {
-                    pDalRealisateur.InsererPlusieursRealisateurs(
+                    pDalRealisateur.InsererPlusieurs(
                         new List<Realisateur>()
                         {
                             new Realisateur(new ObjectId(), "James Cameron"),

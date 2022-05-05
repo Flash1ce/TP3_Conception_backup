@@ -42,7 +42,7 @@ namespace MonCine.Data.Classes.DAL
         /// Permet d'obtenir la liste des réalisateurs contenue dans la base de données de la cinémathèque.
         /// </summary>
         /// <returns>La liste des réalisateurs contenue dans la base de données de la cinémathèque.</returns>
-        public List<Realisateur> ObtenirRealisateurs()
+        public List<Realisateur> ObtenirTout()
         {
             return MongoDbContext.ObtenirCollectionListe<Realisateur>(Db);
         }
@@ -54,7 +54,7 @@ namespace MonCine.Data.Classes.DAL
         /// <param name="pField">Champs sur lequel le filtrage sera effectué</param>
         /// <param name="pObjects">Liste des valeurs à filtrer/param>
         /// <returns>La liste des réalisateurs filtrée selon le champs et les valeurs spécifiés en paramètre.</returns>
-        public List<Realisateur> ObtenirRealisateursFiltres<TField>(Expression<Func<Realisateur, TField>> pField,
+        public List<Realisateur> ObtenirPlusieurs<TField>(Expression<Func<Realisateur, TField>> pField,
             List<TField> pObjects)
         {
             return MongoDbContext.ObtenirDocumentsFiltres(Db, pField, pObjects);
@@ -64,7 +64,7 @@ namespace MonCine.Data.Classes.DAL
         /// Permet d'insérer la liste des réalisateurs reçue en paramètre dans la base de données de la cinémathèque.
         /// </summary>
         /// <param name="pRealisateurs">Liste des réalisateurs à insérer dans la base de données</param>
-        public void InsererPlusieursRealisateurs(List<Realisateur> pRealisateurs)
+        public void InsererPlusieurs(List<Realisateur> pRealisateurs)
         {
             MongoDbContext.InsererPlusieursDocuments(Db, pRealisateurs);
         }

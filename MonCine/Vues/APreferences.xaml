@@ -1,0 +1,122 @@
+﻿<Page x:Class="MonCine.Vues.APreferences"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:MonCine.Vues"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="APreferences">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="20, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <Button x:Name="BtnRetour" Content="Retour à l'accueil" Background="#FF7CB8FF" Width="120" Height="25"
+                    Grid.Row="2" HorizontalAlignment="Left" Margin="0, 0, 135, 0" Click="BtnRetour_Click" />
+            <TextBlock Text="Gérer les préférences" TextWrapping="Wrap" Grid.Row="0" FontSize="22" FontWeight="Bold"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Grid>
+        <Grid Grid.Row="1" Margin="20, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="0" Background="#FFC3F9D3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="8*" />
+                        <RowDefinition Height="1.5*" />
+                    </Grid.RowDefinitions>
+                    <Label x:Name="LblCategoriesDispos" Content="Catégories disponibles" Grid.Column="0"
+                           Grid.Row="0" HorizontalAlignment="Center" />
+                    <ListBox x:Name="LstCategoriesDispos" Background="#FFEDEBEB" Width="120" Height="180"
+                             Grid.Column="0" Grid.Row="1" SelectionChanged="LstCategoriesDispos_SelectionChanged" />
+                    <Button x:Name="BtnAjouterCategorie" Content="Ajouter catégorie" Background="#FF7CB8FF"
+                            Width="120" Height="25" Grid.Column="0" Grid.Row="2" Click="BtnAjouterCategorie_Click" />
+                    <Label x:Name="LblCategoriesChoisies" Content="Catégories choisies" Grid.Column="1" Grid.Row="0"
+                           HorizontalAlignment="Center" />
+                    <ListBox x:Name="LstCategoriesChoisies" Background="#FFEDEBEB" Width="120" Height="180"
+                             Grid.Column="1" Grid.Row="1" SelectionChanged="LstCategoriesChoisies_SelectionChanged" />
+                    <Button x:Name="BtnRetirerCategorie" Content="Retirer catégorie" Background="#FF7CB8FF"
+                            Width="120" Height="25" Grid.Column="1" Grid.Row="2" Click="BtnRetirerCategorie_Click" />
+                </Grid>
+                <Grid Grid.Column="1" Background="#FFFFD5D5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="8*" />
+                        <RowDefinition Height="1.5*" />
+                    </Grid.RowDefinitions>
+                    <Label x:Name="LblActeursDispos" Content="Acteurs disponibles" Grid.Column="0" Grid.Row="0"
+                           HorizontalAlignment="Center" />
+                    <ListBox x:Name="LstActeursDispos" Background="#FFEDEBEB" Width="120" Height="180" Grid.Column="0"
+                             Grid.Row="1" SelectionChanged="LstActeursDispos_SelectionChanged" />
+                    <Button x:Name="BtnAjouterActeur" Content="Ajouter acteur" Background="#FF7CB8FF" Width="120"
+                            Height="25" Grid.Column="0" Grid.Row="2" Click="BtnAjouterActeur_Click" />
+                    <Label x:Name="LblActeursChoisis" Content="Acteurs choisis" Grid.Column="1" Grid.Row="0"
+                           HorizontalAlignment="Center" />
+                    <ListBox x:Name="LstActeursChoisis" Background="#FFEDEBEB" Width="120" Height="180" Grid.Column="1"
+                             Grid.Row="1" SelectionChanged="LstActeursChoisis_SelectionChanged" />
+                    <Button x:Name="BtnRetirerActeur" Content="Retirer acteur" Background="#FF7CB8FF" Width="120"
+                            Height="25" Grid.Column="1" Grid.Row="2" Click="BtnRetirerActeur_Click" />
+                </Grid>
+                <Grid Grid.Column="2" Background="#FFE1CAFF">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="8*" />
+                        <RowDefinition Height="1.5*" />
+                    </Grid.RowDefinitions>
+                    <Label x:Name="LblRealisateursDispos" Content="Réalisateurs disponibles" Grid.Column="0"
+                           Grid.Row="0" HorizontalAlignment="Center" />
+                    <ListBox x:Name="LstRealisateursDispos" Background="#FFEDEBEB" Width="120" Height="180"
+                             Grid.Column="0" Grid.Row="1" SelectionChanged="LstRealisateursDispos_SelectionChanged" />
+                    <Button x:Name="BtnAjouterRealisateur" Content="Ajouter réalisateur" Background="#FF7CB8FF"
+                            Width="120" Height="25" Grid.Column="0" Grid.Row="2" Click="BtnAjouterRealisateur_Click" />
+                    <Label x:Name="LblRealisateursChoisis" Content="Réalisateurs choisis" Grid.Column="1" Grid.Row="0"
+                           HorizontalAlignment="Center" />
+                    <ListBox x:Name="LstRealisateursChoisis" Background="#FFEDEBEB" Width="120" Height="180"
+                             Grid.Column="1" Grid.Row="1" SelectionChanged="LstRealisateursChoisis_SelectionChanged" />
+                    <Button x:Name="BtnRetirerRealisateur" Content="Retirer réalisateur" Background="#FF7CB8FF"
+                            Width="120" Height="25" Grid.Column="1" Grid.Row="2" Click="BtnRetirerRealisateur_Click" />
+                </Grid>
+            </Grid>
+        </Grid>
+        <Button x:Name="BtnEnregistrer" Content="Enregistrer" Background="#FF7CB8FF" Width="120" Height="25"
+                Grid.Row="2" HorizontalAlignment="Right" Margin="0 0 20 0" Click="BtnEnregistrer_Click" />
+    </Grid>
+</Page>

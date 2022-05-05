@@ -134,8 +134,8 @@ namespace MonCine.Data.Classes.DAL
                 {
                     film.Categorie = categories[0];
                 }
-                film.Acteurs = _dalActeur.ObtenirActeursFiltres(pX => pX.Id, film.ActeursId);
-                film.Realisateurs = _dalRealisateur.ObtenirRealisateursFiltres(pX => pX.Id, film.RealisateursId);
+                film.Acteurs = _dalActeur.ObtenirPlusieurs(pX => pX.Id, film.ActeursId);
+                film.Realisateurs = _dalRealisateur.ObtenirPlusieurs(pX => pX.Id, film.RealisateursId);
                 //Les deux boucles permettent de faire moins de requête à la base de données ce qui permet d'accélérer le temps de traitement
                 List<ObjectId> abonneIds = new List<ObjectId>();
                 foreach (Note filmNote in film.Notes)
