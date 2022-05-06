@@ -8,12 +8,10 @@
 
 #region USING
 
-using System;
+using MonCine.Data.Classes;
+using MongoDB.Driver;
 using System.Windows;
 using System.Windows.Controls;
-using MonCine.Data.Classes;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 #endregion
 
@@ -39,21 +37,45 @@ namespace MonCine.Vues
             InitializeComponent();
             _client = pClient;
             _db = pDb;
-            _abonne = pAbonne;
+
+            bool btnsPourAdminVisibles = pAbonne == null;
+
+            if (!btnsPourAdminVisibles)
+            {
+                _abonne = pAbonne;
+            }
+
+            BtnAbonnes.Visibility = ObtenirVisibilite(btnsPourAdminVisibles);
+            BtnPreferences.Visibility = ObtenirVisibilite(!btnsPourAdminVisibles);
         }
 
         #endregion
 
         #region MÉTHODES
 
+        private Visibility ObtenirVisibilite(bool pEstVisible)
+        {
+            return pEstVisible ? Visibility.Visible : Visibility.Hidden;
+        }
+
         private void BtnConsulterAbonne_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new FAbonnes(_client, _db));
         }
 
+        private void BtnPreferences_Click(object pSender, RoutedEventArgs pE)
+        {
+            NavigationService.Navigate(new APreferences(_client, _db, _abonne));
+        }
+
         private void BtnConsulterFilms_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new FFilms(_client, _db, _abonne));
+        }
+
+        private void BtnDeconnexion_Click(object pSender, RoutedEventArgs pE)
+        {
+            NavigationService.GoBack();
         }
 
         #endregion
