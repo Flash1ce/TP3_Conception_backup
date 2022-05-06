@@ -1,5 +1,4 @@
 ﻿using MonCine.Data.Classes;
-using MonCine.Data.Classes.BD;
 using MonCine.Data.Classes.DAL;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -7,24 +6,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MonCine.Vues
 {
     /// <summary>
-    /// Logique d'interaction pour APreferences.xaml
+    ///     Logique d'interaction pour APreferences.xaml
     /// </summary>
     public partial class APreferences : Page
     {
+        private const string MSG_SELECTION = "Vous devez sélectionner";
+        private const string CATEGORIE_A_SELECTIONNEE = "une des catégories";
+        private const string ACTEUR_A_SELECTIONNE = "un des acteurs";
+        private const string REALISATEUR_A_SELECTIONNE = "un des réalisateurs";
+        private const string MSG_DISPO_DANS_LST = "disponibles dans la liste de";
+
         #region ATTRIBUTS
 
         private readonly IMongoClient _client;
@@ -54,7 +51,10 @@ namespace MonCine.Vues
 
             InitialiserAttributs();
             InitialiserFormulaire();
-            ChargerLsts();
+
+            ChargerLsts(LstCategoriesDispos, LstCategoriesChoisies, _categories, _categoriesChoisies);
+            ChargerLsts(LstActeursDispos, LstActeursChoisis, _acteurs, _acteursChoisis);
+            ChargerLsts(LstRealisateursDispos, LstRealisateursChoisis, _realisateurs, _realisateursChoisis);
         }
 
         #endregion
@@ -87,74 +87,144 @@ namespace MonCine.Vues
             BtnRetirerRealisateur.IsEnabled = false;
         }
 
-        public void ChargerLsts()
-        {
-            // Affecte tous les acteurs n'étant pas choisi
-            LstActeursDispos.Items.Clear();
-            _acteurs.Where(x => !_acteursChoisis.Contains(x))
-                .ToList()
-                .ForEach(x => LstActeursDispos.Items.Add(x));
-
-            // Affecte tous les réalisateurs n'étant pas choisi
-            LstRealisateursDispos.Items.Clear();
-            _realisateurs.Where(x => !_realisateursChoisis.Contains(x))
-                .ToList()
-                .ForEach(x => LstRealisateursDispos.Items.Add(x));
-
-            // Affecte tous les acteurs choisis
-            LstActeursChoisis.Items.Clear();
-            _acteursChoisis.ForEach(x => LstActeursChoisis.Items.Add(x));
-
-            // Affecte tous les réalisateurs choisis
-            LstRealisateursChoisis.Items.Clear();
-            _realisateursChoisis.ForEach(x => LstRealisateursChoisis.Items.Add(x));
-        }
-
         private void LstCategoriesDispos_SelectionChanged(object pSender, SelectionChangedEventArgs pE)
         {
-            bool categorieDispoEstSelectionnee = LstCategoriesDispos.SelectedIndex != -1;
-            BtnAjouterCategorie.IsEnabled = categorieDispoEstSelectionnee;
-            BtnRetirerCategorie.IsEnabled = !categorieDispoEstSelectionnee;
-            BtnAjouterActeur.IsEnabled = false;
-            BtnRetirerActeur.IsEnabled = false;
-            BtnAjouterRealisateur.IsEnabled = false;
-            BtnRetirerRealisateur.IsEnabled = false;
-
-            if (categorieDispoEstSelectionnee)
-            {
-                LstActeursChoisis.SelectedIndex = -1;
-            }
+            ActionChangementSelectionSurLst
+            (
+                LstCategoriesDispos,
+                LstCategoriesChoisies,
+                BtnAjouterCategorie,
+                BtnRetirerCategorie,
+                BtnRetirerRealisateur,
+                BtnAjouterRealisateur,
+                BtnAjouterActeur,
+                BtnRetirerActeur
+            );
         }
+
+        private void LstActeursDispos_SelectionChanged(object pSender, SelectionChangedEventArgs pE)
+        {
+            ActionChangementSelectionSurLst
+            (
+                LstActeursDispos,
+                LstActeursChoisis,
+                BtnAjouterActeur,
+                BtnRetirerActeur,
+                BtnRetirerRealisateur,
+                BtnAjouterRealisateur,
+                BtnAjouterCategorie,
+                BtnRetirerCategorie
+            );
+        }
+
+        private void LstRealisateursDispos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ActionChangementSelectionSurLst
+            (
+                LstRealisateursDispos,
+                LstRealisateursChoisis,
+                BtnAjouterRealisateur,
+                BtnRetirerRealisateur,
+                BtnAjouterCategorie,
+                BtnRetirerCategorie,
+                BtnAjouterActeur,
+                BtnRetirerActeur
+            );
+        }
+
         private void LstCategoriesChoisies_SelectionChanged(object pSender, SelectionChangedEventArgs pE)
         {
-            bool categorieChoisieEstSelectionnee = LstCategoriesChoisies.SelectedIndex != -1;
-            BtnRetirerCategorie.IsEnabled = categorieChoisieEstSelectionnee;
-            BtnAjouterCategorie.IsEnabled = !categorieChoisieEstSelectionnee;
-            BtnAjouterActeur.IsEnabled = false;
-            BtnRetirerActeur.IsEnabled = false;
-            BtnAjouterRealisateur.IsEnabled = false;
-            BtnRetirerRealisateur.IsEnabled = false;
+            ActionChangementSelectionSurLst
+            (
+                LstCategoriesChoisies,
+                LstCategoriesDispos,
+                BtnRetirerCategorie,
+                BtnAjouterCategorie,
+                BtnRetirerRealisateur,
+                BtnAjouterRealisateur,
+                BtnAjouterActeur,
+                BtnRetirerActeur
+            );
+        }
 
-            if (categorieChoisieEstSelectionnee)
+        private void LstActeursChoisis_SelectionChanged(object pSender, SelectionChangedEventArgs pE)
+        {
+            ActionChangementSelectionSurLst
+            (
+                LstActeursChoisis,
+                LstActeursDispos,
+                BtnRetirerActeur,
+                BtnAjouterActeur,
+                BtnRetirerRealisateur,
+                BtnAjouterRealisateur,
+                BtnAjouterCategorie,
+                BtnRetirerCategorie
+            );
+        }
+
+        private void LstRealisateursChoisis_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ActionChangementSelectionSurLst
+            (
+                LstRealisateursChoisis,
+                LstRealisateursDispos,
+                BtnRetirerRealisateur,
+                BtnAjouterRealisateur,
+                BtnAjouterCategorie,
+                BtnRetirerCategorie,
+                BtnAjouterActeur,
+                BtnRetirerActeur
+            );
+        }
+
+        private void ActionChangementSelectionSurLst(ListBox pLstChange, ListBox pLstContraire,
+            Button pBtnLstChangeActif, Button pBtnLstChangeInactif,
+            Button pBtnAjouterAutre1, Button pBtnRetirerAutre1, Button pBtnAjouterAutre2, Button pBtnRetirerAutre2)
+        {
+            bool estSelectionne = pLstChange.SelectedIndex != -1;
+
+            pBtnLstChangeActif.IsEnabled = estSelectionne;
+            pBtnLstChangeInactif.IsEnabled = !estSelectionne;
+            pBtnAjouterAutre1.IsEnabled = false;
+            pBtnRetirerAutre1.IsEnabled = false;
+            pBtnAjouterAutre2.IsEnabled = false;
+            pBtnRetirerAutre2.IsEnabled = false;
+
+            if (estSelectionne)
             {
-                LstCategoriesDispos.SelectedIndex = -1;
+                pLstContraire.SelectedIndex = -1;
             }
         }
 
         private void BtnAjouterCategorie_Click(object sender, RoutedEventArgs e)
         {
-            if (LstCategoriesDispos.SelectedIndex == -1)
+            ActionLstAjouter(APreferences.CATEGORIE_A_SELECTIONNEE, LstCategoriesDispos, LstCategoriesChoisies, _categories, _categoriesChoisies);
+        }
+
+        private void BtnAjouterActeur_Click(object sender, RoutedEventArgs e)
+        {
+            ActionLstAjouter(APreferences.ACTEUR_A_SELECTIONNE, LstActeursDispos, LstActeursChoisis, _acteurs, _acteursChoisis);
+        }
+
+        private void BtnAjouterRealisateur_Click(object sender, RoutedEventArgs e)
+        {
+            ActionLstAjouter(APreferences.REALISATEUR_A_SELECTIONNE, LstRealisateursDispos, LstRealisateursChoisis, _realisateurs, _realisateursChoisis);
+        }
+
+        private void ActionLstAjouter<TDocument>(string pDocumentASelectionne, ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
+        {
+            if (pLstDocumentsDispos.SelectedIndex == -1)
             {
-                AfficherMsgErreur("Vous devez sélectionner une des catégories disponibles dans la liste de gauche.");
+                AfficherMsgErreur($"{APreferences.MSG_SELECTION} {pDocumentASelectionne} {APreferences.MSG_DISPO_DANS_LST} gauche.");
             }
             else
             {
                 try
                 {
-                    Categorie categorieChoisie = (Categorie)LstCategoriesDispos.SelectedItem;
-                    _categoriesChoisies.Add(categorieChoisie);
-                    ChargerLsts();
-                    LstCategoriesChoisies.SelectedIndex = LstCategoriesChoisies.Items.IndexOf(categorieChoisie);
+                    TDocument documentChoisi = (TDocument)pLstDocumentsDispos.SelectedItem;
+                    pDocumentsChoisis.Add(documentChoisi);
+                    ChargerLsts(pLstDocumentsDispos, pLstDocumentsChoisis, pDocuments, pDocumentsChoisis);
+                    pLstDocumentsChoisis.SelectedIndex = pLstDocumentsChoisis.Items.IndexOf(documentChoisi);
                 }
                 catch (Exception exception)
                 {
@@ -165,176 +235,62 @@ namespace MonCine.Vues
 
         private void BtnRetirerCategorie_Click(object sender, RoutedEventArgs e)
         {
-            if (LstCategoriesChoisies.SelectedIndex == -1)
-            {
-                AfficherMsgErreur("Vous devez sélectionner une des catégories choisies dans la liste de droite.");
-            }
-            else
-            {
-                try
-                {
-                    Categorie categorieDispo = (Categorie)LstActeursChoisis.SelectedItem;
-                    _categoriesChoisies.Remove(categorieDispo);
-                    ChargerLsts();
-                    LstCategoriesDispos.SelectedIndex = LstCategoriesDispos.Items.IndexOf(categorieDispo);
-                }
-                catch (Exception exception)
-                {
-                    AfficherMsgErreur(exception.Message);
-                }
-            }
-        }
-
-        private void LstActeursDispos_SelectionChanged(object pSender, SelectionChangedEventArgs pE)
-        {
-            bool acteurDispoEstSelectionne = LstActeursDispos.SelectedIndex != -1;
-            BtnAjouterActeur.IsEnabled = acteurDispoEstSelectionne;
-            BtnRetirerActeur.IsEnabled = !acteurDispoEstSelectionne;
-            BtnAjouterCategorie.IsEnabled = false;
-            BtnRetirerCategorie.IsEnabled = false;
-            BtnAjouterRealisateur.IsEnabled = false;
-            BtnRetirerRealisateur.IsEnabled = false;
-
-            if (acteurDispoEstSelectionne)
-            {
-                LstActeursChoisis.SelectedIndex = -1;
-            }
-        }
-
-        private void LstActeursChoisis_SelectionChanged(object pSender, SelectionChangedEventArgs pE)
-        {
-            bool acteurChoisiEstSelectionne = LstActeursChoisis.SelectedIndex != -1;
-            BtnRetirerActeur.IsEnabled = acteurChoisiEstSelectionne;
-            BtnAjouterActeur.IsEnabled = !acteurChoisiEstSelectionne;
-            BtnAjouterCategorie.IsEnabled = false;
-            BtnRetirerCategorie.IsEnabled = false;
-            BtnAjouterRealisateur.IsEnabled = false;
-            BtnRetirerRealisateur.IsEnabled = false;
-
-            if (acteurChoisiEstSelectionne)
-            {
-                LstActeursDispos.SelectedIndex = -1;
-            }
-        }
-
-        private void BtnAjouterActeur_Click(object sender, RoutedEventArgs e)
-        {
-            if (LstActeursDispos.SelectedIndex == -1)
-            {
-                AfficherMsgErreur("Vous devez sélectionner un des acteurs disponibles dans la liste de gauche.");
-            }
-            else
-            {
-                try
-                {
-                    Acteur acteurChoisi = (Acteur)LstActeursDispos.SelectedItem;
-                    _acteursChoisis.Add(acteurChoisi);
-                    ChargerLsts();
-                    LstActeursChoisis.SelectedIndex = LstActeursChoisis.Items.IndexOf(acteurChoisi);
-                }
-                catch (Exception exception)
-                {
-                    AfficherMsgErreur(exception.Message);
-                }
-            }
+            ActionLstRetirer(APreferences.CATEGORIE_A_SELECTIONNEE, LstCategoriesDispos, LstCategoriesChoisies, _categories, _categoriesChoisies);
         }
 
         private void BtnRetirerActeur_Click(object sender, RoutedEventArgs e)
         {
-            if (LstActeursChoisis.SelectedIndex == -1)
-            {
-                AfficherMsgErreur("Vous devez sélectionner un des acteurs choisis dans la liste de droite.");
-            }
-            else
-            {
-                try
-                {
-                    Acteur acteurDispo = (Acteur)LstActeursChoisis.SelectedItem;
-                    _acteursChoisis.Remove(acteurDispo);
-                    ChargerLsts();
-                    LstActeursDispos.SelectedIndex = LstActeursDispos.Items.IndexOf(acteurDispo);
-                }
-                catch (Exception exception)
-                {
-                    AfficherMsgErreur(exception.Message);
-                }
-            }
-        }
-
-        private void LstRealisateursDispos_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            bool realisateurDispoEstSelectionne = LstRealisateursDispos.SelectedIndex != -1;
-            BtnAjouterRealisateur.IsEnabled = realisateurDispoEstSelectionne;
-            BtnRetirerRealisateur.IsEnabled = !realisateurDispoEstSelectionne;
-            BtnAjouterCategorie.IsEnabled = false;
-            BtnRetirerCategorie.IsEnabled = false;
-            BtnAjouterActeur.IsEnabled = false;
-            BtnRetirerActeur.IsEnabled = false;
-
-            if (realisateurDispoEstSelectionne)
-            {
-                LstRealisateursChoisis.SelectedIndex = -1;
-            }
-        }
-
-        private void LstRealisateursChoisis_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            bool realisateurChoisiEstSelectionne = LstRealisateursChoisis.SelectedIndex != -1;
-            BtnRetirerRealisateur.IsEnabled = realisateurChoisiEstSelectionne;
-            BtnAjouterRealisateur.IsEnabled = !realisateurChoisiEstSelectionne;
-            BtnAjouterCategorie.IsEnabled = false;
-            BtnRetirerCategorie.IsEnabled = false;
-            BtnAjouterActeur.IsEnabled = false;
-            BtnRetirerActeur.IsEnabled = false;
-
-            if (realisateurChoisiEstSelectionne)
-            {
-                LstRealisateursDispos.SelectedIndex = -1;
-            }
-        }
-
-        private void BtnAjouterRealisateur_Click(object sender, RoutedEventArgs e)
-        {
-            if (LstRealisateursDispos.SelectedIndex == -1)
-            {
-                AfficherMsgErreur("Vous devez sélectionner un des réalisateurs disponibles dans la liste de gauche.");
-            }
-            else
-            {
-                try
-                {
-                    Realisateur realisateurChoisi = (Realisateur)LstRealisateursDispos.SelectedItem;
-                    _realisateursChoisis.Add(realisateurChoisi);
-                    ChargerLsts();
-                    LstRealisateursChoisis.SelectedIndex = LstRealisateursChoisis.Items.IndexOf(realisateurChoisi);
-                }
-                catch (Exception exception)
-                {
-                    AfficherMsgErreur(exception.Message);
-                }
-            }
+            ActionLstRetirer(APreferences.ACTEUR_A_SELECTIONNE, LstActeursDispos, LstActeursChoisis, _acteurs, _acteursChoisis);
         }
 
         private void BtnRetirerRealisateur_Click(object sender, RoutedEventArgs e)
         {
-            if (LstRealisateursChoisis.SelectedIndex == -1)
+            ActionLstRetirer(APreferences.REALISATEUR_A_SELECTIONNE, LstRealisateursDispos, LstRealisateursChoisis, _realisateurs, _realisateursChoisis);
+        }
+
+        private void ActionLstRetirer<TDocument>(string pDocumentASelectionne, ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
+        {
+            if (pLstDocumentsChoisis.SelectedIndex == -1)
             {
-                AfficherMsgErreur("Vous devez sélectionner un des réalisateurs choisis dans la liste de droite.");
+                AfficherMsgErreur($"{APreferences.MSG_SELECTION} {pDocumentASelectionne} {APreferences.MSG_DISPO_DANS_LST} droite.");
             }
             else
             {
                 try
                 {
-                    Realisateur realisateurDispo = (Realisateur)LstRealisateursChoisis.SelectedItem;
-                    _realisateursChoisis.Remove(realisateurDispo);
-                    ChargerLsts();
-                    LstRealisateursDispos.SelectedIndex = LstRealisateursDispos.Items.IndexOf(realisateurDispo);
+                    TDocument documentDispo = (TDocument)pLstDocumentsChoisis.SelectedItem;
+                    pDocumentsChoisis.Remove(documentDispo);
+                    ChargerLsts(pLstDocumentsDispos, pLstDocumentsChoisis, pDocuments, pDocumentsChoisis);
+                    pLstDocumentsDispos.SelectedIndex = pLstDocumentsDispos.Items.IndexOf(documentDispo);
                 }
                 catch (Exception exception)
                 {
                     AfficherMsgErreur(exception.Message);
                 }
             }
+        }
+
+        private void ChargerLsts<TDocument>(ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
+        {
+            ObtenirLstDocumentsDispos(pLstDocumentsDispos, pDocuments, pDocumentsChoisis);
+            ObtenirLstDocumentsChoisis(pLstDocumentsChoisis, pDocumentsChoisis);
+        }
+
+        private void ObtenirLstDocumentsDispos<TDocument>(ListBox pLstDocumentsDispos, List<TDocument> pDocuments,
+            List<TDocument> pDocumentsChoisis)
+        {
+            // Affecte tous les objets n'étant pas choisis
+            pLstDocumentsDispos.Items.Clear();
+            pDocuments.Where(x => !pDocumentsChoisis.Contains(x))
+                .ToList()
+                .ForEach(x => pLstDocumentsDispos.Items.Add(x));
+        }
+
+        private void ObtenirLstDocumentsChoisis<TDocument>(ListBox pLstDocumentsChoisis,
+            List<TDocument> pDocumentsChoisis)
+        {
+            pLstDocumentsChoisis.Items.Clear();
+            pDocumentsChoisis.ForEach(x => pLstDocumentsChoisis.Items.Add(x));
         }
 
         private void BtnRetour_Click(object pSender, RoutedEventArgs pE)
@@ -344,15 +300,14 @@ namespace MonCine.Vues
 
         private void BtnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
-            List<ObjectId> categorieIds = new List<ObjectId>();
+            List<ObjectId> categorieIds = new();
             _categoriesChoisies.ForEach(x => categorieIds.Add(x.Id));
-            List<ObjectId> acteurIds = new List<ObjectId>();
+            List<ObjectId> acteurIds = new();
             _acteursChoisis.ForEach(x => acteurIds.Add(x.Id));
-            List<ObjectId> realisateurIds = new List<ObjectId>();
+            List<ObjectId> realisateurIds = new();
             _realisateursChoisis.ForEach(x => realisateurIds.Add(x.Id));
 
-            List<(Expression<Func<Abonne, object>> field, object value)> filtre =
-                new List<(Expression<Func<Abonne, object>> field, object value)>();
+            List<(Expression<Func<Abonne, object>> field, object value)> filtre = new();
 
             if (_abonne.Preference.Categories != _categoriesChoisies)
             {
@@ -399,7 +354,7 @@ namespace MonCine.Vues
         }
 
         /// <summary>
-        /// Permet d'afficher le message reçu en paramètre dans un dialogue pour afficher ce dernier.
+        ///     Permet d'afficher le message reçu en paramètre dans un dialogue pour afficher ce dernier.
         /// </summary>
         /// <param name="pMsg">Message d'erreur à afficher</param>
         private void AfficherMsgErreur(string pMsg)

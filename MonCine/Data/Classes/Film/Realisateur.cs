@@ -46,6 +46,11 @@ namespace MonCine.Data.Classes
             Nom = pNom;
         }
 
+        public override string ToString()
+        {
+            return Nom;
+        }
+
         #endregion
     }
 }

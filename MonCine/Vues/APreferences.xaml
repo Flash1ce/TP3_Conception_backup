@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
-            <RowDefinition Height="5*" />
+            <RowDefinition Height="6*" />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="20, 0">
@@ -56,15 +56,17 @@
                         <RowDefinition Height="1.5*" />
                     </Grid.RowDefinitions>
                     <Label x:Name="LblCategoriesDispos" Content="Catégories disponibles" Grid.Column="0"
-                           Grid.Row="0" HorizontalAlignment="Center" />
+                           Grid.Row="0" HorizontalAlignment="Center" FontSize="10" />
                     <ListBox x:Name="LstCategoriesDispos" Background="#FFEDEBEB" Width="120" Height="180"
-                             Grid.Column="0" Grid.Row="1" SelectionChanged="LstCategoriesDispos_SelectionChanged" />
+                             Grid.Column="0" Grid.Row="1" SelectionChanged="LstCategoriesDispos_SelectionChanged"
+                             FontSize="10" />
                     <Button x:Name="BtnAjouterCategorie" Content="Ajouter catégorie" Background="#FF7CB8FF"
                             Width="120" Height="25" Grid.Column="0" Grid.Row="2" Click="BtnAjouterCategorie_Click" />
                     <Label x:Name="LblCategoriesChoisies" Content="Catégories choisies" Grid.Column="1" Grid.Row="0"
-                           HorizontalAlignment="Center" />
+                           HorizontalAlignment="Center" FontSize="10" />
                     <ListBox x:Name="LstCategoriesChoisies" Background="#FFEDEBEB" Width="120" Height="180"
-                             Grid.Column="1" Grid.Row="1" SelectionChanged="LstCategoriesChoisies_SelectionChanged" />
+                             Grid.Column="1" Grid.Row="1" SelectionChanged="LstCategoriesChoisies_SelectionChanged"
+                             FontSize="10" />
                     <Button x:Name="BtnRetirerCategorie" Content="Retirer catégorie" Background="#FF7CB8FF"
                             Width="120" Height="25" Grid.Column="1" Grid.Row="2" Click="BtnRetirerCategorie_Click" />
                 </Grid>
@@ -79,17 +81,17 @@
                         <RowDefinition Height="1.5*" />
                     </Grid.RowDefinitions>
                     <Label x:Name="LblActeursDispos" Content="Acteurs disponibles" Grid.Column="0" Grid.Row="0"
-                           HorizontalAlignment="Center" />
+                           HorizontalAlignment="Center" FontSize="10" />
                     <ListBox x:Name="LstActeursDispos" Background="#FFEDEBEB" Width="120" Height="180" Grid.Column="0"
-                             Grid.Row="1" SelectionChanged="LstActeursDispos_SelectionChanged" />
+                             Grid.Row="1" SelectionChanged="LstActeursDispos_SelectionChanged" FontSize="10" />
                     <Button x:Name="BtnAjouterActeur" Content="Ajouter acteur" Background="#FF7CB8FF" Width="120"
                             Height="25" Grid.Column="0" Grid.Row="2" Click="BtnAjouterActeur_Click" />
                     <Label x:Name="LblActeursChoisis" Content="Acteurs choisis" Grid.Column="1" Grid.Row="0"
-                           HorizontalAlignment="Center" />
+                           HorizontalAlignment="Center" FontSize="10"/>
                     <ListBox x:Name="LstActeursChoisis" Background="#FFEDEBEB" Width="120" Height="180" Grid.Column="1"
-                             Grid.Row="1" SelectionChanged="LstActeursChoisis_SelectionChanged" />
+                             Grid.Row="1" SelectionChanged="LstActeursChoisis_SelectionChanged" FontSize="10" />
                     <Button x:Name="BtnRetirerActeur" Content="Retirer acteur" Background="#FF7CB8FF" Width="120"
-                            Height="25" Grid.Column="1" Grid.Row="2" Click="BtnRetirerActeur_Click" />
+                            Height="25" Grid.Column="1" Grid.Row="2" Click="BtnRetirerActeur_Click"/>
                 </Grid>
                 <Grid Grid.Column="2" Background="#FFE1CAFF">
                     <Grid.ColumnDefinitions>
@@ -102,15 +104,17 @@
                         <RowDefinition Height="1.5*" />
                     </Grid.RowDefinitions>
                     <Label x:Name="LblRealisateursDispos" Content="Réalisateurs disponibles" Grid.Column="0"
-                           Grid.Row="0" HorizontalAlignment="Center" />
+                           Grid.Row="0" HorizontalAlignment="Center" FontSize="10" />
                     <ListBox x:Name="LstRealisateursDispos" Background="#FFEDEBEB" Width="120" Height="180"
-                             Grid.Column="0" Grid.Row="1" SelectionChanged="LstRealisateursDispos_SelectionChanged" />
+                             Grid.Column="0" Grid.Row="1" SelectionChanged="LstRealisateursDispos_SelectionChanged"
+                             FontSize="10" />
                     <Button x:Name="BtnAjouterRealisateur" Content="Ajouter réalisateur" Background="#FF7CB8FF"
                             Width="120" Height="25" Grid.Column="0" Grid.Row="2" Click="BtnAjouterRealisateur_Click" />
                     <Label x:Name="LblRealisateursChoisis" Content="Réalisateurs choisis" Grid.Column="1" Grid.Row="0"
-                           HorizontalAlignment="Center" />
+                           HorizontalAlignment="Center" FontSize="10"/>
                     <ListBox x:Name="LstRealisateursChoisis" Background="#FFEDEBEB" Width="120" Height="180"
-                             Grid.Column="1" Grid.Row="1" SelectionChanged="LstRealisateursChoisis_SelectionChanged" />
+                             Grid.Column="1" Grid.Row="1" SelectionChanged="LstRealisateursChoisis_SelectionChanged"
+                             FontSize="10" />
                     <Button x:Name="BtnRetirerRealisateur" Content="Retirer réalisateur" Background="#FF7CB8FF"
                             Width="120" Height="25" Grid.Column="1" Grid.Row="2" Click="BtnRetirerRealisateur_Click" />
                 </Grid>
