@@ -268,8 +268,10 @@ namespace MonCine.Vues
             );
         }
 
-        private void ActionLstAjouter<TDocument>(bool pGenreStrDocumentEstMasculin, string pDocumentASelectionne, int pMaxSelectionDocument,
-            ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, Button pBtnAjouter, List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
+        private void ActionLstAjouter<TDocument>(bool pGenreStrDocumentEstMasculin, string pDocumentASelectionne,
+            int pMaxSelectionDocument,
+            ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, Button pBtnAjouter, List<TDocument> pDocuments,
+            List<TDocument> pDocumentsChoisis)
         {
             if (pLstDocumentsDispos.SelectedIndex == -1)
             {
@@ -277,7 +279,8 @@ namespace MonCine.Vues
             }
             else if (pLstDocumentsChoisis.Items.Count == pMaxSelectionDocument)
             {
-                AfficherMsgErrMaxSelectionDocuments(pGenreStrDocumentEstMasculin, pDocumentASelectionne, pMaxSelectionDocument);
+                AfficherMsgErrMaxSelectionDocuments(pGenreStrDocumentEstMasculin, pDocumentASelectionne,
+                    pMaxSelectionDocument);
             }
             else
             {
@@ -320,7 +323,8 @@ namespace MonCine.Vues
         }
 
         private void ActionLstRetirer<TDocument>(bool pGenreStrDocumentEstMasculin, string pDocumentASelectionne,
-            ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
+            ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, List<TDocument> pDocuments,
+            List<TDocument> pDocumentsChoisis)
         {
             if (pLstDocumentsChoisis.SelectedIndex == -1)
             {
@@ -383,36 +387,30 @@ namespace MonCine.Vues
             List<(Expression<Func<Abonne, object>> field, object value)> filtre =
                 new List<(Expression<Func<Abonne, object>> field, object value)>();
 
-            if (_abonne.Preference.Categories != _categoriesChoisies)
-            {
-                filtre.Add((
-                    x => x.Preference.CategoriesId,
-                    categorieIds
-                ));
-            }
+            filtre.Add((
+                x => x.Preference.CategoriesId,
+                categorieIds
+            ));
 
-            if (_abonne.Preference.Acteurs != _acteursChoisis)
-            {
-                filtre.Add((
-                    x => x.Preference.ActeursId,
-                    acteurIds
-                ));
-            }
+            filtre.Add((
+                x => x.Preference.ActeursId,
+                acteurIds
+            ));
 
-            if (_abonne.Preference.Realisateurs != _realisateursChoisis)
-            {
-                filtre.Add((
-                    x => x.Preference.RealisateursId,
-                    realisateurIds
-                ));
-            }
+            filtre.Add((
+                x => x.Preference.RealisateursId,
+                realisateurIds
+            ));
 
             try
             {
                 if (filtre.Count > 0)
                 {
                     _dalAbonne.MAJUn(x => x.Id == _abonne.Id, filtre);
-                    NavigationService.GoBack();
+                    AfficherMsg(
+                        "Les modifications ont été enregistrées avec succès !!'",
+                        MessageBoxImage.Information
+                    );
                 }
                 else
                 {
@@ -432,7 +430,8 @@ namespace MonCine.Vues
             string pPositionListe) =>
             AfficherMsg(
                 $"Veuillez sélectionner {(pGenreStrDocumentEstMasculin ? "un" : "une")} des {pDocument}s disponibles dans la liste de {pPositionListe}.",
-                MessageBoxImage.Error);
+                MessageBoxImage.Error
+            );
 
         private void AfficherMsgMaxSelectionDocuments(string pDocument, int pMaxDocuments) =>
             AfficherMsg($"Le maximum de {pMaxDocuments} {pDocument}s est atteint.", MessageBoxImage.Information);
@@ -441,7 +440,8 @@ namespace MonCine.Vues
             int pMaxDocuments) =>
             AfficherMsg(
                 $"Impossible d'ajouter {(pGenreStrDocumentEstMasculin ? "un" : "une")} {pDocument} ! Le maximum de {pMaxDocuments} est atteint.",
-                MessageBoxImage.Error);
+                MessageBoxImage.Error
+            );
 
         /// <summary>
         /// Permet d'afficher le message reçu en paramètre dans un dialogue pour afficher ce dernier.
