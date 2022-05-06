@@ -300,14 +300,14 @@ namespace MonCine.Vues
 
         private void BtnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
-            List<ObjectId> categorieIds = new();
+            List<ObjectId> categorieIds = new List<ObjectId>();
             _categoriesChoisies.ForEach(x => categorieIds.Add(x.Id));
-            List<ObjectId> acteurIds = new();
+            List<ObjectId> acteurIds = new List<ObjectId>();
             _acteursChoisis.ForEach(x => acteurIds.Add(x.Id));
-            List<ObjectId> realisateurIds = new();
+            List<ObjectId> realisateurIds = new List<ObjectId>();
             _realisateursChoisis.ForEach(x => realisateurIds.Add(x.Id));
 
-            List<(Expression<Func<Abonne, object>> field, object value)> filtre = new();
+            List<(Expression<Func<Abonne, object>> field, object value)> filtre = new List<(Expression<Func<Abonne, object>> field, object value)>();
 
             if (_abonne.Preference.Categories != _categoriesChoisies)
             {
