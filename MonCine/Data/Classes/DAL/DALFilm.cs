@@ -126,6 +126,7 @@ namespace MonCine.Data.Classes.DAL
             {
                 _dalAbonne = new DALAbonne(_dalCategorie, _dalActeur, _dalRealisateur, this, MongoDbClient, Db);
             }
+
             foreach (Film film in pFilms)
             {
                 List<Categorie> categories =
@@ -134,6 +135,7 @@ namespace MonCine.Data.Classes.DAL
                 {
                     film.Categorie = categories[0];
                 }
+
                 film.Acteurs = _dalActeur.ObtenirPlusieurs(pX => pX.Id, film.ActeursId);
                 film.Realisateurs = _dalRealisateur.ObtenirPlusieurs(pX => pX.Id, film.RealisateursId);
                 //Les deux boucles permettent de faire moins de requête à la base de données ce qui permet d'accélérer le temps de traitement
@@ -145,6 +147,7 @@ namespace MonCine.Data.Classes.DAL
                         abonneIds.Add(filmNote.AbonneId);
                     }
                 }
+
                 try
                 {
                     List<Abonne> abonnes = _dalAbonne.ObtenirPlusieurs(pX => pX.Id, abonneIds);
@@ -157,6 +160,12 @@ namespace MonCine.Data.Classes.DAL
                 {
                     Console.WriteLine(e);
                     throw;
+                }
+
+                int nbDatesFinsAffiche = film.DatesFinsAffiche.Count;
+                if (!film.EstAffiche && nbDatesFinsAffiche != film.DatesFinsAffiche.Count)
+                {
+                    MAJProjections(film);
                 }
             }
 
@@ -185,10 +194,14 @@ namespace MonCine.Data.Classes.DAL
                     projection.EstActive = false;
                 }
             }
+
             return MAJUn(
                 x => x.Id == pFilm.Id,
                 new List<(Expression<Func<Film, object>> field, object value)>
-                {(x => x.Projections,pFilm.Projections),(x=> x.DatesFinsAffiche,pFilm.DatesFinsAffiche)});
+                {
+                    (x => x.Projections, pFilm.Projections), 
+                    (x => x.DatesFinsAffiche, pFilm.DatesFinsAffiche)
+                });
         }
 
         /// <summary>
@@ -198,7 +211,8 @@ namespace MonCine.Data.Classes.DAL
         /// <param name="pFiltre">Expression permettant de déterminer quel sera le film à mettre à jour</param>
         /// <param name="pMajDefinitions">Liste des champs et de ses valeurs à mettre à jour</param>
         /// <returns>Vrai si la mise à jour du film a fonctionné. Faux dans le cas contraire.</returns>
-        public bool MAJUn<TField>(Expression<Func<Film, bool>> pFiltre, List<(Expression<Func<Film, TField>> field, TField value)> pMajDefinitions)
+        public bool MAJUn<TField>(Expression<Func<Film, bool>> pFiltre,
+            List<(Expression<Func<Film, TField>> field, TField value)> pMajDefinitions)
         {
             return MongoDbContext.MAJUn(Db, pFiltre, pMajDefinitions);
         }

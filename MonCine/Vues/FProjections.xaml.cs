@@ -99,6 +99,9 @@ namespace MonCine.Vues
         }
         private void BtnReserver_Click(object sender, RoutedEventArgs pE)
         {
+            // FAIRE REFACTORING
+            // Retirer estReserver | Faute d'orthographe sur estReserver
+            // AJOUTER UN MESSAGE D'ERREUR POUR UNE PROJECTION DÉSACTIVÉE À L'AJOUT D'UNE RÉSERVATION
             bool estReserver = false;
             int indexProjectionSelectionne = LstProjections.SelectedIndex;
             if (_film.Projections.Count >= 1 && indexProjectionSelectionne > -1)
@@ -160,7 +163,19 @@ namespace MonCine.Vues
                 BtnReserver.Visibility = Visibility.Visible;
 
             }
+
+            // REFACTORING
+            //bool affichagePourAdmin = _abonne == null;
+
+            //BtnAjouter.Visibility = ObtenirVisibilite(affichagePourAdmin);
+            //BtnReserver.Visibility = ObtenirVisibilite(!affichagePourAdmin);
         }
+
+        // REFACTORING
+        //private Visibility ObtenirVisibilite(bool pEstVisible)
+        //{
+        //    return pEstVisible ? Visibility.Visible : Visibility.Hidden;
+        //}
 
         #endregion
     }
