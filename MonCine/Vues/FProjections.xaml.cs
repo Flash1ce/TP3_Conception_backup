@@ -111,7 +111,7 @@ namespace MonCine.Vues
                 if (projectionSelectionner != null && projectionSelectionner.NbPlacesRestantes >= NB_PLACES_RESERVES && projectionSelectionner.EstActive)
                 {
                     Reservation nouvelleReservation = new Reservation(new ObjectId(), _film, indexProjectionSelectionne, _abonne.Id, NB_PLACES_RESERVES);
-                    _dalReservation.InsererUneReservation(nouvelleReservation);
+                    _dalReservation.InsererUne(nouvelleReservation);
 
                     DALFilm dalFilm = new DALFilm();
                     dalFilm.MAJProjections(_film);

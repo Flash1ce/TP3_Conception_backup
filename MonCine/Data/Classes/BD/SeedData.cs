@@ -510,7 +510,7 @@ namespace MonCine.Data.Classes.BD
         {
             try
             {
-                List<Reservation> reservations = pDalReservation.ObtenirReservations();
+                List<Reservation> reservations = pDalReservation.ObtenirTout();
                 if (!reservations.Any())
                 {
                     int nbReservations = SeedData._rand.Next(30, 60);
@@ -528,7 +528,7 @@ namespace MonCine.Data.Classes.BD
 
                                 if (film.Projections[indexProjection].NbPlacesRestantes - nbPlaces > -1)
                                 {
-                                    pDalReservation.InsererUneReservation(new Reservation(
+                                    pDalReservation.InsererUne(new Reservation(
                                         new ObjectId(),
                                         film,
                                         indexProjection,

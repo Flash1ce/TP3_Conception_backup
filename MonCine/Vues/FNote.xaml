@@ -1,0 +1,97 @@
+﻿<Page x:Class="MonCine.Vues.FNote"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:MonCine.Vues"
+      mc:Ignorable="d"
+      Title="Films" Height="400" Width="800">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3.5*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="8*" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="TitrePage" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Noter un film"
+                       TextWrapping="Wrap" FontFamily="Arial Black" FontSize="28" Grid.Row="0" />
+            <Button x:Name="BtnRetourAccueil" Content="Retour à l'accueil" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Background="#FF7CB8FF" Width="130" Height="25" Click="BtnRetourAccueil_Click" />
+            <ListView SelectionChanged="LstFilms_OnSelectionChanged" x:Name="LstFilms" Grid.Column="1" Grid.Row="1" Cursor="Hand" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border x:Name="border" BorderBrush="Black" BorderThickness="1">
+                            <Grid HorizontalAlignment="Stretch" MinWidth="{Binding ActualWidth, ElementName=LstFilms}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="4*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="2*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom: " FontWeight="Bold"
+                                               TextAlignment="Left" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Nom}" TextAlignment="Left" TextWrapping="Wrap"
+                                               Margin="0,0,10,5" />
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="À l'affiche: " FontWeight="Bold" Margin="0,0,10,5"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding EstAffiche}" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Nb. Projections:"
+                                               FontWeight="Bold" TextAlignment="Left" Margin="0,0,10,5"  />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Projections.Count}" />
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Note moyenne: " FontWeight="Bold"
+                                               TextAlignment="Left" Margin="0,0,10,5" />
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding NoteMoy}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="1" Margin="20" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="TitreNote" Text="Note" TextWrapping="Wrap" Grid.Row="0" FontFamily="Arial Black" FontSize="22" TextDecorations="{x:Null}" HorizontalAlignment="Center" />
+            <TextBox x:Name="TxtNote" Grid.Row="1" HorizontalAlignment="Center" Width="100" Margin="0 10" />
+            <Button x:Name="BtnNoter" Content="Noter le film" Grid.Row="5"
+                    Background="#FF7CB8FF" Width="130" Height="25" Click="BtnNoter_Click" />
+        </Grid>
+    </Grid>
+</Page>

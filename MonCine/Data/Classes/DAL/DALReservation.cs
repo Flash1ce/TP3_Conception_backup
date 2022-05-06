@@ -23,7 +23,7 @@ namespace MonCine.Data.Classes.DAL
     /// <summary>
     /// Classe représentant une couche d'accès aux données pour les objets de type <see cref="Reservation"/>
     /// </summary>
-    public class DALReservation : DAL
+    public class DALReservation : DAL, ICRUD<Reservation>
     {
         #region ATTRIBUTS
 
@@ -65,20 +65,23 @@ namespace MonCine.Data.Classes.DAL
 
         #endregion
 
-        #region MÉTHODES
-
         /// <summary>
         /// Permet d'obtenir la liste des réservations contenue dans la base de données de la cinémathèque.
         /// </summary>
         /// <returns>La liste des réservations contenue dans la base de données de la cinémathèque.</returns>
-        public List<Reservation> ObtenirReservations()
+        public List<Reservation> ObtenirTout()
         {
-            return ObtenirObjetsDansReservations(MongoDbContext.ObtenirCollectionListe<Reservation>(Db));
+            return ObtenirObjetsDansLst(MongoDbContext.ObtenirCollectionListe<Reservation>(Db));
         }
 
         public int ObtenirNbReservations<TField>(Expression<Func<Reservation, TField>> pField, List<TField> pObjects)
         {
             return MongoDbContext.ObtenirDocumentsFiltres(Db, pField, pObjects).Count;
+        }
+
+        public List<Reservation> ObtenirPlusieurs<TField>(Expression<Func<Reservation, TField>> pField, List<TField> pObjects)
+        {
+            return ObtenirObjetsDansLst(MongoDbContext.ObtenirDocumentsFiltres(Db, pField, pObjects));
         }
 
         /// <summary>
@@ -90,7 +93,7 @@ namespace MonCine.Data.Classes.DAL
         /// La liste des réservations dont les attributs faisant référence à une autre collection
         /// dans la base de données de la cinémathèque sont à présent définis par des objets non nul.
         /// </returns>
-        private List<Reservation> ObtenirObjetsDansReservations(List<Reservation> pReservations)
+        public List<Reservation> ObtenirObjetsDansLst(List<Reservation> pReservations)
         {
             List<ObjectId> filmIds = new List<ObjectId>();
             foreach (Reservation reservation in pReservations)
@@ -112,12 +115,20 @@ namespace MonCine.Data.Classes.DAL
         /// Permet d'insérer la réservation reçue en paramètre dans la base de données de la cinémathèque et met à jour la projection du film concernée par la réservation.
         /// </summary>
         /// <param name="pReservations">Liste des réservations à insérer dans la base de données</param>
-        public void InsererUneReservation(Reservation pReservation)
+        public void InsererUne(Reservation pReservation)
         {
             _dalFilm.MAJProjections(pReservation.Film);
             MongoDbContext.InsererUnDocument(Db, pReservation);
         }
 
-        #endregion
+        public bool InsererPlusieurs(List<Reservation> pDocuments)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool MAJUn<TField>(Expression<Func<Reservation, bool>> pFiltre, List<(Expression<Func<Reservation, TField>> field, TField value)> pMajDefinitions)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
