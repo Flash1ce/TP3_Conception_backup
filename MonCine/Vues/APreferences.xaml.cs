@@ -1,4 +1,15 @@
-﻿using MonCine.Data.Classes;
+﻿#region MÉTADONNÉES
+
+// Nom du fichier : APreferences.xaml.cs
+// Auteur :  (1933760)
+// Date de création : 2022-05-06
+// Date de modification : 2022-05-06
+
+#endregion
+
+#region USING
+
+using MonCine.Data.Classes;
 using MonCine.Data.Classes.DAL;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -9,6 +20,8 @@ using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
 
+#endregion
+
 namespace MonCine.Vues
 {
     /// <summary>
@@ -16,11 +29,13 @@ namespace MonCine.Vues
     /// </summary>
     public partial class APreferences : Page
     {
-        private const string MSG_SELECTION = "Vous devez sélectionner";
-        private const string CATEGORIE_A_SELECTIONNEE = "une des catégories";
-        private const string ACTEUR_A_SELECTIONNE = "un des acteurs";
-        private const string REALISATEUR_A_SELECTIONNE = "un des réalisateurs";
-        private const string MSG_DISPO_DANS_LST = "disponibles dans la liste de";
+        #region CONSTANTES ET ATTRIBUTS STATIQUES
+
+        private const string CATEGORIE = "catégorie";
+        private const string ACTEUR = "acteur";
+        private const string REALISATEUR = "réalisateur";
+
+        #endregion
 
         #region ATTRIBUTS
 
@@ -100,6 +115,11 @@ namespace MonCine.Vues
                 BtnAjouterActeur,
                 BtnRetirerActeur
             );
+
+            if (LstCategoriesChoisies.Items.Count == Preference.NB_MAX_CATEGORIES_PREF)
+            {
+                BtnAjouterCategorie.IsEnabled = false;
+            }
         }
 
         private void LstActeursDispos_SelectionChanged(object pSender, SelectionChangedEventArgs pE)
@@ -115,6 +135,11 @@ namespace MonCine.Vues
                 BtnAjouterCategorie,
                 BtnRetirerCategorie
             );
+
+            if (LstActeursChoisis.Items.Count == Preference.NB_MAX_ACTEURS_PREF)
+            {
+                BtnAjouterActeur.IsEnabled = false;
+            }
         }
 
         private void LstRealisateursDispos_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -130,6 +155,11 @@ namespace MonCine.Vues
                 BtnAjouterActeur,
                 BtnRetirerActeur
             );
+
+            if (LstRealisateursChoisis.Items.Count == Preference.NB_MAX_REALISATEURS_PREF)
+            {
+                BtnAjouterRealisateur.IsEnabled = false;
+            }
         }
 
         private void LstCategoriesChoisies_SelectionChanged(object pSender, SelectionChangedEventArgs pE)
@@ -198,24 +228,56 @@ namespace MonCine.Vues
 
         private void BtnAjouterCategorie_Click(object sender, RoutedEventArgs e)
         {
-            ActionLstAjouter(APreferences.CATEGORIE_A_SELECTIONNEE, LstCategoriesDispos, LstCategoriesChoisies, _categories, _categoriesChoisies);
+            ActionLstAjouter(
+                true,
+                APreferences.CATEGORIE,
+                Preference.NB_MAX_CATEGORIES_PREF,
+                LstCategoriesDispos,
+                LstCategoriesChoisies,
+                BtnAjouterCategorie,
+                _categories,
+                _categoriesChoisies
+            );
         }
 
         private void BtnAjouterActeur_Click(object sender, RoutedEventArgs e)
         {
-            ActionLstAjouter(APreferences.ACTEUR_A_SELECTIONNE, LstActeursDispos, LstActeursChoisis, _acteurs, _acteursChoisis);
+            ActionLstAjouter(
+                false,
+                APreferences.ACTEUR,
+                Preference.NB_MAX_ACTEURS_PREF,
+                LstActeursDispos,
+                LstActeursChoisis,
+                BtnAjouterActeur,
+                _acteurs,
+                _acteursChoisis
+            );
         }
 
         private void BtnAjouterRealisateur_Click(object sender, RoutedEventArgs e)
         {
-            ActionLstAjouter(APreferences.REALISATEUR_A_SELECTIONNE, LstRealisateursDispos, LstRealisateursChoisis, _realisateurs, _realisateursChoisis);
+            ActionLstAjouter(
+                false,
+                APreferences.REALISATEUR,
+                Preference.NB_MAX_REALISATEURS_PREF,
+                LstRealisateursDispos,
+                LstRealisateursChoisis,
+                BtnAjouterRealisateur,
+                _realisateurs,
+                _realisateursChoisis
+            );
         }
 
-        private void ActionLstAjouter<TDocument>(string pDocumentASelectionne, ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
+        private void ActionLstAjouter<TDocument>(bool pGenreStrDocumentEstMasculin, string pDocumentASelectionne, int pMaxSelectionDocument,
+            ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, Button pBtnAjouter, List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
         {
             if (pLstDocumentsDispos.SelectedIndex == -1)
             {
-                AfficherMsgErreur($"{APreferences.MSG_SELECTION} {pDocumentASelectionne} {APreferences.MSG_DISPO_DANS_LST} gauche.");
+                AfficherMsgErrDocumentNonSelectionne(pGenreStrDocumentEstMasculin, pDocumentASelectionne, "gauche");
+            }
+            else if (pLstDocumentsChoisis.Items.Count == pMaxSelectionDocument)
+            {
+                AfficherMsgErrMaxSelectionDocuments(pGenreStrDocumentEstMasculin, pDocumentASelectionne, pMaxSelectionDocument);
             }
             else
             {
@@ -225,34 +287,44 @@ namespace MonCine.Vues
                     pDocumentsChoisis.Add(documentChoisi);
                     ChargerLsts(pLstDocumentsDispos, pLstDocumentsChoisis, pDocuments, pDocumentsChoisis);
                     pLstDocumentsChoisis.SelectedIndex = pLstDocumentsChoisis.Items.IndexOf(documentChoisi);
+
+                    if (pLstDocumentsChoisis.Items.Count == pMaxSelectionDocument)
+                    {
+                        AfficherMsgMaxSelectionDocuments(pDocumentASelectionne, pMaxSelectionDocument);
+                        pBtnAjouter.IsEnabled = false;
+                    }
                 }
                 catch (Exception exception)
                 {
-                    AfficherMsgErreur(exception.Message);
+                    AfficherMsg(exception.Message, MessageBoxImage.Error);
                 }
             }
         }
 
         private void BtnRetirerCategorie_Click(object sender, RoutedEventArgs e)
         {
-            ActionLstRetirer(APreferences.CATEGORIE_A_SELECTIONNEE, LstCategoriesDispos, LstCategoriesChoisies, _categories, _categoriesChoisies);
+            ActionLstRetirer(false, APreferences.CATEGORIE, LstCategoriesDispos, LstCategoriesChoisies,
+                _categories, _categoriesChoisies);
         }
 
         private void BtnRetirerActeur_Click(object sender, RoutedEventArgs e)
         {
-            ActionLstRetirer(APreferences.ACTEUR_A_SELECTIONNE, LstActeursDispos, LstActeursChoisis, _acteurs, _acteursChoisis);
+            ActionLstRetirer(true, APreferences.ACTEUR, LstActeursDispos, LstActeursChoisis, _acteurs,
+                _acteursChoisis);
         }
 
         private void BtnRetirerRealisateur_Click(object sender, RoutedEventArgs e)
         {
-            ActionLstRetirer(APreferences.REALISATEUR_A_SELECTIONNE, LstRealisateursDispos, LstRealisateursChoisis, _realisateurs, _realisateursChoisis);
+            ActionLstRetirer(true, APreferences.REALISATEUR, LstRealisateursDispos, LstRealisateursChoisis,
+                _realisateurs, _realisateursChoisis);
         }
 
-        private void ActionLstRetirer<TDocument>(string pDocumentASelectionne, ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
+        private void ActionLstRetirer<TDocument>(bool pGenreStrDocumentEstMasculin, string pDocumentASelectionne,
+            ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
         {
             if (pLstDocumentsChoisis.SelectedIndex == -1)
             {
-                AfficherMsgErreur($"{APreferences.MSG_SELECTION} {pDocumentASelectionne} {APreferences.MSG_DISPO_DANS_LST} droite.");
+                AfficherMsgErrDocumentNonSelectionne(pGenreStrDocumentEstMasculin, pDocumentASelectionne, "droite");
             }
             else
             {
@@ -265,12 +337,13 @@ namespace MonCine.Vues
                 }
                 catch (Exception exception)
                 {
-                    AfficherMsgErreur(exception.Message);
+                    AfficherMsg(exception.Message, MessageBoxImage.Error);
                 }
             }
         }
 
-        private void ChargerLsts<TDocument>(ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
+        private void ChargerLsts<TDocument>(ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis,
+            List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
         {
             ObtenirLstDocumentsDispos(pLstDocumentsDispos, pDocuments, pDocumentsChoisis);
             ObtenirLstDocumentsChoisis(pLstDocumentsChoisis, pDocumentsChoisis);
@@ -307,7 +380,8 @@ namespace MonCine.Vues
             List<ObjectId> realisateurIds = new List<ObjectId>();
             _realisateursChoisis.ForEach(x => realisateurIds.Add(x.Id));
 
-            List<(Expression<Func<Abonne, object>> field, object value)> filtre = new List<(Expression<Func<Abonne, object>> field, object value)>();
+            List<(Expression<Func<Abonne, object>> field, object value)> filtre =
+                new List<(Expression<Func<Abonne, object>> field, object value)>();
 
             if (_abonne.Preference.Categories != _categoriesChoisies)
             {
@@ -342,27 +416,43 @@ namespace MonCine.Vues
                 }
                 else
                 {
-                    AfficherMsgErreur(
-                        "Aucune modification n'a été apportée. Si vous souhaitez retourner à l'accueil, veuillez cliquer sur le bouton 'Retour à l'accueil'"
+                    AfficherMsg(
+                        "Aucune modification n'a été apportée. Si vous souhaitez retourner à l'accueil, veuillez cliquer sur le bouton 'Retour à l'accueil'",
+                        MessageBoxImage.Warning
                     );
                 }
             }
             catch (Exception exception)
             {
-                AfficherMsgErreur(exception.Message);
+                AfficherMsg(exception.Message, MessageBoxImage.Error);
             }
         }
 
+        private void AfficherMsgErrDocumentNonSelectionne(bool pGenreStrDocumentEstMasculin, string pDocument,
+            string pPositionListe) =>
+            AfficherMsg(
+                $"Veuillez sélectionner {(pGenreStrDocumentEstMasculin ? "un" : "une")} des {pDocument}s disponibles dans la liste de {pPositionListe}.",
+                MessageBoxImage.Error);
+
+        private void AfficherMsgMaxSelectionDocuments(string pDocument, int pMaxDocuments) =>
+            AfficherMsg($"Le maximum de {pMaxDocuments} {pDocument}s est atteint.", MessageBoxImage.Information);
+
+        private void AfficherMsgErrMaxSelectionDocuments(bool pGenreStrDocumentEstMasculin, string pDocument,
+            int pMaxDocuments) =>
+            AfficherMsg(
+                $"Impossible d'ajouter {(pGenreStrDocumentEstMasculin ? "un" : "une")} {pDocument} ! Le maximum de {pMaxDocuments} est atteint.",
+                MessageBoxImage.Error);
+
         /// <summary>
-        ///     Permet d'afficher le message reçu en paramètre dans un dialogue pour afficher ce dernier.
+        /// Permet d'afficher le message reçu en paramètre dans un dialogue pour afficher ce dernier.
         /// </summary>
         /// <param name="pMsg">Message d'erreur à afficher</param>
-        private void AfficherMsgErreur(string pMsg)
+        private void AfficherMsg(string pMsg, MessageBoxImage msgBxImg)
         {
             MessageBox.Show(
-                "Une erreur s'est produite !!\n\n" + pMsg, "Erreur",
+                "Attention !!\n\n" + pMsg, "Message",
                 MessageBoxButton.OK,
-                MessageBoxImage.Error
+                msgBxImg
             );
         }
 
