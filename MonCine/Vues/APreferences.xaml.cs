@@ -214,7 +214,7 @@ namespace MonCine.Vues
             bool estSelectionne = pLstChange.SelectedIndex != -1;
 
             pBtnLstChangeActif.IsEnabled = estSelectionne;
-            pBtnLstChangeInactif.IsEnabled = !estSelectionne;
+            pBtnLstChangeInactif.IsEnabled = pLstContraire.SelectedIndex < 0 ? false : !estSelectionne;
             pBtnAjouterAutre1.IsEnabled = false;
             pBtnRetirerAutre1.IsEnabled = false;
             pBtnAjouterAutre2.IsEnabled = false;
