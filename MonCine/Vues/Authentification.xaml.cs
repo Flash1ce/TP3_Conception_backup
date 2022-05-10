@@ -103,7 +103,7 @@ namespace MonCine.Vues
             {
                 if (CboUtilisateurs.SelectedItem is Administrateur)
                 {
-                    NavigationService.Navigate(new Accueil(_client, _db));
+                    NavigationService.Navigate(new AccueilAdmin(_client, _db));
                 }
                 else
                 {
@@ -114,7 +114,7 @@ namespace MonCine.Vues
                     //    _NavigationFrame.Navigate(new Accueil(_client, _db, _abonnes.Find(x => x.Nom == nom)));
                     //}
                     string nom = (string)CboUtilisateurs.SelectedItem;
-                    NavigationService.Navigate(new Accueil(_client, _db, _abonnes.Find(x => x.Nom == nom)));
+                    NavigationService.Navigate(new AccueilAbonne(_client, _db, _abonnes.Find(x => x.Nom == nom)));
                 }
             }
         }
