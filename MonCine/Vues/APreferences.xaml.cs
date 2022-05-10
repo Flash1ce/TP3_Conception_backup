@@ -430,7 +430,7 @@ namespace MonCine.Vues
             string pPositionListe) =>
             AfficherMsg(
                 $"Veuillez sélectionner {(pGenreStrDocumentEstMasculin ? "un" : "une")} des {pDocument}s disponibles dans la liste de {pPositionListe}.",
-                MessageBoxImage.Error
+                MessageBoxImage.Warning
             );
 
         private void AfficherMsgMaxSelectionDocuments(string pDocument, int pMaxDocuments) =>
@@ -440,7 +440,7 @@ namespace MonCine.Vues
             int pMaxDocuments) =>
             AfficherMsg(
                 $"Impossible d'ajouter {(pGenreStrDocumentEstMasculin ? "un" : "une")} {pDocument} ! Le maximum de {pMaxDocuments} est atteint.",
-                MessageBoxImage.Error
+                MessageBoxImage.Warning
             );
 
         /// <summary>

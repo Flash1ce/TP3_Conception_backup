@@ -31,10 +31,10 @@
             <RadioButton x:Name="RbEstAffiche" Content="Films à l'affiche" Grid.Row="2" Checked="RbEstAffiche_Checked" HorizontalAlignment="Left" Margin="10 0 0 0"/>
             <Button x:Name="BtnRetourAccueil" Content="Retour à l'accueil" Grid.Row="3"
                     Background="#FF7CB8FF" Width="130" Height="25" Click="BtnRetourAccueil_Click" />
-            <Button x:Name="BtnRetirerDeAffiche" Content="Retirer de l'affiche" Grid.Row="4"
-                    Background="#FF7CB8FF" Width="125" Height="25" Click="BtnRetirerDeAffiche_OnClick" />
-            <Button x:Name="BtnVoirProjection" Content="Voir les projections" Grid.Row="5"
+            <Button x:Name="BtnVoirProjection" Content="Voir les projections" Grid.Row="4"
                     Background="#FF7CB8FF" Width="130" Height="25" Click="BtnVoirProjections_Click" />
+            <Button x:Name="BtnRetirerDeAffiche" Content="Retirer de l'affiche" Grid.Row="5"
+                    Background="#FF7CB8FF" Width="125" Height="25" Click="BtnRetirerDeAffiche_OnClick" />
         </Grid>
         <Grid Grid.Column="1" Margin="10">
             <Grid.ColumnDefinitions>

@@ -48,16 +48,14 @@ namespace MonCine.Vues
         /// <param name="pAbonne">si pAbonne est null, c'est un admin sinon c'est l'abonne connecter.</param>
         public FProjections(IMongoClient pClient, IMongoDatabase pDb, ObjectId pFilmId, DALFilm pDalFilm, Abonne pAbonne = null)
         {
-            _abonne = pAbonne;
-
             InitializeComponent();
             _client = pClient;
             _db = pDb;
             _filmId = pFilmId;
             _dalReservation = new DALReservation(pDalFilm, _client, _db);
+            _abonne = pAbonne;
 
             Loaded += OnLoaded;
-            AfficheBoutonAjouterOuReserver();
         }
 
         #endregion
@@ -68,24 +66,14 @@ namespace MonCine.Vues
         {
             DALFilm dalFilm = new DALFilm(_client, _db);
             _film = dalFilm.ObtenirPlusieurs(x => x.Id, new List<ObjectId> { _filmId }).Find(x => x.Id == _filmId);
-            bool filmEstVide = _film == null;
-            BtnAjouter.IsEnabled = !filmEstVide;
-            if (filmEstVide)
-            {
-                MessageBox.Show(
-                    $"Une erreur s'est produite !!\n\n Aucun film n'a été trouvé pour l'identifiant {_filmId}",
-                    "Erreur",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-            }
-            else
-            {
-                if (_film.Projections.Count > 0)
-                {
-                    _film.Projections.ForEach(x => LstProjections.Items.Add(x));
-                }
-            }
+            AfficheBoutonAjouterOuReserver();
+        }
+
+        private void LstProjections_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            bool projectionValide = LstProjections.SelectedIndex != -1 && _film.Projections.Count >= 1 
+                && _film.Projections[LstProjections.SelectedIndex].EstActive;
+            BtnReserver.IsEnabled = projectionValide;
         }
 
         private void BtnRetour_Click(object sender, RoutedEventArgs e)
@@ -97,45 +85,34 @@ namespace MonCine.Vues
         {
             NavigationService.Navigate(new FProgrammerProjection(_film, _client, _db));
         }
+
         private void BtnReserver_Click(object sender, RoutedEventArgs pE)
         {
-            // FAIRE REFACTORING
-            // Retirer estReserver | Faute d'orthographe sur estReserver
-            // AJOUTER UN MESSAGE D'ERREUR POUR UNE PROJECTION DÉSACTIVÉE À L'AJOUT D'UNE RÉSERVATION
-            bool estReserver = false;
-            int indexProjectionSelectionne = LstProjections.SelectedIndex;
-            if (_film.Projections.Count >= 1 && indexProjectionSelectionne > -1)
+            if (_film.Projections[LstProjections.SelectedIndex].EstActive)
             {
-                Projection projectionSelectionner = _film.Projections[indexProjectionSelectionne];
-
-                if (projectionSelectionner != null && projectionSelectionner.NbPlacesRestantes >= NB_PLACES_RESERVES && projectionSelectionner.EstActive)
-                {
-                    Reservation nouvelleReservation = new Reservation(new ObjectId(), _film, indexProjectionSelectionne, _abonne.Id, NB_PLACES_RESERVES);
-                    _dalReservation.InsererUne(nouvelleReservation);
-
-                    DALFilm dalFilm = new DALFilm();
-                    dalFilm.MAJProjections(_film);
-
-                    LstProjections.Items.Clear();
-                    if (_film.Projections.Count > 0)
-                    {
-                        _film.Projections.ForEach(x => LstProjections.Items.Add(x));
-                    }
-
-                    estReserver = true;
-                }
-            }
-
-            if (estReserver == true)
-            {
-                MessageBox.Show("La réservation a été ajouté !!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Crée la réservation et affiche le bon message dans le message box.
+                AfficherMsg(ReserverProjection(LstProjections.SelectedIndex) 
+                    ? "La réservation a été ajouté !!" : "La réservation n'a pas été ajouté !!", MessageBoxImage.Warning);
             }
             else
             {
-                MessageBox.Show("La réservation n'a pas été ajouté !!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+                AfficherMsg("La projection ne peut pas être réservé !!", MessageBoxImage.Warning);
             }
+        }
 
-            Console.WriteLine();
+        private bool ReserverProjection(int index)
+        {
+            Projection projectionSelectionner = _film.Projections[index];
+            bool projectionSelectionnerNonNullEtPlaceDisponible = projectionSelectionner != null && projectionSelectionner.NbPlacesRestantes >= NB_PLACES_RESERVES && projectionSelectionner.EstActive;
+            if (projectionSelectionnerNonNullEtPlaceDisponible)
+            {
+                _dalReservation.InsererUne(
+                    new Reservation(new ObjectId(), _film, index, _abonne.Id, NB_PLACES_RESERVES));
+                DALFilm dalFilm = new DALFilm();
+                dalFilm.MAJProjections(_film);
+                RegenererListeProjections();
+            }
+            return projectionSelectionnerNonNullEtPlaceDisponible;
         }
 
         /// <summary>
@@ -144,38 +121,43 @@ namespace MonCine.Vues
         /// </summary>
         private void AfficheBoutonAjouterOuReserver()
         {
-            if (_abonne == null)
+            bool filmEstVide = _film == null;
+            BtnAjouter.IsEnabled = !filmEstVide;
+            bool affichagePourAdmin = _abonne == null;
+            BtnAjouter.Visibility = ObtenirVisibilite(affichagePourAdmin);
+            BtnReserver.Visibility = ObtenirVisibilite(!affichagePourAdmin);
+            if (filmEstVide)
             {
-                // Affiche le bouton ajouter car est admin
-                BtnAjouter.IsEnabled = true;
-                BtnAjouter.Visibility = Visibility.Visible;
-                // Cache le bouton reserver car est admin
-                BtnReserver.IsEnabled = false;
-                BtnReserver.Visibility = Visibility.Hidden;
+                AfficherMsg($"Aucun film n'a été trouvé pour l'identifiant {_filmId}", MessageBoxImage.Warning);
             }
             else
             {
-                // Cache le bouton ajouter car est pas admin
-                BtnAjouter.IsEnabled = false;
-                BtnAjouter.Visibility = Visibility.Hidden;
-                // Affiche le bouton reserver car est abonne
-                BtnReserver.IsEnabled = true;
-                BtnReserver.Visibility = Visibility.Visible;
-
+                RegenererListeProjections();
             }
-
-            // REFACTORING
-            //bool affichagePourAdmin = _abonne == null;
-
-            //BtnAjouter.Visibility = ObtenirVisibilite(affichagePourAdmin);
-            //BtnReserver.Visibility = ObtenirVisibilite(!affichagePourAdmin);
         }
 
-        // REFACTORING
-        //private Visibility ObtenirVisibilite(bool pEstVisible)
-        //{
-        //    return pEstVisible ? Visibility.Visible : Visibility.Hidden;
-        //}
+        private Visibility ObtenirVisibilite(bool pEstVisible)
+        {
+            return pEstVisible ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void RegenererListeProjections()
+        {
+            LstProjections.Items.Clear();
+            if (_film.Projections.Count > 0)
+            {
+                _film.Projections.ForEach(x => LstProjections.Items.Add(x));
+            }
+        }
+
+        /// <summary>
+        /// Permet d'afficher le message reçu en paramètre dans un dialogue pour afficher ce dernier.
+        /// </summary>
+        /// <param name="pMsg">Message d'erreur à afficher</param>
+        private void AfficherMsg(string pMsg, MessageBoxImage msgBxImg)
+        {
+            MessageBox.Show(pMsg, "Information", MessageBoxButton.OK, msgBxImg);
+        }
 
         #endregion
     }

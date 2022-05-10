@@ -30,9 +30,9 @@
             <Button x:Name="BtnAjouter" Content="Ajouter" Grid.Column="2" Grid.Row="0" Click="BtnAjouter_OnClick"
                     Background="#FF7CB8FF" Width="130" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Button x:Name="BtnReserver" Content="Réserver" Grid.Column="2" Grid.Row="0"
-                    Background="#FF7CB8FF" Width="130" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnReserver_Click" />
+                    Background="#FF7CB8FF" Width="130" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnReserver_Click" IsEnabled="False" />
         </Grid>
-        <ListView x:Name="LstProjections" Grid.Column="0" Grid.Row="1">
+        <ListView x:Name="LstProjections" Grid.Column="0" Grid.Row="1" SelectionChanged="LstProjections_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0, 5">
