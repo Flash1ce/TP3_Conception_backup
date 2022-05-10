@@ -1,0 +1,77 @@
+﻿<Page x:Class="MonCine.Vues.FOffrirRecompense"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MonCine.Vues"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="FOffrirRecompense">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="257*"/>
+            <ColumnDefinition Width="143*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="163*"/>
+            <RowDefinition Height="287*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Offrir Récompense&#xD;&#xA;" Foreground="Black" FontFamily="Arial Black" FontSize="36" FontWeight="Bold" Margin="210,0,211,91" Height="60" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnOffrirRecompense" Content="Offrir Récompense"
+            Background="#FF7CB8FF" Margin="144,0,0,225" Click="btnOffrirRecompense_Click" Grid.Row="1" Height="27" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120"/>
+        <ComboBox x:Name="lstRecompenses" HorizontalAlignment="Left" Margin="144,0,0,272" Width="120" Grid.RowSpan="2" SelectionChanged="lstRecompenses_SelectionChanged" Height="22" VerticalAlignment="Bottom"/>
+        <ListView x:Name="lstAbonnes" Margin="0,0,50,43" Grid.RowSpan="2" HorizontalAlignment="Right" Width="156" Height="251" VerticalAlignment="Bottom" SelectionChanged="lstAbonnes_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Nom}" FontWeight="Bold" TextAlignment="Left"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="" FontWeight="Bold" TextAlignment="Left"></TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Nombre de séances: " TextAlignment="Left">
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding NbSeances}" TextAlignment="Left"></TextBlock>
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Name="lstAbonnesSelectionner" Grid.Column="1" Margin="0,0,0,43" Grid.RowSpan="2" Height="251" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="148" SelectionChanged="lstAbonnesSelectionner_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Nom}" FontWeight="Bold" TextAlignment="Left"></TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="" FontWeight="Bold" TextAlignment="Left"></TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Nombre de séances: " TextAlignment="Left">
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding NbSeances}" TextAlignment="Left"></TextBlock>
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="btnSelectionner" Content="Sélectionner ››› "
+            Background="#FF7CB8FF" Margin="469,0,0,272" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="108" Grid.ColumnSpan="2" Grid.RowSpan="2" Click="btnSelectionner_Click"/>
+        <Button x:Name="btnRetirer" Content="‹‹‹ Retirer"
+            Background="#FF7CB8FF" Margin="469,0,0,238" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="108" Grid.ColumnSpan="2" Grid.Row="1" Click="btnRetirer_Click"/>
+        <Label Name="nbAbonnes" Content="0" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,78,17" Height="25" VerticalAlignment="Bottom"/>
+        <Label Content="Nombre d'abonné: " Grid.Column="1" HorizontalAlignment="Left" Margin="69,0,0,12" VerticalAlignment="Bottom" Height="30"/>
+        <Label Content="Nombre de places disponibles:" Grid.Column="1" HorizontalAlignment="Left" Margin="24,0,0,45" VerticalAlignment="Bottom" Height="30"/>
+        <Label x:Name="nbPlace" Content="0" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,78,49" Height="26" VerticalAlignment="Bottom"/>
+        <RadioButton x:Name="rbTicketGratuit" Content="Ticket gratuit" HorizontalAlignment="Left" Margin="144,0,0,41" VerticalAlignment="Bottom" Width="120" Checked="rbTicketGratuit_Checked" IsChecked="True"/>
+        <RadioButton x:Name="rbAvantPremiere" Content="Avant-premières" HorizontalAlignment="Left" Margin="144,0,0,21" VerticalAlignment="Bottom" Width="120" Checked="rbAvantPremiere_Checked"/>
+    </Grid>
+</Page>
