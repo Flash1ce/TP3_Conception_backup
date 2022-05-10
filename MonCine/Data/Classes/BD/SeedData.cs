@@ -80,6 +80,10 @@ namespace MonCine.Data.Classes.BD
 
             // Réservations
             SeedData.GenererReservations(dalReservation, dalFilm.ObtenirTout(), dalAbonne.ObtenirTout());
+
+            // Récompenses
+            SeedData.GenererRecompenses(new DALRecompense(dalFilm, pClient, pDb), dalFilm.ObtenirTout(),
+                dalAbonne.ObtenirTout());
         }
 
         /// <summary>
@@ -550,7 +554,59 @@ namespace MonCine.Data.Classes.BD
                 throw new ExceptionBD($"Méthode : GenererReservations - Exception : {e.Message}");
             }
         }
+        /// <summary>
+        /// Permet de générer des récompenses afin de les insérer dans la base de données de la cinémathèque.
+        /// </summary>
+        /// <param name="pDalRecompense">Couche d'accès aux données pour les récompenses</param>
+        /// <param name="pFilms">Liste des films</param>
+        /// <param name="pAbonnes">Liste des abonnés</param>
+        private static void GenererRecompenses(DALRecompense pDalRecompense, List<Film> pFilms, List<Abonne> pAbonnes)
+        {
+            try
+            {
+                List<Recompense> recompenses = pDalRecompense.ObtenirRecompenses();
 
+                if (!recompenses.Any())
+                {
+                    recompenses.AddRange(SeedData.GenererTicketGratuits(pFilms, pAbonnes));
+
+                    if (recompenses.Count > 0)
+                    {
+                        pDalRecompense.InsererPlusieursRecompenses(recompenses);
+                    }
+                }
+            }
+            catch (ExceptionBD e)
+            {
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw new ExceptionBD($"Méthode : GenererRecompenses - Exception : {e.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Permet de générer des récompenses de type <see cref="TicketGratuit"/>.
+        /// </summary>
+        /// <param name="pFilms">Liste des films</param>
+        /// <param name="pAbonnes">Liste des abonnés</param>
+        /// <returns>Liste des récompenses de type <see cref="TicketGratuit"/> générée.</returns>
+        private static List<TicketGratuit> GenererTicketGratuits(List<Film> pFilms, List<Abonne> pAbonnes)
+        {
+            List<TicketGratuit> ticketGratuits = new List<TicketGratuit>();
+            int nbTicketGratuitsGeneres = SeedData._rand.Next(2, pFilms.Count);
+            for (int i = 0; i < nbTicketGratuitsGeneres; i++)
+            {
+                ticketGratuits.Add(new TicketGratuit(
+                    new ObjectId(),
+                    pFilms[i].Id,
+                    pAbonnes[SeedData._rand.Next(0, pAbonnes.Count - 1)].Id)
+                );
+            }
+
+            return ticketGratuits;
+        }
         #endregion
     }
 }
