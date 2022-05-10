@@ -22,7 +22,7 @@ namespace MonCine.Data.Classes
     {
         #region CONSTANTES ET ATTRIBUTS STATIQUES
 
-        private const int NB_MAX_EST_AFFICHE_PAR_ANNEE = 2;
+        public const int NB_MAX_EST_AFFICHE_PAR_ANNEE = 2;
 
         #endregion
 

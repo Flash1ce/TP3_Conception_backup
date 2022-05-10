@@ -71,12 +71,6 @@ namespace MonCine.Vues
             RbConnexionAdmin.IsChecked = true;
         }
 
-        // CODE À ANTOINE
-        //private void CboUtilisateurs_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        //{
-
-        //}
-
         private void RbConnexionAdmin_Checked(object pSender, RoutedEventArgs pE)
         {
             CboUtilisateurs.Items.Clear();
@@ -96,7 +90,7 @@ namespace MonCine.Vues
                 MessageBox.Show(
                     "Il faut choisir un utilisateur dans la liste déroulante pour pouvoir se connecter !", "Erreur",
                     MessageBoxButton.OK,
-                    MessageBoxImage.Error
+                    MessageBoxImage.Warning
                 );
             }
             else
@@ -107,12 +101,6 @@ namespace MonCine.Vues
                 }
                 else
                 {
-                    //// CODE À ANTOINE
-                    //string nom = (string)CboUtilisateurs.SelectedItem;
-                    //if (!string.IsNullOrEmpty(nom))
-                    //{
-                    //    _NavigationFrame.Navigate(new Accueil(_client, _db, _abonnes.Find(x => x.Nom == nom)));
-                    //}
                     string nom = (string)CboUtilisateurs.SelectedItem;
                     NavigationService.Navigate(new AccueilAbonne(_client, _db, _abonnes.Find(x => x.Nom == nom)));
                 }

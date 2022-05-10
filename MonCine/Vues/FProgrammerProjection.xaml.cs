@@ -38,7 +38,6 @@ namespace MonCine.Vues
         public FProgrammerProjection(Film pFilm, IMongoClient pClient, IMongoDatabase pDb)
         {
             InitializeComponent();
-
             _client = pClient;
             _db = pDb;
             _film = pFilm;
@@ -63,8 +62,6 @@ namespace MonCine.Vues
             DpDateDebut.BlackoutDates.Add(new CalendarDateRange(DateTime.Now, DateTime.Now));
             DpDateFin.BlackoutDates.AddDatesInPast();
             DpDateFin.BlackoutDates.Add(new CalendarDateRange(DateTime.Now, DateTime.Now.AddDays(1)));
-
-
             if (_film.Projections.Count > 0)
             {
                 Projection derniereProjection = _film.Projections[_film.Projections.Count - 1];
@@ -74,8 +71,6 @@ namespace MonCine.Vues
                     DpDateFin.BlackoutDates.Add(new CalendarDateRange(DateTime.Now, derniereProjection.DateFin.AddDays(1)));
                 }
             }
-
-
             List<Salle> salles = _dalSalle.ObtenirTout();
             if (salles.Count > 0)
             {
@@ -120,12 +115,10 @@ namespace MonCine.Vues
         private bool ValiderFormulaire()
         {
             string msgErr = "";
-
             if (CboSalles.SelectedIndex < 0)
             {
                 msgErr += "Il faut sélectionner une salle pour la projection du film\n";
             }
-
             if (DpDateDebut.SelectedDate == null)
             {
                 msgErr += "Il faut sélectionner une date de début pour la projection du film\n";
@@ -149,12 +142,10 @@ namespace MonCine.Vues
                     }
                 }
             }
-
             if (msgErr == "")
             {
                 return true;
             }
-
             AfficherMsgErreur(msgErr);
             return false;
         }
@@ -166,9 +157,9 @@ namespace MonCine.Vues
         private void AfficherMsgErreur(string pMsg)
         {
             MessageBox.Show(
-                "Une erreur s'est produite !!\n\n" + pMsg, "Erreur",
+                pMsg, "Information",
                 MessageBoxButton.OK,
-                MessageBoxImage.Error
+                MessageBoxImage.Warning
             );
         }
 
