@@ -44,16 +44,13 @@ namespace MonCine.Vues
         public FNote(IMongoClient pClient, IMongoDatabase pDb, Abonne pAbonne)
         {
             InitializeComponent();
-
             _client = pClient;
             _db = pDb;
             _dalFilm = new DALFilm(_client, _db);
             _dalReservation = new DALReservation(_dalFilm, _client, _db);
             _abonne = pAbonne;
-
             TxtNote.IsEnabled = false;
             BtnNoter.IsEnabled = false;
-
             _films = new List<Film>();
 
             Loaded += OnLoaded;
@@ -78,7 +75,6 @@ namespace MonCine.Vues
                         filmsAssistes.Add(x.Film);
                     }
                 });
-
             RegenererLstFilms();
         }
 
@@ -107,9 +103,7 @@ namespace MonCine.Vues
                         filmPourNote.Notes
                     )
                 });
-
                 RegenererLstFilms();
-
                 AfficherMsg(
                     "Les modifications ont été enregistrées avec succès !!'",
                     MessageBoxImage.Information
@@ -127,17 +121,29 @@ namespace MonCine.Vues
         private bool ValiderForm()
         {
             if (LstFilms.SelectedIndex < 0)
-                AfficherMsg("Il vous faut sélectionner un film pour le noter.", MessageBoxImage.Error);
+            {
+                AfficherMsg("Il vous faut sélectionner un film pour le noter.", MessageBoxImage.Warning);
+            }
             else if (string.IsNullOrWhiteSpace(TxtNote.Text))
-                AfficherMsg("Il vous faut saisir une note entre 1 et 10", MessageBoxImage.Error);
+            {
+                AfficherMsg("Il vous faut saisir une note entre 1 et 10", MessageBoxImage.Warning);
+            }
             else if (!int.TryParse(TxtNote.Text, out int _))
-                AfficherMsg("Il vous faut saisir valeur numérique", MessageBoxImage.Error);
+            {
+                AfficherMsg("Il vous faut saisir valeur numérique", MessageBoxImage.Warning);
+            }
             else if (int.Parse(TxtNote.Text) < 1)
-                AfficherMsg("Veuillez saisir une note supérieur à 0", MessageBoxImage.Error);
+            {
+                AfficherMsg("Veuillez saisir une note supérieur à 0", MessageBoxImage.Warning);
+            }
             else if (int.Parse(TxtNote.Text) > 10)
-                AfficherMsg("Veuillez saisir une note égale ou inférieure à 10.", MessageBoxImage.Error);
-            else return true;
-
+            {
+                AfficherMsg("Veuillez saisir une note égale ou inférieure à 10.", MessageBoxImage.Warning);
+            }
+            else
+            {
+                return true;
+            }
             return false;
         }
 
