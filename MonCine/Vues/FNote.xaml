@@ -26,7 +26,7 @@
                        TextWrapping="Wrap" FontFamily="Arial Black" FontSize="28" Grid.Row="0" />
             <Button x:Name="BtnRetourAccueil" Content="Retour à l'accueil" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                     Background="#FF7CB8FF" Width="130" Height="25" Click="BtnRetourAccueil_Click" />
-            <ListView SelectionChanged="LstFilms_OnSelectionChanged" x:Name="LstFilms" Grid.Column="1" Grid.Row="1" Cursor="Hand" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView SelectionChanged="LstFilms_OnSelectionChanged" x:Name="LstFilms" Grid.Column="1" Grid.Row="1" Cursor="Hand" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Single">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border x:Name="border" BorderBrush="Black" BorderThickness="1">

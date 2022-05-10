@@ -34,6 +34,7 @@ namespace MonCine.Vues
         private readonly IMongoDatabase _db;
         private readonly DALFilm _dalFilm;
         private readonly DALReservation _dalReservation;
+        private List<Film> _films;
         private Abonne _abonne;
 
         #endregion
@@ -50,6 +51,11 @@ namespace MonCine.Vues
             _dalReservation = new DALReservation(_dalFilm, _client, _db);
             _abonne = pAbonne;
 
+            TxtNote.IsEnabled = false;
+            BtnNoter.IsEnabled = false;
+
+            _films = new List<Film>();
+
             Loaded += OnLoaded;
         }
 
@@ -59,22 +65,28 @@ namespace MonCine.Vues
 
         private void OnLoaded(object pSender, RoutedEventArgs pE)
         {
-            LstFilms.Items.Clear();
-
             // Obtient tous les films pour l'abonné connecté
             _dalReservation
                 .ObtenirPlusieurs(x => x.AbonneId, new List<ObjectId>{_abonne.Id})
                 .ForEach(x =>
                 {
+                    List<Film> filmsAssistes = new List<Film>();
                     // Ajoute tous les films assistés de l'abonné connecté
-                    if (x.Film.Projections[x.IndexProjectionFilm].DateFin < DateTime.Now)
-                        LstFilms.Items.Add(x.Film);
+                    if (x.Film.Projections[x.IndexProjectionFilm].DateFin < DateTime.Now && !filmsAssistes.Contains(x.Film))
+                    {
+                        _films.Add(x.Film);
+                        filmsAssistes.Add(x.Film);
+                    }
                 });
+
+            RegenererLstFilms();
         }
 
         private void LstFilms_OnSelectionChanged(object pSender, SelectionChangedEventArgs pE)
         {
-            TxtNote.IsEnabled = LstFilms.SelectedIndex > -1;
+            bool filmEstSelectionne = LstFilms.SelectedIndex > -1;
+            TxtNote.IsEnabled = filmEstSelectionne;
+            BtnNoter.IsEnabled = filmEstSelectionne;
         }
 
         private void BtnRetourAccueil_Click(object sender, RoutedEventArgs e)
@@ -88,18 +100,28 @@ namespace MonCine.Vues
             {
                 Film filmPourNote = (Film)LstFilms.SelectedItem;
                 filmPourNote.Notes.Add(new Note(_abonne.Id, int.Parse(TxtNote.Text)));
-                _dalFilm.MAJUn(x => x.Id == _abonne.Id, new List<(Expression<Func<Film, object>> field, object value)>
+                _dalFilm.MAJUn(x => x.Id == filmPourNote.Id, new List<(Expression<Func<Film, object>> field, object value)>
                 {
                     (
                         x => x.Notes,
                         filmPourNote.Notes
                     )
                 });
+
+                RegenererLstFilms();
+
                 AfficherMsg(
                     "Les modifications ont été enregistrées avec succès !!'",
                     MessageBoxImage.Information
                 );
             }
+        }
+
+        private void RegenererLstFilms()
+        {
+            LstFilms.Items.Clear();
+            TxtNote.Text = "";
+            _films.ForEach(x=> LstFilms.Items.Add(x));
         }
 
         private bool ValiderForm()
@@ -108,6 +130,8 @@ namespace MonCine.Vues
                 AfficherMsg("Il vous faut sélectionner un film pour le noter.", MessageBoxImage.Error);
             else if (string.IsNullOrWhiteSpace(TxtNote.Text))
                 AfficherMsg("Il vous faut saisir une note entre 1 et 10", MessageBoxImage.Error);
+            else if (!int.TryParse(TxtNote.Text, out int _))
+                AfficherMsg("Il vous faut saisir valeur numérique", MessageBoxImage.Error);
             else if (int.Parse(TxtNote.Text) < 1)
                 AfficherMsg("Veuillez saisir une note supérieur à 0", MessageBoxImage.Error);
             else if (int.Parse(TxtNote.Text) > 10)
