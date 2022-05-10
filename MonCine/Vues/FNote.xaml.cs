@@ -40,7 +40,7 @@ namespace MonCine.Vues
 
         #region CONSTRUCTEURS
 
-        public FNote(IMongoClient pClient, IMongoDatabase pDb, Abonne pAbonne = null)
+        public FNote(IMongoClient pClient, IMongoDatabase pDb, Abonne pAbonne)
         {
             InitializeComponent();
 

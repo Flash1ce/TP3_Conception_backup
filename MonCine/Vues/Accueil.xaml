@@ -36,6 +36,8 @@
             Background="#FF7CB8FF" Width="160" Height="25" Margin="0,110,0,0" Click="BtnConsulterAbonne_Click" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" />
         <Button x:Name="BtnPreferences" Content="Modifier les préférences"
                 Background="#FF7CB8FF" Width="160" Height="25" Margin="0,110,0,0" Click="BtnPreferences_Click" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" />
+        <Button x:Name="BtnNoter" Content="Noter les films"
+                Background="#FF7CB8FF" Width="160" Height="25" Margin="0,170,0,0" Click="BtnNoter_Click" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" />
         <Button x:Name="BtnFilms" Content="Consulter les films"
                 Background="#FF7CB8FF" Width="160" Height="25" Margin="0,170,0,0" Click="BtnConsulterFilms_Click" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" />
         <Button x:Name="BtnDeconnexion" Content="Se déconnecter"

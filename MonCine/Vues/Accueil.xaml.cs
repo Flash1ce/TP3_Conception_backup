@@ -47,6 +47,7 @@ namespace MonCine.Vues
 
             BtnAbonnes.Visibility = ObtenirVisibilite(btnsPourAdminVisibles);
             BtnPreferences.Visibility = ObtenirVisibilite(!btnsPourAdminVisibles);
+            BtnNoter.Visibility = ObtenirVisibilite(!btnsPourAdminVisibles);
         }
 
         #endregion
@@ -66,6 +67,11 @@ namespace MonCine.Vues
         private void BtnPreferences_Click(object pSender, RoutedEventArgs pE)
         {
             NavigationService.Navigate(new APreferences(_client, _db, _abonne));
+        }
+
+        private void BtnNoter_Click(object pSender, RoutedEventArgs pE)
+        {
+            NavigationService.Navigate(new FFilms(_client, _db, _abonne));
         }
 
         private void BtnConsulterFilms_Click(object sender, RoutedEventArgs e)
