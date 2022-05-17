@@ -26,7 +26,7 @@ namespace MonCine.Vues
 
         private readonly IMongoClient _client;
         private readonly IMongoDatabase _db;
-        private Abonne _abonne;
+        private readonly Abonne _abonne;
 
         #endregion
 

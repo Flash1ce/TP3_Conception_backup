@@ -1,25 +1,26 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : DALFilm.cs
-// Date de modification : 2022-05-12
+// Date de modification : 2022-05-17
 
 #endregion
 
 #region USING
 
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using MonCine.Data.Classes.BD;
 using MonCine.Data.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 
 #endregion
 
 namespace MonCine.Data.Classes.DAL
 {
-    public interface IMAJ : ICRUD<Film>
+    public interface IGererFilms : IObtenir<Film>, IObtenirDocumentsComplexes<Film>, IInsererPlusieur<Film>,
+        IMAJUn<Film>
     {
         #region MÉTHODES
 
@@ -28,14 +29,16 @@ namespace MonCine.Data.Classes.DAL
         #endregion
     }
 
-    public class DALFilm : DAL, IMAJ
+    public class DALFilm : DAL, IGererFilms
     {
         #region ATTRIBUTS
 
         private readonly DALCategorie _dalCategorie;
         private readonly DALActeur _dalActeur;
         private readonly DALRealisateur _dalRealisateur;
-        private DALAbonne _dalAbonne;
+        private DALAbonne _dalAbonneCourant;
+        private readonly DALAbonne _dalAbonne;
+        private readonly IMongoClient _clientReservation;
 
         #endregion
 
@@ -56,59 +59,121 @@ namespace MonCine.Data.Classes.DAL
             _dalRealisateur = pDalRealisateur;
         }
 
+        public DALFilm(DALCategorie pDalCategorie, DALActeur pDalActeur, DALRealisateur pDalRealisateur,
+            DALAbonne pDalAbonne, IMongoClient pClientReservation,
+            IMongoClient pClient = null, IMongoDatabase pDb = null) : base(pClient, pDb)
+        {
+            _dalCategorie = pDalCategorie;
+            _dalActeur = pDalActeur;
+            _dalRealisateur = pDalRealisateur;
+            _dalAbonne = pDalAbonne;
+            _clientReservation = pClientReservation;
+        }
+
         #endregion
+
+        public Film ObtenirUn(ObjectId pFilmId)
+        {
+            return ObtenirPlusieurs(x => x.Id == pFilmId)[0];
+        }
+
+        public List<Film> ObtenirPlusieurs(List<ObjectId> pFilmsId)
+        {
+            return ObtenirPlusieurs(x => pFilmsId.Contains(x.Id));
+        }
+
+        public List<Film> ObtenirPlusieurs(Func<Film, bool> pPredicate)
+        {
+            return ObtenirDocumentsComplexes(MongoDbContext.ObtenirDocumentsFiltres(Db, pPredicate));
+        }
 
         public List<Film> ObtenirTout()
         {
-            return ObtenirObjetsDansLst(MongoDbContext.ObtenirCollectionListe<Film>(Db));
+            return ObtenirDocumentsComplexes(MongoDbContext.ObtenirCollectionListe<Film>(Db));
         }
 
-        public List<Film> ObtenirPlusieurs<TField>(Expression<Func<Film, TField>> pFiltre, List<TField> pObjectIds)
-        {
-            return ObtenirObjetsDansLst(MongoDbContext.ObtenirDocumentsFiltres(Db, pFiltre, pObjectIds));
-        }
-
-        public List<Film> ObtenirObjetsDansLst(List<Film> pFilms)
+        public List<Film> ObtenirDocumentsComplexes(List<Film> pFilms)
         {
             // Conserver ce if dans la méthode pour éviter une erreur de type StackOverflow
-            if (_dalAbonne == null)
+            if (_dalAbonneCourant == null)
             {
-                _dalAbonne = new DALAbonne(_dalCategorie, _dalActeur, _dalRealisateur, this, MongoDbClient, Db);
+                _dalAbonneCourant = _dalAbonne == null
+                    ? new DALAbonne(_dalCategorie, _dalActeur, _dalRealisateur, this, MongoDbClient, Db)
+                    : new DALAbonne(_dalCategorie, _dalActeur, _dalRealisateur,
+                        new DALReservation(this, _clientReservation), _dalAbonne.MongoDbClient);
             }
 
+            List<ObjectId> categorieIds = new List<ObjectId>();
+            List<Categorie> categoriesTrouvees = new List<Categorie>();
+            List<ObjectId> acteurIds = new List<ObjectId>();
+            List<Acteur> acteursTrouves = new List<Acteur>();
+            List<ObjectId> realisateursId = new List<ObjectId>();
+            List<Realisateur> realisateursTrouves = new List<Realisateur>();
+            List<ObjectId> abonneIds = new List<ObjectId>();
+            List<Abonne> abonnesTrouves = new List<Abonne>();
             foreach (Film film in pFilms)
             {
-                List<Categorie> categories =
-                    _dalCategorie.ObtenirPlusieurs(pX => pX.Id, new List<ObjectId> { film.CategorieId });
-                if (categories.Count > 0)
+                ObjectId categorieId = film.CategorieId;
+                int index = categorieIds.IndexOf(categorieId);
+                if (index > -1)
                 {
-                    film.Categorie = categories[0];
+                    film.Categorie = categoriesTrouvees[index];
+                }
+                else
+                {
+                    film.Categorie = _dalCategorie.ObtenirUn(categorieId);
+                    categorieIds.Add(categorieId);
+                    categoriesTrouvees.Add(film.Categorie);
                 }
 
-                film.Acteurs = _dalActeur.ObtenirPlusieurs(pX => pX.Id, film.ActeursId);
-                film.Realisateurs = _dalRealisateur.ObtenirPlusieurs(pX => pX.Id, film.RealisateursId);
+                film.Acteurs = new List<Acteur>();
+                foreach (ObjectId acteurId in film.ActeursId)
+                {
+                    index = acteurIds.IndexOf(acteurId);
+                    if (index > -1)
+                    {
+                        film.Acteurs.Add(acteursTrouves[index]);
+                    }
+                    else
+                    {
+                        Acteur acteur = _dalActeur.ObtenirUn(acteurId);
+                        film.Acteurs.Add(acteur);
+                        acteurIds.Add(acteurId);
+                        acteursTrouves.Add(acteur);
+                    }
+                }
 
-                List<ObjectId> abonneIds = new List<ObjectId>();
+                film.Realisateurs = new List<Realisateur>();
+                foreach (ObjectId realisateurId in film.RealisateursId)
+                {
+                    index = realisateursId.IndexOf(realisateurId);
+                    if (index > -1)
+                    {
+                        film.Realisateurs.Add(realisateursTrouves[index]);
+                    }
+                    else
+                    {
+                        Realisateur realisateur = _dalRealisateur.ObtenirUn(realisateurId);
+                        film.Realisateurs.Add(realisateur);
+                        realisateursId.Add(realisateurId);
+                        realisateursTrouves.Add(realisateur);
+                    }
+                }
+
                 foreach (Note filmNote in film.Notes)
                 {
-                    if (!abonneIds.Contains(filmNote.AbonneId))
+                    index = abonneIds.IndexOf(filmNote.AbonneId);
+                    if (index > -1)
                     {
+                        filmNote.Abonne = abonnesTrouves[index];
+                    }
+                    else
+                    {
+                        Abonne abonne = _dalAbonneCourant.ObtenirUn(filmNote.AbonneId);
+                        filmNote.Abonne = abonne;
                         abonneIds.Add(filmNote.AbonneId);
+                        abonnesTrouves.Add(abonne);
                     }
-                }
-
-                try
-                {
-                    List<Abonne> abonnes = _dalAbonne.ObtenirPlusieurs(pX => pX.Id, abonneIds);
-                    foreach (Note filmNote in film.Notes)
-                    {
-                        filmNote.Abonne = abonnes.Find(pX => pX.Id == filmNote.AbonneId);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
                 }
 
                 int nbDatesFinsAffiche = film.DatesFinsAffiche.Count;

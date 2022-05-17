@@ -15,12 +15,12 @@ namespace MonCine.Vues
     {
         #region ATTRIBUTS
 
-        private DALAdministrateur _dalAdministrateur;
-        private DALAbonne _dalAbonne;
+        private readonly DALAdministrateur _dalAdministrateur;
+        private readonly DALAbonne _dalAbonne;
         private Administrateur _administrateur;
         private List<Abonne> _abonnes;
-        private IMongoClient _client;
-        private IMongoDatabase _db;
+        private readonly IMongoClient _client;
+        private readonly IMongoDatabase _db;
 
         #endregion
 
@@ -37,26 +37,7 @@ namespace MonCine.Vues
             SeedData.GenererDonneesDeBD(_client, _db);
             _dalAbonne = new DALAbonne(_client, _db);
 
-            // Est nécessaire pour charger à nouveau les utilisateurs au cas où ils auraient été modifié
-            // À REVOIR !! puisque l'on est jamais censé ajouter ou supprimer un utilisateur.
             Loaded += OnLoaded;
-
-            // CODE À ANTOINE
-            ////_utilisateurs = dalAdministrateur.ObtenirUn();
-            ////_utilisateurs = _dalAbonne.ObtenirTout()[0];
-            //List<Abonne> abonnes = _dalAbonne.ObtenirTout()
-            //foreach (var item in abonnes)
-            //{
-            //    CboUtilisateurs.Items.Add(item.Nom);
-            //}
-            //if (_utilisateurs is Abonne)
-            //{
-            //    _NavigationFrame.Navigate(new Accueil(dalAdministrateur.MongoDbClient, dalAdministrateur.Db, (Abonne)_utilisateurs));
-            //}
-            //else
-            //{
-            //    AfficherMsgErreur("Vous n'êtes pas connecté en tant qu'administrateur");
-            //}
         }
 
         #endregion

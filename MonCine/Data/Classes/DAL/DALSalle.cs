@@ -8,6 +8,8 @@
 #region USING
 
 using MonCine.Data.Classes.BD;
+using MonCine.Data.Interfaces;
+using MonCine.Data.Interfaces.Obtenir;
 using MongoDB.Driver;
 using System.Collections.Generic;
 
@@ -15,7 +17,7 @@ using System.Collections.Generic;
 
 namespace MonCine.Data.Classes.DAL
 {
-    public class DALSalle : DAL
+    public class DALSalle : DAL, IObtenirTout<Salle>, IInsererPlusieur<Salle>
     {
         #region CONSTRUCTEURS
 
@@ -32,9 +34,9 @@ namespace MonCine.Data.Classes.DAL
             return MongoDbContext.ObtenirCollectionListe<Salle>(Db);
         }
 
-        public void InsererPlusieurs(List<Salle> pSalles)
+        public bool InsererPlusieurs(List<Salle> pSalles)
         {
-            MongoDbContext.InsererPlusieursDocuments(Db, pSalles);
+            return MongoDbContext.InsererPlusieursDocuments(Db, pSalles);
         }
 
         #endregion

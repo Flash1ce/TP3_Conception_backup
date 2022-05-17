@@ -1,19 +1,19 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : SeedData.cs
-// Date de modification : 2022-05-12
+// Date de modification : 2022-05-17
 
 #endregion
 
 #region USING
 
-using MonCine.Data.Classes.DAL;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using MonCine.Data.Classes.DAL;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 #endregion
 
@@ -76,7 +76,7 @@ namespace MonCine.Data.Classes.BD
                 {
                     pDalAdministrateur.InsererUn(
                         new Administrateur(
-                            new ObjectId(),
+                            ObjectId.GenerateNewId(),
                             "Administrateur",
                             "admin@email.com",
                             "admin"
@@ -108,11 +108,11 @@ namespace MonCine.Data.Classes.BD
                     pDalCategorie.InsererPlusieurs(
                         new List<Categorie>
                         {
-                            new Categorie(new ObjectId(), "Horreur"),
-                            new Categorie(new ObjectId(), "Fantastique"),
-                            new Categorie(new ObjectId(), "Comédie"),
-                            new Categorie(new ObjectId(), "Action"),
-                            new Categorie(new ObjectId(), "Romance")
+                            new Categorie(ObjectId.GenerateNewId(), "Horreur"),
+                            new Categorie(ObjectId.GenerateNewId(), "Fantastique"),
+                            new Categorie(ObjectId.GenerateNewId(), "Comédie"),
+                            new Categorie(ObjectId.GenerateNewId(), "Action"),
+                            new Categorie(ObjectId.GenerateNewId(), "Romance")
                         }
                     );
                 }
@@ -137,15 +137,15 @@ namespace MonCine.Data.Classes.BD
                     pDalActeur.InsererPlusieurs(
                         new List<Acteur>
                         {
-                            new Acteur(new ObjectId(), "Zendaya"),
-                            new Acteur(new ObjectId(), "Keanu Reeves"),
-                            new Acteur(new ObjectId(), "Ahmed Toumi"),
-                            new Acteur(new ObjectId(), "Marvin Laeib"),
-                            new Acteur(new ObjectId(), "Le Grand Gwenaël"),
-                            new Acteur(new ObjectId(), "Antoine Le Merveilleux"),
-                            new Acteur(new ObjectId(), "Timoté"),
-                            new Acteur(new ObjectId(), "Ptite petate"),
-                            new Acteur(new ObjectId(), "Mélina Chaud")
+                            new Acteur(ObjectId.GenerateNewId(), "Zendaya"),
+                            new Acteur(ObjectId.GenerateNewId(), "Keanu Reeves"),
+                            new Acteur(ObjectId.GenerateNewId(), "Ahmed Toumi"),
+                            new Acteur(ObjectId.GenerateNewId(), "Marvin Laeib"),
+                            new Acteur(ObjectId.GenerateNewId(), "Le Grand Gwenaël"),
+                            new Acteur(ObjectId.GenerateNewId(), "Antoine Le Merveilleux"),
+                            new Acteur(ObjectId.GenerateNewId(), "Timoté"),
+                            new Acteur(ObjectId.GenerateNewId(), "Ptite petate"),
+                            new Acteur(ObjectId.GenerateNewId(), "Mélina Chaud")
                         }
                     );
                 }
@@ -170,11 +170,11 @@ namespace MonCine.Data.Classes.BD
                     pDalRealisateur.InsererPlusieurs(
                         new List<Realisateur>()
                         {
-                            new Realisateur(new ObjectId(), "James Cameron"),
-                            new Realisateur(new ObjectId(), "Steven Spielberg"),
-                            new Realisateur(new ObjectId(), "Tim Burton"),
-                            new Realisateur(new ObjectId(), "Gary Ross"),
-                            new Realisateur(new ObjectId(), "Michael Bay")
+                            new Realisateur(ObjectId.GenerateNewId(), "James Cameron"),
+                            new Realisateur(ObjectId.GenerateNewId(), "Steven Spielberg"),
+                            new Realisateur(ObjectId.GenerateNewId(), "Tim Burton"),
+                            new Realisateur(ObjectId.GenerateNewId(), "Gary Ross"),
+                            new Realisateur(ObjectId.GenerateNewId(), "Michael Bay")
                         }
                     );
                 }
@@ -200,11 +200,12 @@ namespace MonCine.Data.Classes.BD
                     for (int i = 0; i < nbSalles; i++)
                     {
                         salles.Add(new Salle(
-                            new ObjectId(),
+                            ObjectId.GenerateNewId(),
                             $"Salle {i + 1}",
                             SeedData._rand.Next(20, 40)
                         ));
                     }
+
                     pDalSalle.InsererPlusieurs(salles);
                 }
             }
@@ -241,10 +242,12 @@ namespace MonCine.Data.Classes.BD
                     {
                         films.Add(SeedData.GenererFilm(nom, pCategories, pActeurs, pRealisateurs));
                     }
+
                     for (int i = 0; i < films.Count; i += SeedData._rand.Next(1, 3))
                     {
                         SeedData.GenererProjections(films[i], pSalles);
                     }
+
                     pDalFilm.InsererPlusieurs(films);
                 }
             }
@@ -271,17 +274,19 @@ namespace MonCine.Data.Classes.BD
         {
             DateTime dateSortie = DateTime.Now;
             dateSortie = dateSortie.AddYears(-1 * SeedData._rand.Next(30));
+            int startIndex = SeedData._rand.Next(0, pActeurs.Count);
             List<ObjectId> acteursId = new List<ObjectId>();
             pActeurs
-                .GetRange(0, SeedData._rand.Next(1, SeedData._rand.Next(2, pActeurs.Count)))
+                .GetRange(startIndex, SeedData._rand.Next(0, pActeurs.Count - startIndex))
                 .ForEach(x => acteursId.Add(x.Id));
+            startIndex = SeedData._rand.Next(0, pActeurs.Count);
             List<ObjectId> realisateursId = new List<ObjectId>();
             pRealisateurs
-                .GetRange(0, SeedData._rand.Next(1, SeedData._rand.Next(2, pRealisateurs.Count)))
+                .GetRange(startIndex, SeedData._rand.Next(0, pRealisateurs.Count - startIndex))
                 .ForEach(x => realisateursId.Add(x.Id));
             Film film = new Film
             (
-                new ObjectId(),
+                ObjectId.GenerateNewId(),
                 pNom,
                 dateSortie,
                 new List<Projection>(),
@@ -320,6 +325,7 @@ namespace MonCine.Data.Classes.BD
                     {
                         abonnes.Add(SeedData.GenererAbonne(i + 1, pCategories, pActeurs, pRealisateurs));
                     }
+
                     pDalAbonne.InsererPlusieurs(abonnes);
                 }
             }
@@ -351,7 +357,7 @@ namespace MonCine.Data.Classes.BD
 
             return new Abonne
             (
-                new ObjectId(),
+                ObjectId.GenerateNewId(),
                 $"Utilisateur {numero}",
                 $"utilisateur_{numero}@email.com",
                 $"user{numero}",
@@ -423,8 +429,8 @@ namespace MonCine.Data.Classes.BD
                                 int nbPlaces = SeedData._rand.Next(1, 10);
                                 if (film.Projections[indexProjection].NbPlacesRestantes - nbPlaces > -1)
                                 {
-                                    pDalReservation.InsererUne(new Reservation(
-                                        new ObjectId(),
+                                    pDalReservation.InsererUn(new Reservation(
+                                        ObjectId.GenerateNewId(),
                                         film,
                                         indexProjection,
                                         pAbonnes[SeedData._rand.Next(0, pAbonnes.Count - 1)].Id,
@@ -450,14 +456,14 @@ namespace MonCine.Data.Classes.BD
         {
             try
             {
-                List<Recompense> recompenses = pDalRecompense.ObtenirRecompenses();
+                List<Recompense> recompenses = pDalRecompense.ObtenirTout();
 
                 if (!recompenses.Any())
                 {
                     recompenses.AddRange(SeedData.GenererTicketGratuits(pFilms, pAbonnes));
                     if (recompenses.Count > 0)
                     {
-                        pDalRecompense.InsererPlusieursRecompenses(recompenses);
+                        pDalRecompense.InsererPlusieurs(recompenses);
                     }
                 }
             }
@@ -478,7 +484,7 @@ namespace MonCine.Data.Classes.BD
             for (int i = 0; i < nbTicketGratuitsGeneres; i++)
             {
                 ticketGratuits.Add(new TicketGratuit(
-                    new ObjectId(),
+                    ObjectId.GenerateNewId(),
                     pFilms[i].Id,
                     pAbonnes[SeedData._rand.Next(0, pAbonnes.Count - 1)].Id)
                 );

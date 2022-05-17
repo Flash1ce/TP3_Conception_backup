@@ -1,13 +1,15 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : DALRecompense.cs
-// Date de modification : 2022-05-12
+// Date de modification : 2022-05-17
 
 #endregion
 
 #region USING
 
 using MonCine.Data.Classes.BD;
+using MonCine.Data.Interfaces;
+using MonCine.Data.Interfaces.Obtenir;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
@@ -16,7 +18,8 @@ using System.Collections.Generic;
 
 namespace MonCine.Data.Classes.DAL
 {
-    public class DALRecompense : DAL
+    public class DALRecompense : DAL, IObtenirTout<Recompense>, IObtenirDocumentsComplexes<Recompense>,
+        IInsererPlusieur<Recompense>
     {
         #region ATTRIBUTS
 
@@ -34,22 +37,12 @@ namespace MonCine.Data.Classes.DAL
 
         #endregion
 
-        #region MÉTHODES
-
-        public List<Recompense> ObtenirRecompenses()
+        public bool InsererPlusieurs(List<Recompense> pRecompenses)
         {
-            List<Recompense> recompenses = new List<Recompense>();
-            recompenses.AddRange(ObtenirObjetsDansRecompenses(
-                new List<Recompense>(
-                    MongoDbContext.ObtenirCollection<Recompense>(Db)
-                        .Aggregate()
-                        .OfType<TicketGratuit>()
-                        .ToList())
-            ));
-            return recompenses;
+            return MongoDbContext.InsererPlusieursDocuments(Db, pRecompenses);
         }
 
-        private List<Recompense> ObtenirObjetsDansRecompenses(List<Recompense> pRecompenses)
+        public List<Recompense> ObtenirDocumentsComplexes(List<Recompense> pRecompenses)
         {
             List<ObjectId> filmIds = new List<ObjectId>();
 
@@ -61,7 +54,7 @@ namespace MonCine.Data.Classes.DAL
                 }
             }
 
-            List<Film> films = _dalFilm.ObtenirPlusieurs(x => x.Id, filmIds);
+            List<Film> films = _dalFilm.ObtenirPlusieurs(filmIds);
 
             foreach (Recompense reservation in pRecompenses)
             {
@@ -71,11 +64,17 @@ namespace MonCine.Data.Classes.DAL
             return pRecompenses;
         }
 
-        public void InsererPlusieursRecompenses(List<Recompense> pRecompenses)
+        public List<Recompense> ObtenirTout()
         {
-            MongoDbContext.InsererPlusieursDocuments(Db, pRecompenses);
+            List<Recompense> recompenses = new List<Recompense>();
+            recompenses.AddRange(ObtenirDocumentsComplexes(
+                new List<Recompense>(
+                    MongoDbContext.ObtenirCollection<Recompense>(Db)
+                        .Aggregate()
+                        .OfType<TicketGratuit>()
+                        .ToList())
+            ));
+            return recompenses;
         }
-
-        #endregion
     }
 }

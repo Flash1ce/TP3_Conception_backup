@@ -8,6 +8,9 @@
 #region USING
 
 using MonCine.Data.Classes.BD;
+using MonCine.Data.Interfaces;
+using MonCine.Data.Interfaces.Obtenir;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -16,7 +19,12 @@ using System.Collections.Generic;
 
 namespace MonCine.Data.Classes.DAL
 {
-    public class DALAdministrateur : DAL
+    public interface IGererAdministrateur : IInsererUn<Administrateur>
+    {
+        public Administrateur ObtenirUn();
+    }
+
+    public class DALAdministrateur : DAL, IGererAdministrateur
     {
         #region CONSTRUCTEURS
 
@@ -33,11 +41,6 @@ namespace MonCine.Data.Classes.DAL
 
         #region MÉTHODES
 
-        /// <summary>
-        /// Permet d'obtenir l'administrateur à partir de la base de données de la cinémathèque depuis la collection concernée.
-        /// </summary>
-        /// <returns>L'administrateur provenant de la base de données.</returns>
-        /// <exception cref="IndexOutOfRangeException">Lancée lorsqu'il y a plus de 1 administrateur dans la base de données.</exception>
         public Administrateur ObtenirUn()
         {
             List<Administrateur> administrateurs = MongoDbContext.ObtenirCollectionListe<Administrateur>(Db);
@@ -51,15 +54,11 @@ namespace MonCine.Data.Classes.DAL
             return administrateurs.Count == 1 ? administrateurs[0] : null;
         }
 
-        /// <summary>
-        /// Permet d'insérer l'administrateur reçu en paramètre dans la base de données de la cinémathèque.
-        /// </summary>
-        /// <param name="pAdministrateur">Administrateur à insérer dans la base de données</param>
-        public void InsererUn(Administrateur pAdministrateur)
-        {
-            MongoDbContext.InsererUnDocument(Db, pAdministrateur);
-        }
-
         #endregion
+
+        public bool InsererUn(Administrateur pAdministrateur)
+        {
+            return MongoDbContext.InsererUnDocument(Db, pAdministrateur);
+        }
     }
 }

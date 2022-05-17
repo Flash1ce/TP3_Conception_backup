@@ -19,7 +19,7 @@ using System.Linq.Expressions;
 
 namespace MonCine.Data.Classes.DAL
 {
-    public class DALAbonne : DAL, ICRUD<Abonne>
+    public class DALAbonne : DAL, IObtenir<Abonne>, IObtenirDocumentsComplexes<Abonne>, IInsererPlusieur<Abonne>, IMAJUn<Abonne>
     {
         #region ATTRIBUTS
 
@@ -69,27 +69,35 @@ namespace MonCine.Data.Classes.DAL
 
         #endregion
 
+        public Abonne ObtenirUn(ObjectId pAbonneId)
+        {
+            return ObtenirPlusieurs( x => x.Id == pAbonneId)[0];
+        }
+
+        public List<Abonne> ObtenirPlusieurs(List<ObjectId> pAbonnesId)
+        {
+            return ObtenirPlusieurs(x => pAbonnesId.Contains(x.Id));
+        }
+
+        public List<Abonne> ObtenirPlusieurs(Func<Abonne, bool> pPredicate)
+        {
+            return ObtenirDocumentsComplexes(MongoDbContext.ObtenirDocumentsFiltres(Db, pPredicate));
+        }
+
         public List<Abonne> ObtenirTout()
         {
-            return ObtenirObjetsDansLst(MongoDbContext.ObtenirCollectionListe<Abonne>(Db));
+            return ObtenirDocumentsComplexes(MongoDbContext.ObtenirCollectionListe<Abonne>(Db));
         }
 
-        public List<Abonne> ObtenirPlusieurs<TField>(Expression<Func<Abonne, TField>> pField, List<TField> pObjects)
-        {
-            return ObtenirObjetsDansLst(MongoDbContext.ObtenirDocumentsFiltres(Db, pField, pObjects));
-        }
-
-        public List<Abonne> ObtenirObjetsDansLst(List<Abonne> pAbonnes)
+        public List<Abonne> ObtenirDocumentsComplexes(List<Abonne> pAbonnes)
         {
             foreach (Abonne abonne in pAbonnes)
             {
                 abonne.Preference.Categories =
-                    _dalCategorie.ObtenirPlusieurs(x => x.Id, abonne.Preference.CategoriesId);
-                abonne.Preference.Acteurs = _dalActeur.ObtenirPlusieurs(x => x.Id, abonne.Preference.ActeursId);
-                abonne.Preference.Realisateurs =
-                    _dalRealisateur.ObtenirPlusieurs(x => x.Id, abonne.Preference.RealisateursId);
-                abonne.NbSeances =
-                    _dalReservation.ObtenirNbReservations(x => x.AbonneId, new List<ObjectId> { abonne.Id });
+                    _dalCategorie.ObtenirPlusieurs(abonne.Preference.CategoriesId);
+                abonne.Preference.Acteurs = _dalActeur.ObtenirPlusieurs(abonne.Preference.ActeursId);
+                abonne.Preference.Realisateurs = _dalRealisateur.ObtenirPlusieurs(abonne.Preference.RealisateursId);
+                abonne.NbSeances = _dalReservation.ObtenirNbReservations(abonne.Id);
             }
 
             return pAbonnes;

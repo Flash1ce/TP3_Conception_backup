@@ -1,23 +1,20 @@
 ﻿#region MÉTADONNÉES
 
-// Nom du fichier : FFilms.xaml.cs
-// Date de création : 2022-04-24
-// Date de modification : 2022-04-24
+// Nom du fichier : FNote.xaml.cs
+// Date de modification : 2022-05-17
 
 #endregion
 
 #region USING
 
-using MonCine.Data.Classes;
-using MonCine.Data.Classes.DAL;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
+using MonCine.Data.Classes;
+using MonCine.Data.Classes.DAL;
+using MongoDB.Driver;
 
 #endregion
 
@@ -34,8 +31,8 @@ namespace MonCine.Vues
         private readonly IMongoDatabase _db;
         private readonly DALFilm _dalFilm;
         private readonly DALReservation _dalReservation;
-        private List<Film> _films;
-        private Abonne _abonne;
+        private readonly List<Film> _films;
+        private readonly Abonne _abonne;
         private int _indexAbonneNote = -1;
 
         #endregion
@@ -64,9 +61,9 @@ namespace MonCine.Vues
         private void OnLoaded(object pSender, RoutedEventArgs pE)
         {
             // Obtient tous les films pour l'abonné connecté
-            _dalReservation
-                .ObtenirPlusieurs(x => x.AbonneId, new List<ObjectId> { _abonne.Id })
-                .ForEach(x =>
+            List<Reservation> reservations = _dalReservation.ObtenirPlusieurs(x => x.AbonneId == _abonne.Id);
+            if (reservations.Count > 0)
+                reservations.ForEach(x =>
                 {
                     List<Film> filmsAssistes = new List<Film>();
                     // Ajoute tous les films assistés de l'abonné connecté
@@ -91,12 +88,13 @@ namespace MonCine.Vues
             List<Note> notes = ((Film)LstFilms.SelectedItem).Notes;
             int i = 0;
             while (i < notes.Count && _indexAbonneNote == indexAucuneSelection)
-            { 
+            {
                 if (notes[i].AbonneId == _abonne.Id)
                 {
                     _indexAbonneNote = i;
                     TxtNote.Text = notes[i].NoteFilm.ToString();
                 }
+
                 i++;
             }
         }
@@ -120,6 +118,7 @@ namespace MonCine.Vues
                 {
                     filmPourNote.Notes.Add(new Note(_abonne.Id, note));
                 }
+
                 _dalFilm.MAJUn(x => x.Id == filmPourNote.Id,
                     new List<(Expression<Func<Film, object>> field, object value)>
                     {

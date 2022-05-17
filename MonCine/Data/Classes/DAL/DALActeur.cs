@@ -8,6 +8,8 @@
 #region USING
 
 using MonCine.Data.Classes.BD;
+using MonCine.Data.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ using System.Linq.Expressions;
 
 namespace MonCine.Data.Classes.DAL
 {
-    public class DALActeur : DAL
+    public class DALActeur : DAL, IGerer<Acteur>
     {
         #region CONSTRUCTEURS
 
@@ -29,20 +31,29 @@ namespace MonCine.Data.Classes.DAL
 
         #region MÉTHODES
 
+        public Acteur ObtenirUn(ObjectId pActeurId)
+        {
+            return ObtenirPlusieurs(x => x.Id == pActeurId)[0];
+        }
+
+        public List<Acteur> ObtenirPlusieurs(List<ObjectId> pActeursId)
+        {
+            return ObtenirPlusieurs(x => pActeursId.Contains(x.Id));
+        }
+
+        public List<Acteur> ObtenirPlusieurs(Func<Acteur, bool> pPredicate)
+        {
+            return MongoDbContext.ObtenirDocumentsFiltres(Db, pPredicate);
+        }
+
         public List<Acteur> ObtenirTout()
         {
             return MongoDbContext.ObtenirCollectionListe<Acteur>(Db);
         }
 
-        public List<Acteur> ObtenirPlusieurs<TField>(Expression<Func<Acteur, TField>> pField,
-            List<TField> pObjects)
+        public bool InsererPlusieurs(List<Acteur> pActeurs)
         {
-            return MongoDbContext.ObtenirDocumentsFiltres(Db, pField, pObjects);
-        }
-
-        public void InsererPlusieurs(List<Acteur> pActeurs)
-        {
-            MongoDbContext.InsererPlusieursDocuments(Db, pActeurs);
+            return MongoDbContext.InsererPlusieursDocuments(Db, pActeurs);
         }
 
         #endregion

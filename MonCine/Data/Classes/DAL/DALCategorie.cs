@@ -1,24 +1,24 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : DALCategorie.cs
-// Date de modification : 2022-05-12
+// Date de modification : 2022-05-17
 
 #endregion
 
 #region USING
 
-using MonCine.Data.Classes.BD;
-using MonCine.Data.Interfaces;
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using MonCine.Data.Classes.BD;
+using MonCine.Data.Interfaces;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 #endregion
 
 namespace MonCine.Data.Classes.DAL
 {
-    public class DALCategorie : DAL, ICRUD<Categorie>
+    public class DALCategorie : DAL, IGerer<Categorie>
     {
         #region CONSTRUCTEURS
 
@@ -28,31 +28,29 @@ namespace MonCine.Data.Classes.DAL
 
         #endregion
 
+        public Categorie ObtenirUn(ObjectId pCategorieId)
+        {
+            return ObtenirPlusieurs(x => x.Id == pCategorieId)[0];
+        }
+
+        public List<Categorie> ObtenirPlusieurs(List<ObjectId> pCategoriesId)
+        {
+            return ObtenirPlusieurs(x => pCategoriesId.Contains(x.Id));
+        }
+
+        public List<Categorie> ObtenirPlusieurs(Func<Categorie, bool> pPredicate)
+        {
+            return MongoDbContext.ObtenirDocumentsFiltres(Db, pPredicate);
+        }
+
         public List<Categorie> ObtenirTout()
         {
             return MongoDbContext.ObtenirCollectionListe<Categorie>(Db);
         }
 
-        public List<Categorie> ObtenirPlusieurs<TField>(Expression<Func<Categorie, TField>> pField,
-            List<TField> pObjects)
-        {
-            return MongoDbContext.ObtenirDocumentsFiltres(Db, pField, pObjects);
-        }
-
-        public List<Categorie> ObtenirObjetsDansLst(List<Categorie> pCategories)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool InsererPlusieurs(List<Categorie> pCategories)
         {
             return MongoDbContext.InsererPlusieursDocuments(Db, pCategories);
-        }
-
-        public bool MAJUn<TField>(Expression<Func<Categorie, bool>> pFiltre,
-            List<(Expression<Func<Categorie, TField>> field, TField value)> pMajDefinitions)
-        {
-            throw new NotImplementedException();
         }
     }
 }

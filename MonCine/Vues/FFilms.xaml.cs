@@ -30,7 +30,7 @@ namespace MonCine.Vues
         private readonly DALFilm _dalFilm;
         private List<Film> _films;
         private Film _filmSelectionne;
-        private Abonne _abonne;
+        private readonly Abonne _abonne;
 
         #endregion
 

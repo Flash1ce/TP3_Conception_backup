@@ -1,21 +1,19 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : FProjections.xaml.cs
-// Date de création : 2022-04-24
-// Date de modification : 2022-04-24
+// Date de modification : 2022-05-17
 
 #endregion
 
 #region USING
 
+using System;
+using System.Windows;
+using System.Windows.Controls;
 using MonCine.Data.Classes;
 using MonCine.Data.Classes.DAL;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
 
 #endregion
 
@@ -26,14 +24,20 @@ namespace MonCine.Vues
     /// </summary>
     public partial class FProjections : Page
     {
-        #region ATTRIBUTS
+        #region CONSTANTES ET ATTRIBUTS STATIQUES
+
         private const int NB_PLACES_RESERVES = 1;
-        private IMongoClient _client;
-        private IMongoDatabase _db;
+
+        #endregion
+
+        #region ATTRIBUTS
+
+        private readonly IMongoClient _client;
+        private readonly IMongoDatabase _db;
         private readonly ObjectId _filmId;
         private Film _film;
-        private Abonne _abonne;
-        private DALReservation _dalReservation;
+        private readonly Abonne _abonne;
+        private readonly DALReservation _dalReservation;
 
         #endregion
 
@@ -46,7 +50,8 @@ namespace MonCine.Vues
         /// <param name="pDb"></param>
         /// <param name="pFilmId"></param>
         /// <param name="pAbonne">si pAbonne est null, c'est un admin sinon c'est l'abonne connecter.</param>
-        public FProjections(IMongoClient pClient, IMongoDatabase pDb, ObjectId pFilmId, DALFilm pDalFilm, Abonne pAbonne = null)
+        public FProjections(IMongoClient pClient, IMongoDatabase pDb, ObjectId pFilmId, DALFilm pDalFilm,
+            Abonne pAbonne = null)
         {
             _abonne = pAbonne;
 
@@ -67,7 +72,7 @@ namespace MonCine.Vues
         private void OnLoaded(object pSender, RoutedEventArgs pE)
         {
             DALFilm dalFilm = new DALFilm(_client, _db);
-            _film = dalFilm.ObtenirPlusieurs(x => x.Id, new List<ObjectId> { _filmId }).Find(x => x.Id == _filmId);
+            _film = dalFilm.ObtenirUn(_filmId);
             bool filmEstVide = _film == null;
             BtnAjouter.IsEnabled = !filmEstVide;
             if (filmEstVide)
@@ -97,6 +102,7 @@ namespace MonCine.Vues
         {
             NavigationService.Navigate(new FProgrammerProjection(_film, _client, _db));
         }
+
         private void BtnReserver_Click(object sender, RoutedEventArgs pE)
         {
             // FAIRE REFACTORING
@@ -108,10 +114,13 @@ namespace MonCine.Vues
             {
                 Projection projectionSelectionner = _film.Projections[indexProjectionSelectionne];
 
-                if (projectionSelectionner != null && projectionSelectionner.NbPlacesRestantes >= NB_PLACES_RESERVES && projectionSelectionner.EstActive)
+                if (projectionSelectionner != null &&
+                    projectionSelectionner.NbPlacesRestantes >= FProjections.NB_PLACES_RESERVES &&
+                    projectionSelectionner.EstActive)
                 {
-                    Reservation nouvelleReservation = new Reservation(new ObjectId(), _film, indexProjectionSelectionne, _abonne.Id, NB_PLACES_RESERVES);
-                    _dalReservation.InsererUne(nouvelleReservation);
+                    Reservation nouvelleReservation = new Reservation(ObjectId.GenerateNewId(), _film,
+                        indexProjectionSelectionne, _abonne.Id, FProjections.NB_PLACES_RESERVES);
+                    _dalReservation.InsererUn(nouvelleReservation);
 
                     DALFilm dalFilm = new DALFilm();
                     dalFilm.MAJProjections(_film);
@@ -128,11 +137,13 @@ namespace MonCine.Vues
 
             if (estReserver == true)
             {
-                MessageBox.Show("La réservation a été ajouté !!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("La réservation a été ajouté !!", "Confirmation", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("La réservation n'a pas été ajouté !!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("La réservation n'a pas été ajouté !!", "Confirmation", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
 
             Console.WriteLine();
@@ -161,7 +172,6 @@ namespace MonCine.Vues
                 // Affiche le bouton reserver car est abonne
                 BtnReserver.IsEnabled = true;
                 BtnReserver.Visibility = Visibility.Visible;
-
             }
 
             // REFACTORING
@@ -171,12 +181,12 @@ namespace MonCine.Vues
             //BtnReserver.Visibility = ObtenirVisibilite(!affichagePourAdmin);
         }
 
+        #endregion
+
         // REFACTORING
         //private Visibility ObtenirVisibilite(bool pEstVisible)
         //{
         //    return pEstVisible ? Visibility.Visible : Visibility.Hidden;
         //}
-
-        #endregion
     }
 }

@@ -1,25 +1,35 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : DALReservation.cs
-// Date de modification : 2022-05-12
+// Date de modification : 2022-05-17
 
 #endregion
 
 #region USING
 
-using MonCine.Data.Classes.BD;
-using MonCine.Data.Interfaces;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using MonCine.Data.Classes.BD;
+using MonCine.Data.Interfaces;
+using MonCine.Data.Interfaces.Obtenir;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 #endregion
 
 namespace MonCine.Data.Classes.DAL
 {
-    public class DALReservation : DAL, ICRUD<Reservation>
+    public interface IGererReservations : IObtenirPlusieurs<Reservation>, IObtenirTout<Reservation>,
+        IObtenirDocumentsComplexes<Reservation>, IInsererUn<Reservation>
+    {
+        #region MÉTHODES
+
+        public int ObtenirNbReservations(ObjectId pAbonneId);
+
+        #endregion
+    }
+
+    public class DALReservation : DAL, IGererReservations
     {
         #region ATTRIBUTS
 
@@ -43,33 +53,28 @@ namespace MonCine.Data.Classes.DAL
 
         #endregion
 
-        #region MÉTHODES
-
-        public int ObtenirNbReservations<TField>(Expression<Func<Reservation, TField>> pField, List<TField> pObjects)
+        public int ObtenirNbReservations(ObjectId pAbonneId)
         {
-            return MongoDbContext.ObtenirDocumentsFiltres(Db, pField, pObjects).Count;
+            return MongoDbContext.ObtenirDocumentsFiltres<Reservation>(Db, x => x.AbonneId == pAbonneId).Count;
         }
 
-        public void InsererUne(Reservation pReservation)
+
+        public List<Reservation> ObtenirPlusieurs(List<ObjectId> pReservationsId)
         {
-            _dalFilm.MAJProjections(pReservation.Film);
-            MongoDbContext.InsererUnDocument(Db, pReservation);
+            return ObtenirPlusieurs(x => pReservationsId.Contains(x.Id));
         }
 
-        #endregion
+        public List<Reservation> ObtenirPlusieurs(Func<Reservation, bool> pPredicate)
+        {
+            return ObtenirDocumentsComplexes(MongoDbContext.ObtenirDocumentsFiltres(Db, pPredicate));
+        }
 
         public List<Reservation> ObtenirTout()
         {
-            return ObtenirObjetsDansLst(MongoDbContext.ObtenirCollectionListe<Reservation>(Db));
+            return ObtenirDocumentsComplexes(MongoDbContext.ObtenirCollectionListe<Reservation>(Db));
         }
 
-        public List<Reservation> ObtenirPlusieurs<TField>(Expression<Func<Reservation, TField>> pField,
-            List<TField> pObjects)
-        {
-            return ObtenirObjetsDansLst(MongoDbContext.ObtenirDocumentsFiltres(Db, pField, pObjects));
-        }
-
-        public List<Reservation> ObtenirObjetsDansLst(List<Reservation> pReservations)
+        public List<Reservation> ObtenirDocumentsComplexes(List<Reservation> pReservations)
         {
             List<ObjectId> filmIds = new List<ObjectId>();
             foreach (Reservation reservation in pReservations)
@@ -80,7 +85,7 @@ namespace MonCine.Data.Classes.DAL
                 }
             }
 
-            List<Film> films = _dalFilm.ObtenirPlusieurs(x => x.Id, filmIds);
+            List<Film> films = _dalFilm.ObtenirPlusieurs(filmIds);
             foreach (Reservation reservation in pReservations)
             {
                 reservation.Film = films.Find(x => x.Id == reservation.FilmId);
@@ -89,15 +94,10 @@ namespace MonCine.Data.Classes.DAL
             return pReservations;
         }
 
-        public bool InsererPlusieurs(List<Reservation> pDocuments)
+        public bool InsererUn(Reservation pReservation)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool MAJUn<TField>(Expression<Func<Reservation, bool>> pFiltre,
-            List<(Expression<Func<Reservation, TField>> field, TField value)> pMajDefinitions)
-        {
-            throw new NotImplementedException();
+            _dalFilm.MAJProjections(pReservation.Film);
+            return MongoDbContext.InsererUnDocument(Db, pReservation);
         }
     }
 }

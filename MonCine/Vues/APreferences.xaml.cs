@@ -1,24 +1,22 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : APreferences.xaml.cs
-// Auteur :  (1933760)
-// Date de création : 2022-05-06
-// Date de modification : 2022-05-06
+// Date de modification : 2022-05-17
 
 #endregion
 
 #region USING
 
-using MonCine.Data.Classes;
-using MonCine.Data.Classes.DAL;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
+using MonCine.Data.Classes;
+using MonCine.Data.Classes.DAL;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 #endregion
 

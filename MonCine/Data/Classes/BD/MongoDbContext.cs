@@ -1,16 +1,17 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : MongoDbContext.cs
-// Date de modification : 2022-05-12
+// Date de modification : 2022-05-17
 
 #endregion
 
 #region USING
 
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using MongoDB.Driver;
 
 #endregion
 
@@ -27,14 +28,20 @@ namespace MonCine.Data.Classes.BD
             MongoDbContext.ObtenirCollection<TDocument>(pBd)
                 .FindSync<TDocument>(Builders<TDocument>.Filter.Empty).ToList();
 
-        public static List<TDocument> ObtenirDocumentsFiltres<TDocument, TField>(IMongoDatabase pBd,
-            Expression<Func<TDocument, TField>> pField,
-            List<TField> pObjects)
+        public static List<TDocument> ObtenirDocumentsFiltres<TDocument>(IMongoDatabase pBd,
+            Func<TDocument, bool> pPredicate)
         {
             try
             {
-                return MongoDbContext.ObtenirCollection<TDocument>(pBd)
-                    .Find(Builders<TDocument>.Filter.In(pField, pObjects)).ToList();
+                var collection = MongoDbContext.ObtenirCollection<TDocument>(pBd)
+                    .FindSync<TDocument>(Builders<TDocument>.Filter.Empty);
+                List<TDocument> documentsTrouves = collection.Current == null
+                    ? collection.ToList()
+                    : collection.Current.ToList();
+
+                if (documentsTrouves.Count > 0)
+                    return documentsTrouves.Where(pPredicate).ToList();
+                return documentsTrouves;
             }
             catch (Exception e)
             {
@@ -42,11 +49,12 @@ namespace MonCine.Data.Classes.BD
             }
         }
 
-        public static void InsererUnDocument<TDocument>(IMongoDatabase pBd, TDocument pDocument)
+        public static bool InsererUnDocument<TDocument>(IMongoDatabase pBd, TDocument pDocument)
         {
             try
             {
                 MongoDbContext.ObtenirCollection<TDocument>(pBd).InsertOne(pDocument);
+                return true;
             }
             catch (Exception e)
             {
