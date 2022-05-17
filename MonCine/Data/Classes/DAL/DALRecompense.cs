@@ -16,67 +16,66 @@ using MongoDB.Driver;
 
 #endregion
 
-namespace MonCine.Data.Classes.DAL;
-
-public class DALRecompense : DAL, IObtenirTout<Recompense>, IObtenirDocumentsComplexes<Recompense>,
-    IInsererPlusieur<Recompense>
+namespace MonCine.Data.Classes.DAL
 {
-    #region ATTRIBUTS
-
-    /// <summary>
-    /// Couche d'accès aux données pour les films
-    /// </summary>
-    private readonly DALFilm _dalFilm;
-
-    #endregion
-
-    #region CONSTRUCTEURS
-
-    public DALRecompense(DALFilm pDalFilm, IMongoClient pClient = null, IMongoDatabase pDb = null) : base(pClient,
-        pDb)
+    public class DALRecompense : DAL, IObtenirTout<Recompense>, IObtenirDocumentsComplexes<Recompense>,
+        IInsererPlusieur<Recompense>
     {
-        _dalFilm = pDalFilm;
-    }
+        #region ATTRIBUTS
 
-    #endregion
+        private readonly DALFilm _dalFilm;
 
-    public bool InsererPlusieurs(List<Recompense> pRecompenses)
-    {
-        return MongoDbContext.InsererPlusieursDocuments(Db, pRecompenses);
-    }
+        #endregion
 
-    public List<Recompense> ObtenirTout()
-    {
-        List<Recompense> recompenses = new List<Recompense>();
-        recompenses.AddRange(ObtenirDocumentsComplexes(
-            new List<Recompense>(
-                MongoDbContext.ObtenirCollection<Recompense>(Db)
-                    .Aggregate()
-                    .OfType<TicketGratuit>()
-                    .ToList())
-        ));
-        return recompenses;
-    }
+        #region CONSTRUCTEURS
 
-    public List<Recompense> ObtenirDocumentsComplexes(List<Recompense> pRecompenses)
-    {
-        List<ObjectId> filmIds = new List<ObjectId>();
-
-        foreach (Recompense reservation in pRecompenses)
+        public DALRecompense(DALFilm pDalFilm, IMongoClient pClient = null, IMongoDatabase pDb = null) : base(pClient,
+            pDb)
         {
-            if (!filmIds.Contains(reservation.FilmId))
+            _dalFilm = pDalFilm;
+        }
+
+        #endregion
+
+        public bool InsererPlusieurs(List<Recompense> pRecompenses)
+        {
+            return MongoDbContext.InsererPlusieursDocuments(Db, pRecompenses);
+        }
+
+        public List<Recompense> ObtenirDocumentsComplexes(List<Recompense> pRecompenses)
+        {
+            List<ObjectId> filmIds = new List<ObjectId>();
+
+            foreach (Recompense reservation in pRecompenses)
             {
-                filmIds.Add(reservation.FilmId);
+                if (!filmIds.Contains(reservation.FilmId))
+                {
+                    filmIds.Add(reservation.FilmId);
+                }
             }
+
+            List<Film> films = _dalFilm.ObtenirPlusieurs(filmIds);
+
+            foreach (Recompense reservation in pRecompenses)
+            {
+                reservation.Film = films.Find(x => x.Id == reservation.FilmId);
+            }
+
+            return pRecompenses;
         }
 
-        List<Film> films = _dalFilm.ObtenirPlusieurs(filmIds);
-
-        foreach (Recompense reservation in pRecompenses)
+        public List<Recompense> ObtenirTout()
         {
-            reservation.Film = films.Find(x => x.Id == reservation.FilmId);
+            List<Recompense> recompenses = new List<Recompense>();
+            recompenses.AddRange(ObtenirDocumentsComplexes(
+                    new List<Recompense>(
+                        MongoDbContext.ObtenirCollection<Recompense>(Db)
+                            .Aggregate()
+                            .OfType<TicketGratuit>()
+                            .ToList())
+                )
+            );
+            return recompenses;
         }
-
-        return pRecompenses;
     }
 }
