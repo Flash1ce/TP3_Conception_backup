@@ -106,6 +106,7 @@ namespace MonCine.Vues
                 rbAvantPremiere.IsEnabled = true;
                 rbTicketGratuit.IsEnabled = true;
                 btnOffrirRecompense.IsEnabled = true;
+                BtnRetourAccueil.IsEnabled = true;
                 MessageBox.Show("Offrir Récompense","Récompenses Offertes !", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
@@ -150,7 +151,24 @@ namespace MonCine.Vues
                         }
                     }
                 }
-                abonnesFiltres.ForEach(abonneFiltre => lstAbonnes.Items.Add(abonneFiltre));
+                List<Recompense> recompenses = _dalRecompense.ObtenirRecompenses();
+
+                foreach (Abonne abonnee in abonnesFiltres)
+                {
+                    bool abonneDejaObtenuRecompense = false;
+                    foreach (Recompense recompense in recompenses)
+                    {
+                       if(recompense.AbonneId == abonnee.Id)
+                        {
+                            abonneDejaObtenuRecompense = true;
+                        }
+                    }
+                    if (!abonneDejaObtenuRecompense)
+                    {
+                        lstAbonnes.Items.Add(abonnee);
+                    }
+                }
+                //abonnesFiltres.ForEach(abonneFiltre => lstAbonnes.Items.Add(abonneFiltre));
                 try
                 {
                     int nbPlaces = _filmSelectionne.Projections.Last().NbPlacesRestantes;
@@ -204,6 +222,7 @@ namespace MonCine.Vues
                     rbAvantPremiere.IsEnabled = false;
                     rbTicketGratuit.IsEnabled = false;
                     btnOffrirRecompense.IsEnabled = true;
+                    BtnRetourAccueil.IsEnabled = false;
                 }
                 nbAbonnes.Content = lstAbonnesSelectionner.Items.Count.ToString();
             }
@@ -248,6 +267,7 @@ namespace MonCine.Vues
                     rbAvantPremiere.IsEnabled = true;
                     rbTicketGratuit.IsEnabled = true;
                     btnOffrirRecompense.IsEnabled = false;
+                    BtnRetourAccueil.IsEnabled = true;
                 }
             }
         }
@@ -291,6 +311,11 @@ namespace MonCine.Vues
             _ticketGratuitIsChecked = false;
             lstRecompenses.Items.Clear();
             RafraichirListeRecompense();
+        }
+
+        private void BtnRetourAccueil_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
