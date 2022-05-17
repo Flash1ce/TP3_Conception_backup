@@ -22,18 +22,25 @@
                 <RowDefinition Height="1.5*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1.5*" />
                 <RowDefinition Height="2.5*" />
                 <RowDefinition Height="2.5*" />
                 <RowDefinition Height="2.5*" />
             </Grid.RowDefinitions>
             <TextBlock x:Name="TitreFiltre" Text="Filtre" TextWrapping="Wrap" Grid.Row="0" FontFamily="Arial Black" FontSize="22" TextDecorations="{x:Null}" HorizontalAlignment="Center" />
+            
             <RadioButton x:Name="RbTousLesFilms" Content="Tous les films" Grid.Row="1" Checked="RbTousLesFilm_Checked" HorizontalAlignment="Left" Margin="10 0 0 0"/>
             <RadioButton x:Name="RbEstAffiche" Content="Films à l'affiche" Grid.Row="2" Checked="RbEstAffiche_Checked" HorizontalAlignment="Left" Margin="10 0 0 0"/>
-            <Button x:Name="BtnRetourAccueil" Content="Retour à l'accueil" Grid.Row="3"
+
+            <RadioButton x:Name="RbEstPasAffiche" Content="Films pas à l'affiche" Grid.Row="3" Checked="RbEstPasAffiche_Checked" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+            <RadioButton x:Name="RbEstReprojeterEtAffiche" Content="Films reprojeter à l'affiche" Grid.Row="4" Checked="RbEstReprojeterEtAffiche_Checked" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+                                                                    
+            <Button x:Name="BtnRetourAccueil" Content="Retour à l'accueil" Grid.Row="5"
                     Background="#FF7CB8FF" Width="130" Height="25" Click="BtnRetourAccueil_Click" />
-            <Button x:Name="BtnVoirProjection" Content="Voir les projections" Grid.Row="4"
+            <Button x:Name="BtnVoirProjection" Content="Voir les projections" Grid.Row="6"
                     Background="#FF7CB8FF" Width="130" Height="25" Click="BtnVoirProjections_Click" />
-            <Button x:Name="BtnRetirerDeAffiche" Content="Retirer de l'affiche" Grid.Row="5"
+            <Button x:Name="BtnRetirerDeAffiche" Content="Retirer de l'affiche" Grid.Row="7"
                     Background="#FF7CB8FF" Width="125" Height="25" Click="BtnRetirerDeAffiche_OnClick" />
         </Grid>
         <Grid Grid.Column="1" Margin="10">
