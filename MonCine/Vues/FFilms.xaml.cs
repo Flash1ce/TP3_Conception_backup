@@ -60,14 +60,6 @@ namespace MonCine.Vues
                 BtnRetirerDeAffiche.IsEnabled = false;
                 BtnRetirerDeAffiche.Visibility = Visibility.Hidden;
             }
-
-            // BtnNonAffiche_Click
-            // BtnEstReprojeteEtAffiche_Click
-            // LstFilms.Items.Clear();
-            // _films.forEach(x => {
-            //   if (x.EstAffiche && x.DatesFinsAffiche.Count > 0 && x.DatesFinsAffiche.Count <= Film.NB_MAX_EST_AFFICHE_PAR_ANNEE)
-            //      LstFilms.Items.Add(x);
-            // })
         }
 
         #endregion
@@ -81,18 +73,29 @@ namespace MonCine.Vues
             RbTousLesFilms.IsChecked = true;
             if (LstFilms.Items.Count == 0 && _films.Count > 0)
             {
-                ChargerLstFilms(!(bool)RbTousLesFilms.IsChecked);
+                //ChargerLstFilms(!(bool)RbTousLesFilms.IsChecked);
+
+                ChargerLstFilms(0);
             }
         }
 
         private void RbTousLesFilm_Checked(object sender, RoutedEventArgs e)
         {
-            ChargerLstFilms(false);
+            ChargerLstFilms(0);
         }
 
         private void RbEstAffiche_Checked(object sender, RoutedEventArgs e)
         {
-            ChargerLstFilms(true);
+            ChargerLstFilms(1);
+        }
+        private void RbEstReprojeterEtAffiche_Checked(object sender, RoutedEventArgs e)
+        {
+            ChargerLstFilms(2);
+        }
+
+        private void RbEstPasAffiche_Checked(object sender, RoutedEventArgs e)
+        {
+            ChargerLstFilms(3);
         }
 
         private void BtnRetourAccueil_Click(object sender, RoutedEventArgs e)
@@ -117,11 +120,21 @@ namespace MonCine.Vues
                         _films[_films.FindIndex(x => x.Id == _filmSelectionne.Id)] = _filmSelectionne;
                         if (RbTousLesFilms.IsChecked == true)
                         {
-                            ChargerLstFilms(!(bool)RbTousLesFilms.IsChecked);
+                            //ChargerLstFilms(!(bool)RbTousLesFilms.IsChecked);
+                            ChargerLstFilms(0);
+                        }
+                        else if(RbEstAffiche.IsChecked == true)
+                        {
+                            //ChargerLstFilms((bool)RbEstAffiche.IsChecked);
+                            ChargerLstFilms(1);
+                        }
+                        else if (RbEstPasAffiche.IsChecked == true)
+                        {
+                            ChargerLstFilms(3);
                         }
                         else
                         {
-                            ChargerLstFilms((bool)RbEstAffiche.IsChecked);
+                            ChargerLstFilms(2);
                         }
                     }
                     catch (Exception e)
@@ -141,25 +154,65 @@ namespace MonCine.Vues
             ActiverBtnsPourFilmSelectionneEstAffiche();
         }
 
-        private void ChargerLstFilms(bool pAffichagePourRbEstAffiche)
+        /// <summary>
+        /// Modifi les films a l'affiche selon le mode sélectioner avec les radio boutons.
+        /// </summary>
+        /// <param name="pFilmAfficherOption">0: tout, 1:affiche, 2:reprojeter affiche, 3:pas affiche</param>
+        private void ChargerLstFilms(int pFilmAfficherOption)
         {
-            LstFilms.Items.Clear();
 
+            //LstFilms.Items.Clear();
+
+            //if (_films.Count > 0)
+            //{
+            //    if (pAffichagePourRbEstAffiche)
+            //    {
+            //        _films
+            //            .Where(film => film.EstAffiche)
+            //            .ToList()
+            //            .ForEach(film => LstFilms.Items.Add(film));
+            //    }
+            //    else
+            //    {
+            //        _films.ForEach(film => LstFilms.Items.Add(film));
+            //    }
+            //}
+
+            //ActiverBtnsPourFilmSelectionneEstAffiche();
+            LstFilms.Items.Clear();
             if (_films.Count > 0)
             {
-                if (pAffichagePourRbEstAffiche)
+                switch (pFilmAfficherOption)
                 {
-                    _films
-                        .Where(film => film.EstAffiche)
-                        .ToList()
-                        .ForEach(film => LstFilms.Items.Add(film));
-                }
-                else
-                {
-                    _films.ForEach(film => LstFilms.Items.Add(film));
+                    case 0:
+                        _films.ForEach(film => LstFilms.Items.Add(film));
+                        break;
+                    case 1:
+                        _films.Where(film => film.EstAffiche).ToList().ForEach(film => LstFilms.Items.Add(film));
+                        break;
+                    case 2:
+                        // RbEstReprojeteEtAffiche_Checked
+                        // LstFilms.Items.Clear();
+                        // _films.forEach(x => {
+                        //   if (x.EstAffiche && x.DatesFinsAffiche.Count > 0 && x.DatesFinsAffiche.Count <= Film.NB_MAX_EST_AFFICHE_PAR_ANNEE)
+                        //      LstFilms.Items.Add(x);
+                        // })
+                        _films.Where(
+                            film => film.EstAffiche && film.DatesFinsAffiche.Count > 0 
+                            && film.DatesFinsAffiche.Count <= Film.NB_MAX_EST_AFFICHE_PAR_ANNEE
+                            ).ToList().ForEach(film => LstFilms.Items.Add(film));
+                        break;
+                    case 3:
+                        // RbNonAffiche_Checked
+                        //_films.forEach(x =>
+                        //{
+                        //    if (!x.EstAffiche && x.DateSortie > DateTime.Now)
+                        //        LstFilms.Items.Add(x);
+                        //})
+                        _films.Where(film => !film.EstAffiche && film.DateSortie > DateTime.Now).ToList().ForEach(film => LstFilms.Items.Add(film));
+                        break;
                 }
             }
-
             ActiverBtnsPourFilmSelectionneEstAffiche();
         }
 
