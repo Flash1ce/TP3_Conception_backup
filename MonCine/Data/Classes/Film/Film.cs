@@ -249,15 +249,9 @@ namespace MonCine.Data.Classes
                 }
                 else if (estMemeAnnee && Film.NB_MAX_EST_AFFICHE_PAR_ANNEE < DatesFinsAffiche.Count)
                 {
-                    int iteration = 0;
-                    while (iteration < Film.NB_MAX_EST_AFFICHE_PAR_ANNEE - 1 && DatesFinsAffiche[DatesFinsAffiche.Count - 1 - iteration].Year ==
-                        DatesFinsAffiche[DatesFinsAffiche.Count - 2 - iteration].Year)
-                    {
-                        iteration++;
-                    }
-                    // À la première itération dans la boucle, la comparaison, si vrai, vaut pour 2
-                    // Il faut donc ajouter + 1 pour arriver au bon nombre de date à l'affiche trouvé pour la même année 
-                    if (iteration + 1 == Film.NB_MAX_EST_AFFICHE_PAR_ANNEE)
+                    int iteration = ObtenirNbProjectionsPourAnneeCourante(pDateDebut.Year);
+                   
+                    if (iteration == Film.NB_MAX_EST_AFFICHE_PAR_ANNEE)
                     {
                         throw new InvalidOperationException(
                             $"Il est impossible d'ajouter une autre projection puisque celle-ci a déjà été projetée {Film.NB_MAX_EST_AFFICHE_PAR_ANNEE}");
@@ -267,6 +261,36 @@ namespace MonCine.Data.Classes
             Projections.Add(new Projection(pDateDebut, pDateFin, pSalle));
             return true;
         }
+
+        public int ObtenirNbProjectionsPourAnneeCourante(int annneeCourante)
+        {
+            if (Projections.Count > 0)
+            {
+                Projection derniereProjection = Projections[Projections.Count - 1];
+                bool estMemeAnnee = annneeCourante == derniereProjection.DateFin.Year;
+                int iteration = 0;
+                if (estMemeAnnee)
+                {
+                    iteration++;
+                    while (iteration < Film.NB_MAX_EST_AFFICHE_PAR_ANNEE - 1 && DatesFinsAffiche[DatesFinsAffiche.Count - 1 - iteration].Year ==
+                         DatesFinsAffiche[DatesFinsAffiche.Count - 2 - iteration].Year)
+                    {
+                        iteration++;
+                    }
+                }
+                return iteration;
+            }
+            return -1;
+        }
+
+        #region Overrides of Object
+
+        public override string ToString()
+        {
+            return Nom;
+        }
+
+        #endregion
 
         #endregion
     }

@@ -59,6 +59,10 @@ namespace MonCine.Vues
             NavigationService.GoBack();
         }
 
+        private void btnOffrirRecompense_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new FOffrirRecompense(_client, _db, _abonnes));
+        }
         #endregion
     }
 }
