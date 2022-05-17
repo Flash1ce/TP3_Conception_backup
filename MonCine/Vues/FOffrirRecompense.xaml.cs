@@ -183,9 +183,9 @@ namespace MonCine.Vues
                     else
                     {
                         lstAbonnes.IsEnabled = true;
-                        btnSelectionner.IsEnabled = true;
+                        btnSelectionner.IsEnabled = false;
                         lstAbonnesSelectionner.IsEnabled = true;
-                        btnRetirer.IsEnabled = true;
+                        btnRetirer.IsEnabled = false;
                     }
                     lstAbonnesSelectionner.Items.Clear();
                 }
