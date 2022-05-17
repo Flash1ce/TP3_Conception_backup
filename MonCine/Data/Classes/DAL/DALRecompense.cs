@@ -1,4 +1,4 @@
-﻿#region MÉTADONNÉES
+#region MÉTADONNÉES
 
 // Nom du fichier : DALRecompense.cs
 // Date de modification : 2022-05-17
@@ -47,7 +47,7 @@ public class DALRecompense : DAL, IObtenirTout<Recompense>, IObtenirDocumentsCom
 
     public List<Recompense> ObtenirTout()
     {
-        List<Recompense> recompenses = new();
+        List<Recompense> recompenses = new List<Recompense>();
         recompenses.AddRange(ObtenirDocumentsComplexes(
             new List<Recompense>(
                 MongoDbContext.ObtenirCollection<Recompense>(Db)
@@ -60,7 +60,7 @@ public class DALRecompense : DAL, IObtenirTout<Recompense>, IObtenirDocumentsCom
 
     public List<Recompense> ObtenirDocumentsComplexes(List<Recompense> pRecompenses)
     {
-        List<ObjectId> filmIds = new();
+        List<ObjectId> filmIds = new List<ObjectId>();
 
         foreach (Recompense reservation in pRecompenses)
         {
