@@ -120,10 +120,8 @@ namespace MonCine.Data.Classes
                         projection.EstActive = false;
                     }
                 }
-
                 return true;
             }
-
             return false;
         }
 
@@ -146,13 +144,11 @@ namespace MonCine.Data.Classes
                 throw new ArgumentOutOfRangeException("pDateDebut",
                     "La date de début de la projection doit être supérieure à la date de sortie internationnale du film.");
             }
-
             if (pDateDebut <= DateTime.Now)
             {
                 throw new ArgumentOutOfRangeException("pDateDebut",
                     "La date de début de la projection doit être supérieure à la date actuelle.");
             }
-
             if (Projections.Count > 0)
             {
                 Projection derniereProjection = Projections[Projections.Count - 1];
@@ -165,7 +161,7 @@ namespace MonCine.Data.Classes
                 else if (estMemeAnnee && Film.NB_MAX_EST_AFFICHE_PAR_ANNEE < DatesFinsAffiche.Count)
                 {
                     int iteration = ObtenirNbProjectionsPourAnneeCourante(pDateDebut.Year);
-
+                   
                     if (iteration == Film.NB_MAX_EST_AFFICHE_PAR_ANNEE)
                     {
                         throw new InvalidOperationException(
@@ -173,7 +169,6 @@ namespace MonCine.Data.Classes
                     }
                 }
             }
-
             Projections.Add(new Projection(pDateDebut, pDateFin, pSalle));
             return true;
         }
@@ -188,18 +183,15 @@ namespace MonCine.Data.Classes
                 if (estMemeAnnee)
                 {
                     iteration++;
-                    while (iteration < Film.NB_MAX_EST_AFFICHE_PAR_ANNEE - 1 &&
-                           DatesFinsAffiche[DatesFinsAffiche.Count - 1 - iteration].Year ==
-                           DatesFinsAffiche[DatesFinsAffiche.Count - 2 - iteration].Year)
+                    while (iteration < Film.NB_MAX_EST_AFFICHE_PAR_ANNEE - 1 && DatesFinsAffiche[DatesFinsAffiche.Count - 1 - iteration].Year ==
+                         DatesFinsAffiche[DatesFinsAffiche.Count - 2 - iteration].Year)
                     {
                         iteration++;
                     }
                 }
-
                 return iteration;
             }
-
-            return-1;
+            return -1;
         }
 
         #region Overrides of Object

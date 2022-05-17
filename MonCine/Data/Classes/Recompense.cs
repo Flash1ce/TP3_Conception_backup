@@ -19,9 +19,13 @@ namespace MonCine.Data.Classes
         #region PROPRIÉTÉS ET INDEXEURS
 
         public ObjectId Id { get; set; }
+
         public ObjectId FilmId { get; set; }
+
         [BsonIgnore] public Film Film { get; set; }
+
         public ObjectId AbonneId { get; set; }
+
         [BsonIgnore] public Abonne Abonne { get; set; }
 
         #endregion
@@ -43,7 +47,7 @@ namespace MonCine.Data.Classes
 
         public override string ToString()
         {
-            return$"{GetType().Name} - {Film.Nom}";
+            return $"{GetType().Name} - {Film.Nom}";
         }
 
         #endregion
