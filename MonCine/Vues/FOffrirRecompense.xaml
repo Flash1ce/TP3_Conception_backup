@@ -73,5 +73,7 @@
         <Label x:Name="nbPlace" Content="0" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,78,49" Height="26" VerticalAlignment="Bottom"/>
         <RadioButton x:Name="rbTicketGratuit" Content="Ticket gratuit" HorizontalAlignment="Left" Margin="144,0,0,41" VerticalAlignment="Bottom" Width="120" Checked="rbTicketGratuit_Checked" IsChecked="True"/>
         <RadioButton x:Name="rbAvantPremiere" Content="Avant-premières" HorizontalAlignment="Left" Margin="144,0,0,21" VerticalAlignment="Bottom" Width="120" Checked="rbAvantPremiere_Checked"/>
+        <Button x:Name="BtnRetourAccueil" Content="Retour à l'accueil"
+            Background="#FF7CB8FF" Height="25" Click="BtnRetourAccueil_Click" Margin="0,0,250,168" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" />
     </Grid>
 </Page>
