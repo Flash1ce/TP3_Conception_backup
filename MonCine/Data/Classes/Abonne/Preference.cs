@@ -17,9 +17,6 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace MonCine.Data.Classes
 {
-    /// <summary>
-    /// Classe représentant une préférence d'un abonné.
-    /// </summary>
     public class Preference
     {
         #region CONSTANTES ET ATTRIBUTS STATIQUES
@@ -43,29 +40,13 @@ namespace MonCine.Data.Classes
 
         #region ATTRIBUTS
 
-        /// <summary>
-        /// Liste des identifiants des catégories préférées
-        /// </summary>
         private List<ObjectId> _categoriesId;
-
-        /// <summary>
-        /// Liste des identifiants des acteurs préférés
-        /// </summary>
         private List<ObjectId> _acteursId;
-
-        /// <summary>
-        /// Liste des identifiants des réalisateurs préférés
-        /// </summary>
         private List<ObjectId> _realisateursId;
 
         #endregion
 
         #region PROPRIÉTÉS ET INDEXEURS
-
-        /// <summary>
-        /// Obtient ou défini la liste des identifiants des catégories préférées
-        /// </summary>
-        /// <exception cref="IndexOutOfRangeException">Lancée lorsque le nombre maximum de catégories préférées est supérieure à la constante définie.</exception>
         public List<ObjectId> CategoriesId
         {
             get { return _categoriesId; }
@@ -81,10 +62,6 @@ namespace MonCine.Data.Classes
             }
         }
 
-        /// <summary>
-        /// Obtient ou défini la liste des identifiants des acteurs préférés
-        /// </summary>
-        /// <exception cref="IndexOutOfRangeException">Lancée lorsque le nombre maximum de acteurs préférés est supérieure à la constante définie.</exception>
         public List<ObjectId> ActeursId
         {
             get { return _acteursId; }
@@ -100,10 +77,6 @@ namespace MonCine.Data.Classes
             }
         }
 
-        /// <summary>
-        /// Obtient ou défini la liste des identifiants des réalisateurs préférés
-        /// </summary>
-        /// <exception cref="IndexOutOfRangeException">Lancée lorsque le nombre maximum de réalisateurs préférées est supérieure à la constante définie.</exception>
         public List<ObjectId> RealisateursId
         {
             get { return _realisateursId; }
@@ -119,21 +92,12 @@ namespace MonCine.Data.Classes
             }
         }
 
-        /// <summary>
-        /// Liste des catégories préférées
-        /// </summary>
         [BsonIgnore]
         public List<Categorie> Categories { get; set; }
 
-        /// <summary>
-        /// Liste des acteurs préférés
-        /// </summary>
         [BsonIgnore]
         public List<Acteur> Acteurs { get; set; }
 
-        /// <summary>
-        /// Liste des réalisateurs préférés
-        /// </summary>
         [BsonIgnore]
         public List<Realisateur> Realisateurs { get; set; }
 
@@ -141,12 +105,6 @@ namespace MonCine.Data.Classes
 
         #region CONSTRUCTEURS
 
-        /// <summary>
-        /// Constructeur permettant la création d'une préférence de l'abonné
-        /// </summary>
-        /// <param name="pCategoriesId">Liste des identifiants des catégories préférées</param>
-        /// <param name="pActeursId">Liste des identifiants des acteurs préférés</param>
-        /// <param name="pRealisateursId">Liste des identifiants des réalisateurs préférés</param>
         public Preference(List<ObjectId> pCategoriesId, List<ObjectId> pActeursId, List<ObjectId> pRealisateursId)
         {
             CategoriesId = pCategoriesId;

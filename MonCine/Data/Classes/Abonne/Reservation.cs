@@ -1,16 +1,15 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : Reservation.cs
-// Date de création : 2022-04-20
-// Date de modification : 2022-04-21
+// Date de modification : 2022-05-12
 
 #endregion
 
 #region USING
 
-using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 #endregion
 
@@ -74,8 +73,6 @@ namespace MonCine.Data.Classes
                         throw new InvalidOperationException(
                             "Il ne reste plus de places pour créer une réservation avec le nombre de places et la projection sélectionnés.");
                     }
-                    else if (projection.NbPlacesRestantes - _nbPlaces == 0) // Lorsqu'il n'y a plus de place disponible pour une réservation
-                        projection.EstActive = false;
 
                     projection.NbPlacesRestantes -= _nbPlaces;
                 }

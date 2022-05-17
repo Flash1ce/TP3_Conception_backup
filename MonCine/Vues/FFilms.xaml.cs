@@ -21,9 +21,6 @@ using System.Windows.Controls;
 
 namespace MonCine.Vues
 {
-    /// <summary>
-    /// Logique d'interaction pour Films.xaml
-    /// </summary>
     public partial class FFilms : Page
     {
         #region ATTRIBUTS
@@ -60,6 +57,14 @@ namespace MonCine.Vues
                 BtnRetirerDeAffiche.IsEnabled = false;
                 BtnRetirerDeAffiche.Visibility = Visibility.Hidden;
             }
+
+            // BtnNonAffiche_Click
+            // BtnEstReprojeteEtAffiche_Click
+            // LstFilms.Items.Clear();
+            // _films.forEach(x => {
+            //   if (x.EstAffiche && x.DatesFinsAffiche.Count > 0 && x.DatesFinsAffiche.Count <= Film.NB_MAX_EST_AFFICHE_PAR_ANNEE)
+            //      LstFilms.Items.Add(x);
+            // })
         }
 
         #endregion
@@ -94,8 +99,6 @@ namespace MonCine.Vues
 
         private void BtnVoirProjections_Click(object pSender, RoutedEventArgs pE)
         {
-            // TODO : Passer en paramètre l'abonné et le DALFilm qui est un attribut déjà existant dans la page
-
             NavigationService.Navigate(new FProjections(_client, _db, _filmSelectionne.Id, _dalFilm, _abonne));
         }
 

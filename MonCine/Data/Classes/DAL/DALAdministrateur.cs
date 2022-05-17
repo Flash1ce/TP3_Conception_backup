@@ -1,25 +1,21 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : DALAdministrateur.cs
-// Date de création : 2022-04-20
-// Date de modification : 2022-04-21
+// Date de modification : 2022-05-12
 
 #endregion
 
 #region USING
 
-using System;
-using System.Collections.Generic;
 using MonCine.Data.Classes.BD;
 using MongoDB.Driver;
+using System;
+using System.Collections.Generic;
 
 #endregion
 
 namespace MonCine.Data.Classes.DAL
 {
-    /// <summary>
-    /// Classe représentant une couche d'accès aux données pour les objets de type <see cref="Administrateur"/>.
-    /// </summary>
     public class DALAdministrateur : DAL
     {
         #region CONSTRUCTEURS
@@ -51,6 +47,7 @@ namespace MonCine.Data.Classes.DAL
                     "La base de données contient plus d'un administrateur pour la cinémathèque."
                 );
             }
+
             return administrateurs.Count == 1 ? administrateurs[0] : null;
         }
 

@@ -25,7 +25,7 @@ using System.Windows.Controls;
 namespace MonCine.Vues
 {
     /// <summary>
-    ///     Logique d'interaction pour APreferences.xaml
+    /// Logique d'interaction pour APreferences.xaml
     /// </summary>
     public partial class APreferences : Page
     {
@@ -52,6 +52,8 @@ namespace MonCine.Vues
         private List<Acteur> _acteursChoisis;
         private List<Realisateur> _realisateursChoisis;
         private readonly Abonne _abonne;
+        private List<Button> _btnPreference;
+        private List<ListBox> _lstPreference;
 
         #endregion
 
@@ -90,16 +92,34 @@ namespace MonCine.Vues
             _categoriesChoisies = _abonne.Preference.Categories;
             _acteursChoisis = _abonne.Preference.Acteurs;
             _realisateursChoisis = _abonne.Preference.Realisateurs;
+
+            _btnPreference = new List<Button>
+            {
+                BtnAjouterCategorie,
+                BtnRetirerCategorie,
+                BtnAjouterActeur,
+                BtnRetirerActeur,
+                BtnAjouterRealisateur,
+                BtnRetirerRealisateur
+            };
+
+            _lstPreference = new List<ListBox>
+            {
+                LstCategoriesDispos,
+                LstActeursChoisis,
+                LstActeursDispos,
+                LstActeursChoisis,
+                LstRealisateursDispos,
+                LstRealisateursChoisis
+            };
         }
 
         public void InitialiserFormulaire()
         {
-            BtnAjouterCategorie.IsEnabled = false;
-            BtnRetirerCategorie.IsEnabled = false;
-            BtnAjouterActeur.IsEnabled = false;
-            BtnRetirerActeur.IsEnabled = false;
-            BtnAjouterRealisateur.IsEnabled = false;
-            BtnRetirerRealisateur.IsEnabled = false;
+            foreach (Button button in _btnPreference)
+            {
+                button.IsEnabled = false;
+            }
         }
 
         private void LstCategoriesDispos_SelectionChanged(object pSender, SelectionChangedEventArgs pE)
@@ -109,11 +129,7 @@ namespace MonCine.Vues
                 LstCategoriesDispos,
                 LstCategoriesChoisies,
                 BtnAjouterCategorie,
-                BtnRetirerCategorie,
-                BtnRetirerRealisateur,
-                BtnAjouterRealisateur,
-                BtnAjouterActeur,
-                BtnRetirerActeur
+                BtnRetirerCategorie
             );
 
             if (LstCategoriesChoisies.Items.Count == Preference.NB_MAX_CATEGORIES_PREF)
@@ -129,11 +145,7 @@ namespace MonCine.Vues
                 LstActeursDispos,
                 LstActeursChoisis,
                 BtnAjouterActeur,
-                BtnRetirerActeur,
-                BtnRetirerRealisateur,
-                BtnAjouterRealisateur,
-                BtnAjouterCategorie,
-                BtnRetirerCategorie
+                BtnRetirerActeur
             );
 
             if (LstActeursChoisis.Items.Count == Preference.NB_MAX_ACTEURS_PREF)
@@ -149,11 +161,7 @@ namespace MonCine.Vues
                 LstRealisateursDispos,
                 LstRealisateursChoisis,
                 BtnAjouterRealisateur,
-                BtnRetirerRealisateur,
-                BtnAjouterCategorie,
-                BtnRetirerCategorie,
-                BtnAjouterActeur,
-                BtnRetirerActeur
+                BtnRetirerRealisateur
             );
 
             if (LstRealisateursChoisis.Items.Count == Preference.NB_MAX_REALISATEURS_PREF)
@@ -169,11 +177,7 @@ namespace MonCine.Vues
                 LstCategoriesChoisies,
                 LstCategoriesDispos,
                 BtnRetirerCategorie,
-                BtnAjouterCategorie,
-                BtnRetirerRealisateur,
-                BtnAjouterRealisateur,
-                BtnAjouterActeur,
-                BtnRetirerActeur
+                BtnAjouterCategorie
             );
         }
 
@@ -184,11 +188,7 @@ namespace MonCine.Vues
                 LstActeursChoisis,
                 LstActeursDispos,
                 BtnRetirerActeur,
-                BtnAjouterActeur,
-                BtnRetirerRealisateur,
-                BtnAjouterRealisateur,
-                BtnAjouterCategorie,
-                BtnRetirerCategorie
+                BtnAjouterActeur
             );
         }
 
@@ -199,31 +199,27 @@ namespace MonCine.Vues
                 LstRealisateursChoisis,
                 LstRealisateursDispos,
                 BtnRetirerRealisateur,
-                BtnAjouterRealisateur,
-                BtnAjouterCategorie,
-                BtnRetirerCategorie,
-                BtnAjouterActeur,
-                BtnRetirerActeur
+                BtnAjouterRealisateur
             );
         }
 
         private void ActionChangementSelectionSurLst(ListBox pLstChange, ListBox pLstContraire,
-            Button pBtnLstChangeActif, Button pBtnLstChangeInactif,
-            Button pBtnAjouterAutre1, Button pBtnRetirerAutre1, Button pBtnAjouterAutre2, Button pBtnRetirerAutre2)
+            Button pBtnLstChangeActif, Button pBtnLstChangeInactif)
         {
             bool estSelectionne = pLstChange.SelectedIndex != -1;
 
             pBtnLstChangeActif.IsEnabled = estSelectionne;
             pBtnLstChangeInactif.IsEnabled = pLstContraire.SelectedIndex > -1 && !estSelectionne;
-            pBtnAjouterAutre1.IsEnabled = false;
-            pBtnRetirerAutre1.IsEnabled = false;
-            pBtnAjouterAutre2.IsEnabled = false;
-            pBtnRetirerAutre2.IsEnabled = false;
 
-            if (estSelectionne)
+            foreach (Button button in _btnPreference)
             {
-                pLstContraire.SelectedIndex = -1;
+                if (button.IsEnabled && button != pBtnLstChangeActif && button != pBtnLstChangeInactif)
+                {
+                    button.IsEnabled = false;
+                }
             }
+
+            pLstContraire.SelectedIndex = -1;
         }
 
         private void BtnAjouterCategorie_Click(object sender, RoutedEventArgs e)
@@ -356,7 +352,6 @@ namespace MonCine.Vues
         private void ObtenirLstDocumentsDispos<TDocument>(ListBox pLstDocumentsDispos, List<TDocument> pDocuments,
             List<TDocument> pDocumentsChoisis)
         {
-            // Affecte tous les objets n'étant pas choisis
             pLstDocumentsDispos.Items.Clear();
             pDocuments.Where(x => !pDocumentsChoisis.Contains(x))
                 .ToList()
@@ -430,7 +425,7 @@ namespace MonCine.Vues
             string pPositionListe) =>
             AfficherMsg(
                 $"Veuillez sélectionner {(pGenreStrDocumentEstMasculin ? "un" : "une")} des {pDocument}s disponibles dans la liste de {pPositionListe}.",
-                MessageBoxImage.Error
+                MessageBoxImage.Warning
             );
 
         private void AfficherMsgMaxSelectionDocuments(string pDocument, int pMaxDocuments) =>
@@ -440,13 +435,9 @@ namespace MonCine.Vues
             int pMaxDocuments) =>
             AfficherMsg(
                 $"Impossible d'ajouter {(pGenreStrDocumentEstMasculin ? "un" : "une")} {pDocument} ! Le maximum de {pMaxDocuments} est atteint.",
-                MessageBoxImage.Error
+                MessageBoxImage.Warning
             );
 
-        /// <summary>
-        /// Permet d'afficher le message reçu en paramètre dans un dialogue pour afficher ce dernier.
-        /// </summary>
-        /// <param name="pMsg">Message d'erreur à afficher</param>
         private void AfficherMsg(string pMsg, MessageBoxImage msgBxImg)
         {
             MessageBox.Show(

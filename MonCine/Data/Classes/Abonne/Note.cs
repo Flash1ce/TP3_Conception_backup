@@ -1,8 +1,7 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : Note.cs
-// Date de création : 2022-04-20
-// Date de modification : 2022-04-21
+// Date de modification : 2022-05-12
 
 #endregion
 

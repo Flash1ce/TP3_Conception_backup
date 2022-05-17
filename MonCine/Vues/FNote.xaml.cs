@@ -36,6 +36,7 @@ namespace MonCine.Vues
         private readonly DALReservation _dalReservation;
         private List<Film> _films;
         private Abonne _abonne;
+        private int _indexAbonneNote = -1;
 
         #endregion
 
@@ -64,25 +65,40 @@ namespace MonCine.Vues
         {
             // Obtient tous les films pour l'abonné connecté
             _dalReservation
-                .ObtenirPlusieurs(x => x.AbonneId, new List<ObjectId>{_abonne.Id})
+                .ObtenirPlusieurs(x => x.AbonneId, new List<ObjectId> { _abonne.Id })
                 .ForEach(x =>
                 {
                     List<Film> filmsAssistes = new List<Film>();
                     // Ajoute tous les films assistés de l'abonné connecté
-                    if (x.Film.Projections[x.IndexProjectionFilm].DateFin < DateTime.Now && !filmsAssistes.Contains(x.Film))
+                    if (x.Film.Projections[x.IndexProjectionFilm].DateFin < DateTime.Now &&
+                        !filmsAssistes.Contains(x.Film))
                     {
                         _films.Add(x.Film);
                         filmsAssistes.Add(x.Film);
                     }
                 });
+
             RegenererLstFilms();
         }
 
         private void LstFilms_OnSelectionChanged(object pSender, SelectionChangedEventArgs pE)
         {
-            bool filmEstSelectionne = LstFilms.SelectedIndex > -1;
+            int indexAucuneSelection = -1;
+            bool filmEstSelectionne = LstFilms.SelectedIndex > indexAucuneSelection;
             TxtNote.IsEnabled = filmEstSelectionne;
             BtnNoter.IsEnabled = filmEstSelectionne;
+            _indexAbonneNote = indexAucuneSelection;
+            List<Note> notes = ((Film)LstFilms.SelectedItem).Notes;
+            int i = 0;
+            while (i < notes.Count && _indexAbonneNote == indexAucuneSelection)
+            { 
+                if (notes[i].AbonneId == _abonne.Id)
+                {
+                    _indexAbonneNote = i;
+                    TxtNote.Text = notes[i].NoteFilm.ToString();
+                }
+                i++;
+            }
         }
 
         private void BtnRetourAccueil_Click(object sender, RoutedEventArgs e)
@@ -95,14 +111,23 @@ namespace MonCine.Vues
             if (ValiderForm())
             {
                 Film filmPourNote = (Film)LstFilms.SelectedItem;
-                filmPourNote.Notes.Add(new Note(_abonne.Id, int.Parse(TxtNote.Text)));
-                _dalFilm.MAJUn(x => x.Id == filmPourNote.Id, new List<(Expression<Func<Film, object>> field, object value)>
+                int note = int.Parse(TxtNote.Text);
+                if (_indexAbonneNote > -1)
                 {
-                    (
-                        x => x.Notes,
-                        filmPourNote.Notes
-                    )
-                });
+                    filmPourNote.Notes[_indexAbonneNote].NoteFilm = note;
+                }
+                else
+                {
+                    filmPourNote.Notes.Add(new Note(_abonne.Id, note));
+                }
+                _dalFilm.MAJUn(x => x.Id == filmPourNote.Id,
+                    new List<(Expression<Func<Film, object>> field, object value)>
+                    {
+                        (
+                            x => x.Notes,
+                            filmPourNote.Notes
+                        )
+                    });
                 RegenererLstFilms();
                 AfficherMsg(
                     "Les modifications ont été enregistrées avec succès !!'",
@@ -115,7 +140,7 @@ namespace MonCine.Vues
         {
             LstFilms.Items.Clear();
             TxtNote.Text = "";
-            _films.ForEach(x=> LstFilms.Items.Add(x));
+            _films.ForEach(x => LstFilms.Items.Add(x));
         }
 
         private bool ValiderForm()
@@ -144,13 +169,10 @@ namespace MonCine.Vues
             {
                 return true;
             }
+
             return false;
         }
 
-        /// <summary>
-        /// Permet d'afficher le message reçu en paramètre dans un dialogue pour afficher ce dernier.
-        /// </summary>
-        /// <param name="pMsg">Message d'erreur à afficher</param>
         private void AfficherMsg(string pMsg, MessageBoxImage msgBxImg)
         {
             MessageBox.Show(
