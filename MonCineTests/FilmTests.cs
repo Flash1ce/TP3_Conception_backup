@@ -165,7 +165,7 @@ namespace MonCineTests
                 .Returns(_reservationCollection.Object);
         }
 
-        private void InitializeMongoFilmCollection()
+        private void InitializeMongoCollection()
         {
             _filmCurseur.Setup(x => x.Current).Returns(_films);
             _filmCurseur.SetupSequence(x => x.MoveNext(It.IsAny<CancellationToken>())).Returns(true).Returns(false);
@@ -420,7 +420,7 @@ namespace MonCineTests
         public void ObtenirTousRetournesTousLesFilms()
         {
             // Création des faux objets
-            InitializeMongoFilmCollection();
+            InitializeMongoCollection();
 
             // Arrange
             DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
