@@ -7,16 +7,16 @@
 
 #region USING
 
+using MonCine.Data.Classes;
+using MonCine.Data.Classes.DAL;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
-using MonCine.Data.Classes;
-using MonCine.Data.Classes.DAL;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 #endregion
 
@@ -38,6 +38,7 @@ namespace MonCine.Vues
         private Abonne _abonneSelectionneLstSelection;
         private DALFilm _dalFilm;
         private List<Abonne> _abonnes;
+        private DALReservation _dalReservation;
 
         #endregion
 
@@ -50,6 +51,7 @@ namespace MonCine.Vues
             _db = pDb;
             _dalFilm = new DALFilm(_client, _db);
             _dalRecompense = new DALRecompense(_dalFilm, _client, _db);
+            _dalReservation = new DALReservation(_dalFilm, _client, _db);
             InitializeComponent();
             nbAbonnes.Content = lstAbonnesSelectionner.Items.Count.ToString();
             btnSelectionner.IsEnabled = false;
@@ -104,6 +106,7 @@ namespace MonCine.Vues
                 {
                     foreach (Abonne abonne in lstAbonnesSelectionner.Items)
                     {
+                        _dalReservation.InsererUn(new Reservation(new ObjectId(), _filmSelectionne, _filmSelectionne.Projections.IndexOf(_filmSelectionne.Projections.Last()), abonne.Id, 1));
                         recompensesAOffrir.Add(new TicketGratuit(new ObjectId(), _filmSelectionne.Id,
                             abonne.Id));
                     }
@@ -114,6 +117,7 @@ namespace MonCine.Vues
                 {
                     foreach (Abonne abonne in lstAbonnesSelectionner.Items)
                     {
+                        _dalReservation.InsererUn(new Reservation(new ObjectId(), _filmSelectionne, _filmSelectionne.Projections.IndexOf(_filmSelectionne.Projections.Last()), abonne.Id, 1));
                         recompensesAOffrir.Add(new AvantPremiere(new ObjectId(), _filmSelectionne.Id,
                             abonne.Id));
                     }
@@ -124,7 +128,7 @@ namespace MonCine.Vues
                 ReinitialiserVisuel();
                 rbAvantPremiere.IsEnabled = true;
                 rbTicketGratuit.IsEnabled = true;
-                btnOffrirRecompense.IsEnabled = true;
+                btnOffrirRecompense.IsEnabled = false;
                 BtnRetourAccueil.IsEnabled = true;
                 MessageBox.Show("Offrir Récompense", "Récompenses Offertes !", MessageBoxButton.OK,
                     MessageBoxImage.Information);
@@ -177,12 +181,12 @@ namespace MonCine.Vues
 
                 List<Recompense> recompenses = _dalRecompense.ObtenirTout();
 
-                foreach (Abonne abonnee in abonnesFiltres)
+                foreach (Abonne abonne in abonnesFiltres)
                 {
                     bool abonneDejaObtenuRecompense = false;
                     foreach (Recompense recompense in recompenses)
                     {
-                        if (recompense.AbonneId == abonnee.Id)
+                        if (recompense.AbonneId == abonne.Id)
                         {
                             abonneDejaObtenuRecompense = true;
                         }
@@ -190,11 +194,10 @@ namespace MonCine.Vues
 
                     if (!abonneDejaObtenuRecompense)
                     {
-                        lstAbonnes.Items.Add(abonnee);
+                        lstAbonnes.Items.Add(abonne);
                     }
                 }
 
-                //abonnesFiltres.ForEach(abonneFiltre => lstAbonnes.Items.Add(abonneFiltre));
                 try
                 {
                     int nbPlaces = _filmSelectionne.Projections.Last().NbPlacesRestantes;
@@ -229,20 +232,14 @@ namespace MonCine.Vues
         {
             if (lstAbonnes.SelectedIndex > -1)
             {
-                if (!lstAbonnesSelectionner.Items.Contains(_abonneSelectionne))
+                if (!lstAbonnesSelectionner.Items.Contains(_abonneSelectionne) && int.Parse(nbPlace.Content.ToString()) != 0)
                 {
                     lstAbonnesSelectionner.Items.Add(_abonneSelectionne);
                     lstAbonnes.Items.Remove(_abonneSelectionne);
-                    if (_filmSelectionne.Projections.Last().NbPlacesRestantes > 0)
-                    {
-                        _filmSelectionne.Projections.Last().NbPlacesRestantes =
-                            _filmSelectionne.Projections.Last().NbPlacesRestantes - 1;
-                    }
 
-                    nbPlace.Content = _filmSelectionne.Projections.Last().NbPlacesRestantes;
-                    _dalFilm.MAJUn(f => f.Id == _filmSelectionne.Id,
-                        new List<(Expression<Func<Film, object>> field, object value)>
-                            { (f => f.Projections, _filmSelectionne.Projections) });
+                    nbAbonnes.Content = lstAbonnesSelectionner.Items.Count.ToString();
+                    nbPlace.Content = int.Parse(nbPlace.Content.ToString()) - 1;
+
                     if (lstAbonnesSelectionner.Items.Count > 0)
                     {
                         lstRecompenses.IsEnabled = false;
@@ -257,7 +254,6 @@ namespace MonCine.Vues
                     BtnRetourAccueil.IsEnabled = false;
                 }
 
-                nbAbonnes.Content = lstAbonnesSelectionner.Items.Count.ToString();
             }
         }
 
@@ -289,17 +285,9 @@ namespace MonCine.Vues
                     lstRecompenses.IsEnabled = true;
                 }
 
-                if (_filmSelectionne.Projections.Last().NbPlacesRestantes > 0)
-                {
-                    _filmSelectionne.Projections.Last().NbPlacesRestantes =
-                        _filmSelectionne.Projections.Last().NbPlacesRestantes + 1;
-                }
-
-                nbPlace.Content = _filmSelectionne.Projections.Last().NbPlacesRestantes;
-                _dalFilm.MAJUn(f => f.Id == _filmSelectionne.Id,
-                    new List<(Expression<Func<Film, object>> field, object value)>
-                        { (f => f.Projections, _filmSelectionne.Projections) });
+                nbPlace.Content = int.Parse(nbPlace.Content.ToString()) + 1;
                 nbAbonnes.Content = lstAbonnesSelectionner.Items.Count.ToString();
+
                 if (lstAbonnesSelectionner.Items.Count == 0)
                 {
                     rbAvantPremiere.IsEnabled = true;
@@ -320,7 +308,6 @@ namespace MonCine.Vues
                     index++;
                 }
             }
-
             lstAbonnes.Items.Insert(index, pAbonne);
         }
 
