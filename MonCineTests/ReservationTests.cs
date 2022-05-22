@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using MonCine.Data.Classes;
 using MonCine.Data.Classes.BD;
@@ -485,9 +486,10 @@ namespace MonCineTests
                 pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
                 pClientReservation: _mongoClientReservation.Object);
             DALReservation dalReservation = new DALReservation(dalFilm, _mongoClientReservation.Object);
-            
+
             // Act et Assert
-            Assert.Equal(_reservations.Where(x => x.AbonneId == _abonnes[3].Id), dalReservation.ObtenirPlusieurs(x => x.AbonneId == _abonnes[3].Id));
+            Assert.Equal(_reservations.Where(x => x.AbonneId == _abonnes[3].Id),
+                dalReservation.ObtenirPlusieurs(x => x.AbonneId == _abonnes[3].Id));
         }
 
         [Fact]
@@ -495,11 +497,6 @@ namespace MonCineTests
         {
             // Création des faux objets
             InitializeMongoCollection();
-            //_reservationCollection.Setup(
-            //    x => x.UpdateOne(Builders<Reservation>.Filter.Empty,
-            //        It.IsAny<FindOptions<Reservation>>(), default)
-            //)
-            //.Returns(_reservationCurseur.Object);
 
             // Arrange
             DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
@@ -511,7 +508,6 @@ namespace MonCineTests
                 pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
                 pClientReservation: _mongoClientReservation.Object);
             DALReservation dalReservation = new DALReservation(dalFilm, _mongoClientReservation.Object);
-
             // Vérifier que insererUn retourne True
             // Act
             Reservation r = new Reservation(new ObjectId(), _films[0], 0, _abonnes[0].Id, 1);
