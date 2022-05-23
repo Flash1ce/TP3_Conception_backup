@@ -15,6 +15,7 @@ using MonCine.Data.Classes.DAL;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Moq;
+using System.Linq;
 using Xunit;
 
 #endregion
@@ -442,11 +443,25 @@ namespace MonCineTests
         [Fact]
         public void ObtenirPlusieursRetourneAbonnesSelonFiltre()
         {
-            //List<Abonne> abonnes = GenerationAbonnes();
-            //var abonneMock = new Mock<ICRUD<Abonne>>();
-            //abonneMock.Setup(x => x.ObtenirPlusieurs(x => x.Nom, new List<string> { "Utilisateur 6" })).Returns(new List<Abonne> { abonnes[5] });
-            //var abonnesMock = abonneMock.Object.ObtenirPlusieurs(x => x.Nom, new List<string> { "Utilisateur 6" });
-            //Assert.Equal(abonnesMock, new List<Abonne> { abonnes[5] });
+            // Création des faux objets
+            InitializeMongoCollection();
+
+            // Arrange
+            DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
+            DALActeur dalActeur = new DALActeur(_mongoClientActeur.Object);
+            DALRealisateur dalRealisateur = new DALRealisateur(_mongoClientRealisateur.Object);
+            DALAbonne dalAbonne = new DALAbonne(pClient: _mongoClientAbonne.Object, pDalCategorie: dalCategorie,
+                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur);
+            DALFilm dalFilm = new DALFilm(pClient: _mongoClientFilm.Object, pDalCategorie: dalCategorie,
+                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
+                pClientReservation: _mongoClientReservation.Object);
+            DALReservation dalReservation = new DALReservation(dalFilm, _mongoClientReservation.Object);
+            dalAbonne = new DALAbonne(dalCategorie, dalActeur, dalRealisateur, dalReservation,
+                _mongoClientAbonne.Object);
+
+            // Act et Assert
+            Assert.Equal(_abonnes.Where(x => x.Id == _abonnes[3].Id),
+                dalAbonne.ObtenirPlusieurs(x => x.Id == _abonnes[3].Id));
         }
 
         #endregion

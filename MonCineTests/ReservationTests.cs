@@ -9,6 +9,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using MonCine.Data.Classes;
 using MonCine.Data.Classes.BD;
@@ -469,14 +471,106 @@ namespace MonCineTests
         }
 
         [Fact]
-        public void ObtenirPlusieursRetourneAbonnesSelonFiltre()
+        public void ObtenirPlusieursRetourneReservationsSelonFiltre()
         {
-            //List<Abonne> abonnes = GenerationAbonnes();
-            //var abonneMock = new Mock<ICRUD<Abonne>>();
-            //abonneMock.Setup(x => x.ObtenirPlusieurs(x => x.Nom, new List<string> { "Utilisateur 6" })).Returns(new List<Abonne> { abonnes[5] });
-            //var abonnesMock = abonneMock.Object.ObtenirPlusieurs(x => x.Nom, new List<string> { "Utilisateur 6" });
-            //Assert.Equal(abonnesMock, new List<Abonne> { abonnes[5] });
+            // Création des faux objets
+            InitializeMongoCollection();
+
+            // Arrange
+            DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
+            DALActeur dalActeur = new DALActeur(_mongoClientActeur.Object);
+            DALRealisateur dalRealisateur = new DALRealisateur(_mongoClientRealisateur.Object);
+            DALAbonne dalAbonne = new DALAbonne(pClient: _mongoClientAbonne.Object, pDalCategorie: dalCategorie,
+                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur);
+            DALFilm dalFilm = new DALFilm(pClient: _mongoClientFilm.Object, pDalCategorie: dalCategorie,
+                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
+                pClientReservation: _mongoClientReservation.Object);
+            DALReservation dalReservation = new DALReservation(dalFilm, _mongoClientReservation.Object);
+
+            // Act et Assert
+            Assert.Equal(_reservations.Where(x => x.AbonneId == _abonnes[3].Id),
+                dalReservation.ObtenirPlusieurs(x => x.AbonneId == _abonnes[3].Id));
         }
+
+        //[Fact]
+        //public void InsererUnRetourneVrai()
+        //{
+        //    // Création des faux objets
+        //    InitializeMongoCollection();
+
+        //    // Arrange
+        //    DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
+        //    DALActeur dalActeur = new DALActeur(_mongoClientActeur.Object);
+        //    DALRealisateur dalRealisateur = new DALRealisateur(_mongoClientRealisateur.Object);
+        //    DALAbonne dalAbonne = new DALAbonne(pClient: _mongoClientAbonne.Object, pDalCategorie: dalCategorie,
+        //        pDalActeur: dalActeur, pDalRealisateur: dalRealisateur);
+        //    DALFilm dalFilm = new DALFilm(pClient: _mongoClientFilm.Object, pDalCategorie: dalCategorie,
+        //        pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
+        //        pClientReservation: _mongoClientReservation.Object);
+        //    DALReservation dalReservation = new DALReservation(dalFilm, _mongoClientReservation.Object);
+        //    // Vérifier que insererUn retourne True
+        //    // Act
+        //    Reservation r = new Reservation(new ObjectId(), _films[0], 0, _abonnes[0].Id, 1);
+
+        //    // Assert
+        //    Assert.True(dalReservation.InsererUn(r));
+        //}
+
+        //[Fact]
+        //public void InsererUnAjouteReservation()
+        //{
+        //    // Création des faux objets
+        //    InitializeMongoCollection();
+
+        //    // Arrange
+        //    DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
+        //    DALActeur dalActeur = new DALActeur(_mongoClientActeur.Object);
+        //    DALRealisateur dalRealisateur = new DALRealisateur(_mongoClientRealisateur.Object);
+        //    DALAbonne dalAbonne = new DALAbonne(pClient: _mongoClientAbonne.Object, pDalCategorie: dalCategorie,
+        //        pDalActeur: dalActeur, pDalRealisateur: dalRealisateur);
+        //    DALFilm dalFilm = new DALFilm(pClient: _mongoClientFilm.Object, pDalCategorie: dalCategorie,
+        //        pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
+        //        pClientReservation: _mongoClientReservation.Object);
+        //    DALReservation dalReservation = new DALReservation(dalFilm, _mongoClientReservation.Object);
+
+        //    // Vérifier que InsererUn a ajouté la réservation et utilisé obtenir 1
+        //    // Act
+        //    Reservation r = new Reservation(new ObjectId(), _films[0], 0, _abonnes[0].Id, 1);
+        //    dalReservation.InsererUn(r);
+        //    Reservation resultat = dalReservation.ObtenirUn(r.Id);
+        //    dalFilm.MAJProjections(_films[0]);
+
+        //    // Assert
+        //    Assert.Equal(r, resultat);
+        //}
+
+        //[Fact]
+        //public void InsererUnDiminueNbPlacesRestantesDeProjectionDuFilm()
+        //{
+        //    // Création des faux objets
+        //    InitializeMongoCollection();
+
+        //    // Arrange
+        //    DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
+        //    DALActeur dalActeur = new DALActeur(_mongoClientActeur.Object);
+        //    DALRealisateur dalRealisateur = new DALRealisateur(_mongoClientRealisateur.Object);
+        //    DALAbonne dalAbonne = new DALAbonne(pClient: _mongoClientAbonne.Object, pDalCategorie: dalCategorie,
+        //        pDalActeur: dalActeur, pDalRealisateur: dalRealisateur);
+        //    DALFilm dalFilm = new DALFilm(pClient: _mongoClientFilm.Object, pDalCategorie: dalCategorie,
+        //        pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
+        //        pClientReservation: _mongoClientReservation.Object);
+        //    DALReservation dalReservation = new DALReservation(dalFilm, _mongoClientReservation.Object);
+
+        //    // Vérifier nombre de place de la projection a diminué lors de la réservation
+        //    // Act
+        //    Reservation r = new Reservation(new ObjectId(), _films[0], 0, _abonnes[0].Id, 1);
+        //    dalReservation.InsererUn(r);
+        //    Reservation resultat = dalReservation.ObtenirUn(r.Id);
+        //    dalFilm.MAJProjections(_films[0]);
+
+        //    // Assert
+        //    Assert.Equal(r.NbPlaces - 1, resultat.NbPlaces);
+        //}
 
         #endregion
     }

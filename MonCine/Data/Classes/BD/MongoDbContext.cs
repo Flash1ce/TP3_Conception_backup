@@ -33,8 +33,8 @@ namespace MonCine.Data.Classes.BD
         {
             try
             {
-                var collection = MongoDbContext.ObtenirCollection<TDocument>(pBd)
-                    .FindSync<TDocument>(Builders<TDocument>.Filter.Empty);
+                var a = MongoDbContext.ObtenirCollection<TDocument>(pBd);
+                var collection = a.FindSync<TDocument>(Builders<TDocument>.Filter.Empty);
                 List<TDocument> documentsTrouves = collection.Current == null
                     ? collection.ToList()
                     : collection.Current.ToList();
@@ -83,7 +83,6 @@ namespace MonCine.Data.Classes.BD
             {
                 var builder = Builders<TDocument>.Update;
                 UpdateDefinition<TDocument> majDefinition = null;
-
                 foreach ((Expression<Func<TDocument, TField>> field, TField value) in pMajDefinitions)
                 {
                     majDefinition = majDefinition == null
@@ -91,8 +90,7 @@ namespace MonCine.Data.Classes.BD
                         : majDefinition.Set(field, value);
                 }
 
-                return MongoDbContext.ObtenirCollection<TDocument>(pBd).UpdateOne(pFiltre, majDefinition)
-                    .IsAcknowledged;
+                return MongoDbContext.ObtenirCollection<TDocument>(pBd).UpdateOne(pFiltre, majDefinition).IsAcknowledged;
             }
             catch (Exception e)
             {

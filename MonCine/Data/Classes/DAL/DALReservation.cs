@@ -19,7 +19,7 @@ using MongoDB.Driver;
 
 namespace MonCine.Data.Classes.DAL
 {
-    public interface IGererReservations : IObtenirPlusieurs<Reservation>, IObtenirTout<Reservation>,
+    public interface IGererReservations : IObtenir<Reservation>,
         IObtenirDocumentsComplexes<Reservation>, IInsererUn<Reservation>
     {
         #region MÉTHODES
@@ -58,6 +58,10 @@ namespace MonCine.Data.Classes.DAL
             return MongoDbContext.ObtenirDocumentsFiltres<Reservation>(Db, x => x.AbonneId == pAbonneId).Count;
         }
 
+        public Reservation ObtenirUn(ObjectId pReservationId)
+        {
+            return ObtenirPlusieurs(x => x.Id == pReservationId)[0];
+        }
 
         public List<Reservation> ObtenirPlusieurs(List<ObjectId> pReservationsId)
         {

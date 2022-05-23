@@ -80,17 +80,20 @@ namespace MonCine.Vues
             TxtNote.IsEnabled = filmEstSelectionne;
             BtnNoter.IsEnabled = filmEstSelectionne;
             _indexAbonneNote = indexAucuneSelection;
-            List<Note> notes = ((Film)LstFilms.SelectedItem).Notes;
-            int i = 0;
-            while (i < notes.Count && _indexAbonneNote == indexAucuneSelection)
+            if (filmEstSelectionne)
             {
-                if (notes[i].AbonneId == _abonne.Id)
+                List<Note> notes = ((Film)LstFilms.SelectedItem).Notes;
+                int i = 0;
+                while (i < notes.Count && _indexAbonneNote == indexAucuneSelection)
                 {
-                    _indexAbonneNote = i;
-                    TxtNote.Text = notes[i].NoteFilm.ToString();
-                }
+                    if (notes[i].AbonneId == _abonne.Id)
+                    {
+                        _indexAbonneNote = i;
+                        TxtNote.Text = notes[i].NoteFilm.ToString();
+                    }
 
-                i++;
+                    i++;
+                }
             }
         }
 
