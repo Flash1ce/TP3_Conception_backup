@@ -437,37 +437,69 @@ namespace MonCineTests
         }
 
         [Fact]
-        public void ObtenirTousLesFilmEtVerifierTousRetournes()
+        public void ObtenirUnRetourneFilmSelonFiltre()
         {
-            //List<Film> films = GenererFilms();
-            //var filmMock = new Mock<ICRUD<Film>>();
-            //filmMock.Setup(x => x.ObtenirTout()).Returns(films);
-            //var filmsMock = filmMock.Object.ObtenirTout();
+            // Création des faux objets
+            InitializeMongoCollection();
 
-            //Assert.Equal(filmsMock, films);
+            // Arrange
+            DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
+            DALActeur dalActeur = new DALActeur(_mongoClientActeur.Object);
+            DALRealisateur dalRealisateur = new DALRealisateur(_mongoClientRealisateur.Object);
+            DALAbonne dalAbonne = new DALAbonne(pClient: _mongoClientAbonne.Object, pDalCategorie: dalCategorie,
+                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur);
+            DALFilm dalFilm = new DALFilm(pClient: _mongoClientFilm.Object, pDalCategorie: dalCategorie,
+                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
+                pClientReservation: _mongoClientReservation.Object);
+
+            // Act et Assert
+            Assert.Equal(_films[0], dalFilm.ObtenirUn(_films[0].Id));
         }
 
         [Fact]
         public void ObtenirPlusieursRetourneFilmsSelonFiltre()
         {
-            //List<Film> films = GenererFilms();
-            //var filmMock = new Mock<ICRUD<Film>>();
-            //filmMock.Setup(x => x.ObtenirPlusieurs(x => x.Nom, new List<string> { "American Sniper" }))
-            //    .Returns(new List<Film> { films[5] });
-            //var filmsMock = filmMock.Object.ObtenirPlusieurs(x => x.Nom, new List<string> { "American Sniper" });
+            // Création des faux objets
+            InitializeMongoCollection();
 
-            //Assert.Equal(filmsMock, new List<Film> { films[5] });
+            // Arrange
+            DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
+            DALActeur dalActeur = new DALActeur(_mongoClientActeur.Object);
+            DALRealisateur dalRealisateur = new DALRealisateur(_mongoClientRealisateur.Object);
+            DALAbonne dalAbonne = new DALAbonne(pClient: _mongoClientAbonne.Object, pDalCategorie: dalCategorie,
+                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur);
+            DALFilm dalFilm = new DALFilm(pClient: _mongoClientFilm.Object, pDalCategorie: dalCategorie,
+                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
+                pClientReservation: _mongoClientReservation.Object);
+
+            // Act et Assert
+            Assert.Equal(new List<Film> { _films[0], _films[2] },
+                dalFilm.ObtenirPlusieurs(new List<ObjectId> { _films[0].Id, _films[2].Id }));
         }
 
         [Fact]
         public void InsererPlusieursFilmsRetourneTrue()
         {
-            //List<Film> films = GenererFilms();
-            //var filmMock = new Mock<ICRUD<Film>>();
-            //filmMock.Setup(x => x.InsererPlusieurs(films)).Returns(true);
-            //var filmsMock = filmMock.Object.InsererPlusieurs(films);
+            // Création des faux objets
+            InitializeMongoCollection();
 
-            //Assert.True(filmsMock);
+            // Arrange
+            DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
+            DALActeur dalActeur = new DALActeur(_mongoClientActeur.Object);
+            DALRealisateur dalRealisateur = new DALRealisateur(_mongoClientRealisateur.Object);
+            DALAbonne dalAbonne = new DALAbonne(pClient: _mongoClientAbonne.Object, pDalCategorie: dalCategorie,
+                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur);
+            DALFilm dalFilm = new DALFilm(pClient: _mongoClientFilm.Object, pDalCategorie: dalCategorie,
+                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
+                pClientReservation: _mongoClientReservation.Object);
+
+            // Act et Assert
+            Assert.True(dalFilm.InsererPlusieurs(new List<Film>
+            {
+                new Film(ObjectId.GenerateNewId(), "A", DateTime.Now, new List<Projection>(), new List<Note>(),
+                    _categories[0].Id, new List<ObjectId> { _acteurs[0].Id },
+                    new List<ObjectId> { _realisateurs[0].Id })
+            }));
         }
 
         #endregion

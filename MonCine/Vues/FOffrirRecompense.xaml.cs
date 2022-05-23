@@ -94,7 +94,7 @@ namespace MonCine.Vues
             }
         }
 
-        private void btnOffrirRecompense_Click(object sender, RoutedEventArgs e)
+        private void BtnOffrirRecompense_Click(object sender, RoutedEventArgs e)
         {
             List<Recompense> recompensesAOffrir = new List<Recompense>();
             if (lstAbonnesSelectionner.Items.Count > 0)
@@ -134,7 +134,7 @@ namespace MonCine.Vues
             }
         }
 
-        private void lstRecompenses_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstRecompenses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool itemIsSelected = lstRecompenses.SelectedIndex > -1;
             _filmSelectionne = itemIsSelected
@@ -227,7 +227,7 @@ namespace MonCine.Vues
             }
         }
 
-        private void btnSelectionner_Click(object sender, RoutedEventArgs e)
+        private void BtnSelectionner_Click(object sender, RoutedEventArgs e)
         {
             if (lstAbonnes.SelectedIndex > -1)
             {
@@ -256,7 +256,7 @@ namespace MonCine.Vues
             }
         }
 
-        private void lstAbonnes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstAbonnes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool itemIsSelected = lstAbonnes.SelectedIndex > -1;
             _abonneSelectionne = itemIsSelected
@@ -273,11 +273,11 @@ namespace MonCine.Vues
             }
         }
 
-        private void btnRetirer_Click(object sender, RoutedEventArgs e)
+        private void BtnRetirer_Click(object sender, RoutedEventArgs e)
         {
             if (lstAbonnesSelectionner.SelectedIndex > -1)
             {
-                ajouterAbonnesDansListe(_abonneSelectionneLstSelection);
+                AjouterAbonnesDansListe(_abonneSelectionneLstSelection);
                 lstAbonnesSelectionner.Items.Remove(_abonneSelectionneLstSelection);
                 if (lstAbonnesSelectionner.Items.Count == 0)
                 {
@@ -297,7 +297,7 @@ namespace MonCine.Vues
             }
         }
 
-        private void ajouterAbonnesDansListe(Abonne pAbonne)
+        private void AjouterAbonnesDansListe(Abonne pAbonne)
         {
             int index = 0;
             foreach (Abonne abonne in lstAbonnes.Items)
@@ -310,7 +310,7 @@ namespace MonCine.Vues
             lstAbonnes.Items.Insert(index, pAbonne);
         }
 
-        private void lstAbonnesSelectionner_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstAbonnesSelectionner_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool itemIsSelected = lstAbonnesSelectionner.SelectedIndex > -1;
             _abonneSelectionneLstSelection = itemIsSelected
@@ -326,14 +326,14 @@ namespace MonCine.Vues
             }
         }
 
-        private void rbTicketGratuit_Checked(object sender, RoutedEventArgs e)
+        private void RbTicketGratuit_Checked(object sender, RoutedEventArgs e)
         {
             _ticketGratuitIsChecked = true;
             lstRecompenses.Items.Clear();
             RafraichirListeRecompense();
         }
 
-        private void rbAvantPremiere_Checked(object sender, RoutedEventArgs e)
+        private void RbAvantPremiere_Checked(object sender, RoutedEventArgs e)
         {
             _ticketGratuitIsChecked = false;
             lstRecompenses.Items.Clear();
