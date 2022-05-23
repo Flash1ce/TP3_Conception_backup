@@ -17,9 +17,6 @@ using System.Windows.Controls;
 
 namespace MonCine.Vues
 {
-    /// <summary>
-    /// Logique d'interaction pour Accueil.xaml
-    /// </summary>
     public partial class AccueilAbonne : Page
     {
         #region ATTRIBUTS

@@ -48,6 +48,7 @@ namespace MonCine.Data.Classes
 
             return false;
         }
+
         #endregion
     }
 }

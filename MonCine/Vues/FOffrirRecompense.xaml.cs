@@ -22,9 +22,6 @@ using System.Windows.Controls;
 
 namespace MonCine.Vues
 {
-    /// <summary>
-    /// Logique d'interaction pour FOffrirRecompense.xaml
-    /// </summary>
     public partial class FOffrirRecompense : Page
     {
         #region ATTRIBUTS
@@ -106,7 +103,8 @@ namespace MonCine.Vues
                 {
                     foreach (Abonne abonne in lstAbonnesSelectionner.Items)
                     {
-                        _dalReservation.InsererUn(new Reservation(new ObjectId(), _filmSelectionne, _filmSelectionne.Projections.IndexOf(_filmSelectionne.Projections.Last()), abonne.Id, 1));
+                        _dalReservation.InsererUn(new Reservation(new ObjectId(), _filmSelectionne,
+                            _filmSelectionne.Projections.IndexOf(_filmSelectionne.Projections.Last()), abonne.Id, 1));
                         recompensesAOffrir.Add(new TicketGratuit(new ObjectId(), _filmSelectionne.Id,
                             abonne.Id));
                     }
@@ -117,7 +115,8 @@ namespace MonCine.Vues
                 {
                     foreach (Abonne abonne in lstAbonnesSelectionner.Items)
                     {
-                        _dalReservation.InsererUn(new Reservation(new ObjectId(), _filmSelectionne, _filmSelectionne.Projections.IndexOf(_filmSelectionne.Projections.Last()), abonne.Id, 1));
+                        _dalReservation.InsererUn(new Reservation(new ObjectId(), _filmSelectionne, 
+                            _filmSelectionne.Projections.IndexOf(_filmSelectionne.Projections.Last()), abonne.Id, 1));
                         recompensesAOffrir.Add(new AvantPremiere(new ObjectId(), _filmSelectionne.Id,
                             abonne.Id));
                     }

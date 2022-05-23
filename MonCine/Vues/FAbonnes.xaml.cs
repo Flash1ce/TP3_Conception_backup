@@ -21,9 +21,6 @@ using MongoDB.Driver;
 
 namespace MonCine.Vues
 {
-    /// <summary>
-    /// Logique d'interaction pour FAbonnes.xaml
-    /// </summary>
     public partial class FAbonnes : Page
     {
         #region ATTRIBUTS

@@ -8,9 +8,6 @@ using System.Windows.Controls;
 
 namespace MonCine.Vues
 {
-    /// <summary>
-    /// Logique d'interaction pour Authentification.xaml
-    /// </summary>
     public partial class Authentification : Page
     {
         #region ATTRIBUTS

@@ -19,9 +19,6 @@ using MongoDB.Driver;
 
 namespace MonCine.Vues
 {
-    /// <summary>
-    /// Logique d'interaction pour Projections.xaml
-    /// </summary>
     public partial class FProjections : Page
     {
         #region CONSTANTES ET ATTRIBUTS STATIQUES
@@ -43,13 +40,6 @@ namespace MonCine.Vues
 
         #region CONSTRUCTEURS
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pClient"></param>
-        /// <param name="pDb"></param>
-        /// <param name="pFilmId"></param>
-        /// <param name="pAbonne">si pAbonne est null, c'est un admin sinon c'est l'abonne connecter.</param>
         public FProjections(IMongoClient pClient, IMongoDatabase pDb, ObjectId pFilmId, DALFilm pDalFilm,
             Abonne pAbonne = null)
         {
@@ -95,7 +85,6 @@ namespace MonCine.Vues
         {
             if (_film.Projections[LstProjections.SelectedIndex].EstActive)
             {
-                // Crée la réservation et affiche le bon message dans le message box.
                 AfficherMsg(ReserverProjection(LstProjections.SelectedIndex) 
                     ? "La réservation a été ajouté !!" : "La réservation n'a pas été ajouté !!", MessageBoxImage.Warning);
             }
@@ -120,10 +109,6 @@ namespace MonCine.Vues
             return projectionSelectionnerNonNullEtPlaceDisponible;
         }
 
-        /// <summary>
-        /// Permet d'afficher un bouton ajouter projection quand c'est un admin ou
-        /// ajouter un bouton réservé quand c'est un abonne de connecter.
-        /// </summary>
         private void AfficheBoutonAjouterOuReserver()
         {
             bool filmEstVide = _film == null;

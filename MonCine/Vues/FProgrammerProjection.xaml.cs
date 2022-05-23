@@ -150,10 +150,6 @@ namespace MonCine.Vues
             return false;
         }
 
-        /// <summary>
-        /// Permet d'afficher le message reçu en paramètre dans un dialogue pour afficher ce dernier.
-        /// </summary>
-        /// <param name="pMsg">Message d'erreur à afficher</param>
         private void AfficherMsgErreur(string pMsg)
         {
             MessageBox.Show(

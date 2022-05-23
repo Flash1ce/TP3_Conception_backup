@@ -20,9 +20,6 @@ using MongoDB.Driver;
 
 namespace MonCine.Vues
 {
-    /// <summary>
-    /// Logique d'interaction pour Films.xaml
-    /// </summary>
     public partial class FNote : Page
     {
         #region ATTRIBUTS
@@ -60,13 +57,11 @@ namespace MonCine.Vues
 
         private void OnLoaded(object pSender, RoutedEventArgs pE)
         {
-            // Obtient tous les films pour l'abonné connecté
             List<Reservation> reservations = _dalReservation.ObtenirPlusieurs(x => x.AbonneId == _abonne.Id);
             if (reservations.Count > 0)
                 reservations.ForEach(x =>
                 {
                     List<Film> filmsAssistes = new List<Film>();
-                    // Ajoute tous les films assistés de l'abonné connecté
                     if (x.Film.Projections[x.IndexProjectionFilm].DateFin < DateTime.Now &&
                         !filmsAssistes.Contains(x.Film))
                     {

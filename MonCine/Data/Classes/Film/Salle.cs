@@ -38,7 +38,7 @@ namespace MonCine.Data.Classes
 
         public override string ToString()
         {
-            return$"{Nom} - Nb. Places : {NbPlacesMax}";
+            return $"{Nom} - Nb. Places : {NbPlacesMax}";
         }
 
         #endregion

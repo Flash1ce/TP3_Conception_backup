@@ -7,16 +7,16 @@
 
 #region USING
 
+using MonCine.Data.Classes;
+using MonCine.Data.Classes.DAL;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
-using MonCine.Data.Classes;
-using MonCine.Data.Classes.DAL;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 #endregion
 
@@ -263,9 +263,8 @@ namespace MonCine.Vues
         }
 
         private void ActionLstAjouter<TDocument>(bool pGenreStrDocumentEstMasculin, string pDocumentASelectionne,
-            int pMaxSelectionDocument,
-            ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, Button pBtnAjouter, List<TDocument> pDocuments,
-            List<TDocument> pDocumentsChoisis)
+            int pMaxSelectionDocument, ListBox pLstDocumentsDispos, ListBox pLstDocumentsChoisis, Button pBtnAjouter,
+            List<TDocument> pDocuments, List<TDocument> pDocumentsChoisis)
         {
             if (pLstDocumentsDispos.SelectedIndex == -1)
             {
@@ -408,7 +407,8 @@ namespace MonCine.Vues
                 else
                 {
                     AfficherMsg(
-                        "Aucune modification n'a été apportée. Si vous souhaitez retourner à l'accueil, veuillez cliquer sur le bouton 'Retour à l'accueil'",
+                        "Aucune modification n'a été apportée. Si vous souhaitez retourner à l'accueil," +
+                        " veuillez cliquer sur le bouton 'Retour à l'accueil'",
                         MessageBoxImage.Warning
                     );
                 }
@@ -420,29 +420,31 @@ namespace MonCine.Vues
         }
 
         private void AfficherMsgErrDocumentNonSelectionne(bool pGenreStrDocumentEstMasculin, string pDocument,
-            string pPositionListe) =>
+            string pPositionListe)
+        {
             AfficherMsg(
                 $"Veuillez sélectionner {(pGenreStrDocumentEstMasculin ? "un" : "une")} des {pDocument}s disponibles dans la liste de {pPositionListe}.",
                 MessageBoxImage.Warning
             );
+        }
 
-        private void AfficherMsgMaxSelectionDocuments(string pDocument, int pMaxDocuments) =>
+        private void AfficherMsgMaxSelectionDocuments(string pDocument, int pMaxDocuments)
+        {
             AfficherMsg($"Le maximum de {pMaxDocuments} {pDocument}s est atteint.", MessageBoxImage.Information);
+        }
 
-        private void AfficherMsgErrMaxSelectionDocuments(bool pGenreStrDocumentEstMasculin, string pDocument,
-            int pMaxDocuments) =>
+        private void AfficherMsgErrMaxSelectionDocuments(bool pGenreStrDocumentEstMasculin, string pDocument, int pMaxDocuments)
+        {
             AfficherMsg(
                 $"Impossible d'ajouter {(pGenreStrDocumentEstMasculin ? "un" : "une")} {pDocument} ! Le maximum de {pMaxDocuments} est atteint.",
                 MessageBoxImage.Warning
             );
+        }
+
 
         private void AfficherMsg(string pMsg, MessageBoxImage msgBxImg)
         {
-            MessageBox.Show(
-                "Attention !!\n\n" + pMsg, "Message",
-                MessageBoxButton.OK,
-                msgBxImg
-            );
+            MessageBox.Show("Attention !!\n\n" + pMsg, "Message", MessageBoxButton.OK, msgBxImg);
         }
 
         #endregion

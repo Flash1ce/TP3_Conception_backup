@@ -57,14 +57,6 @@ namespace MonCine.Vues
                 BtnRetirerDeAffiche.IsEnabled = false;
                 BtnRetirerDeAffiche.Visibility = Visibility.Hidden;
             }
-
-            // BtnNonAffiche_Click
-            // BtnEstReprojeteEtAffiche_Click
-            // LstFilms.Items.Clear();
-            // _films.forEach(x => {
-            //   if (x.EstAffiche && x.DatesFinsAffiche.Count > 0 && x.DatesFinsAffiche.Count <= Film.NB_MAX_EST_AFFICHE_PAR_ANNEE)
-            //      LstFilms.Items.Add(x);
-            // })
         }
 
         #endregion
@@ -146,10 +138,6 @@ namespace MonCine.Vues
             ActiverBtnsPourFilmSelectionneEstAffiche();
         }
 
-        /// <summary>
-        /// Modifi les films a l'affiche selon le mode sélectioner avec les radio boutons.
-        /// </summary>
-        /// <param name="pFilmAfficherOption">0: tout, 1:affiche, 2:RbEstAvantPremieres</param>
         private void ChargerLstFilms(int pFilmAfficherOption)
         {
             LstFilms.Items.Clear();
@@ -191,10 +179,6 @@ namespace MonCine.Vues
             BtnRetirerDeAffiche.IsEnabled = btnsSontActifs;
         }
 
-        /// <summary>
-        /// Permet d'afficher le message reçu en paramètre dans un dialogue pour afficher ce dernier.
-        /// </summary>
-        /// <param name="pMsg">Message d'erreur à afficher</param>
         private void AfficherMsgErreur(string pMsg)
         {
             MessageBox.Show(

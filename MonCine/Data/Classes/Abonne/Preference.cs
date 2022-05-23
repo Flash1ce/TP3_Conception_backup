@@ -21,19 +21,10 @@ namespace MonCine.Data.Classes
     {
         #region CONSTANTES ET ATTRIBUTS STATIQUES
 
-        /// <summary>
-        /// Nombre maximum de catégories pouvant être sélectionnées
-        /// </summary>
         public const int NB_MAX_CATEGORIES_PREF = 3;
 
-        /// <summary>
-        /// Nombre maximum d'acteurs pouvant être sélectionnés
-        /// </summary>
         public const int NB_MAX_ACTEURS_PREF = 5;
 
-        /// <summary>
-        /// Nombre maximum de réalisateurs pouvant être sélectionnés
-        /// </summary>
         public const int NB_MAX_REALISATEURS_PREF = 5;
 
         #endregion
