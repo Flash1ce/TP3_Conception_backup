@@ -22,6 +22,7 @@ namespace MonCineTests
 {
     public class CategorieTests
     {
+        private DALCategorie _dalCategorie;
         private readonly Mock<IMongoClient> _mongoClientCategorie;
         private readonly Mock<IMongoDatabase> _mongodbCategorie;
         private readonly Mock<IMongoCollection<Categorie>> _categorieCollection;
@@ -43,6 +44,9 @@ namespace MonCineTests
                 new Categorie(ObjectId.GenerateNewId(), "Action"),
                 new Categorie(ObjectId.GenerateNewId(), "Romance")
             };
+            InitializeMongoCollection();
+            _dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
+
         }
 
 
@@ -74,40 +78,22 @@ namespace MonCineTests
         [Fact]
         public void ObtenirToutLesCategories()
         {
-            // Création des faux objets
-            InitializeMongoCollection();
-
-            // Arrange
-            DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
-
             // Act et Assert
-            Assert.Equal(_categories, dalCategorie.ObtenirTout());
+            Assert.Equal(_categories, _dalCategorie.ObtenirTout());
         }
 
         [Fact]
         public void ObtenirPlusieursRetourneCategoriesSelonFiltre()
         {
-            // Création des faux objets
-            InitializeMongoCollection();
-
-            // Arrange
-            DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
-
             // Act et Assert
-            Assert.Equal(_categories[0], dalCategorie.ObtenirUn(_categories[0].Id));
+            Assert.Equal(_categories[0], _dalCategorie.ObtenirUn(_categories[0].Id));
         }
 
         [Fact]
         public void InsererPlusieursCategoriesRetourneTrue()
         {
-            // Création des faux objets
-            InitializeMongoCollection();
-
-            // Arrange
-            DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
-
             // Act et Assert
-            Assert.True(dalCategorie.InsererPlusieurs(new List<Categorie> { new Categorie(ObjectId.GenerateNewId(), "A") }));
+            Assert.True(_dalCategorie.InsererPlusieurs(new List<Categorie> { new Categorie(ObjectId.GenerateNewId(), "A") }));
         }
 
         #endregion

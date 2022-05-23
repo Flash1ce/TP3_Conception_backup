@@ -32,6 +32,12 @@ namespace MonCineTests
 
         #region ATTRIBUTS
 
+        private DALActeur _dalActeur;
+        private DALAbonne _dalAbonne;
+        private DALCategorie _dalCategorie;
+        private DALRealisateur _dalRealisateur;
+        private DALFilm _dalFilm;
+        private DALReservation _dalReservation;
         private readonly Mock<IMongoClient> _mongoClientFilm;
         private readonly Mock<IMongoDatabase> _mongodbFilm;
         private readonly Mock<IMongoCollection<Film>> _filmCollection;
@@ -130,6 +136,18 @@ namespace MonCineTests
             _abonnes = GenerAbonnes();
             _films = GenererFilms();
             _reservations = new List<Reservation>();
+            InitializeMongoCollection();
+            _dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
+            _dalActeur = new DALActeur(_mongoClientActeur.Object);
+            _dalRealisateur = new DALRealisateur(_mongoClientRealisateur.Object);
+            _dalAbonne = new DALAbonne(pClient: _mongoClientAbonne.Object, pDalCategorie: _dalCategorie,
+                pDalActeur: _dalActeur, pDalRealisateur: _dalRealisateur);
+            _dalFilm = new DALFilm(pClient: _mongoClientFilm.Object, pDalCategorie: _dalCategorie,
+                pDalActeur: _dalActeur, pDalRealisateur: _dalRealisateur, pDalAbonne: _dalAbonne,
+                pClientReservation: _mongoClientReservation.Object);
+            _dalReservation = new DALReservation(_dalFilm, _mongoClientReservation.Object);
+            _dalAbonne = new DALAbonne(_dalCategorie, _dalActeur, _dalRealisateur, _dalReservation,
+                _mongoClientAbonne.Object);
         }
 
         #endregion
@@ -420,48 +438,16 @@ namespace MonCineTests
         [Fact]
         public void ObtenirToutRetourneTousLesAbonnes()
         {
-            // Création des faux objets
-            InitializeMongoCollection();
-
-            // Arrange
-            DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
-            DALActeur dalActeur = new DALActeur(_mongoClientActeur.Object);
-            DALRealisateur dalRealisateur = new DALRealisateur(_mongoClientRealisateur.Object);
-            DALAbonne dalAbonne = new DALAbonne(pClient: _mongoClientAbonne.Object, pDalCategorie: dalCategorie,
-                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur);
-            DALFilm dalFilm = new DALFilm(pClient: _mongoClientFilm.Object, pDalCategorie: dalCategorie,
-                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
-                pClientReservation: _mongoClientReservation.Object);
-            DALReservation dalReservation = new DALReservation(dalFilm, _mongoClientReservation.Object);
-            dalAbonne = new DALAbonne(dalCategorie, dalActeur, dalRealisateur, dalReservation,
-                _mongoClientAbonne.Object);
-
             // Act et Assert
-            Assert.Equal(_abonnes, dalAbonne.ObtenirTout());
+            Assert.Equal(_abonnes, _dalAbonne.ObtenirTout());
         }
 
         [Fact]
         public void ObtenirPlusieursRetourneAbonnesSelonFiltre()
         {
-            // Création des faux objets
-            InitializeMongoCollection();
-
-            // Arrange
-            DALCategorie dalCategorie = new DALCategorie(_mongoClientCategorie.Object);
-            DALActeur dalActeur = new DALActeur(_mongoClientActeur.Object);
-            DALRealisateur dalRealisateur = new DALRealisateur(_mongoClientRealisateur.Object);
-            DALAbonne dalAbonne = new DALAbonne(pClient: _mongoClientAbonne.Object, pDalCategorie: dalCategorie,
-                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur);
-            DALFilm dalFilm = new DALFilm(pClient: _mongoClientFilm.Object, pDalCategorie: dalCategorie,
-                pDalActeur: dalActeur, pDalRealisateur: dalRealisateur, pDalAbonne: dalAbonne,
-                pClientReservation: _mongoClientReservation.Object);
-            DALReservation dalReservation = new DALReservation(dalFilm, _mongoClientReservation.Object);
-            dalAbonne = new DALAbonne(dalCategorie, dalActeur, dalRealisateur, dalReservation,
-                _mongoClientAbonne.Object);
-
             // Act et Assert
             Assert.Equal(_abonnes.Where(x => x.Id == _abonnes[3].Id),
-                dalAbonne.ObtenirPlusieurs(x => x.Id == _abonnes[3].Id));
+                _dalAbonne.ObtenirPlusieurs(x => x.Id == _abonnes[3].Id));
         }
 
         #endregion
